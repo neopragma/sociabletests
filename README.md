@@ -137,10 +137,13 @@ This isn't Part 2 of the Kata (it has three parts). It's just "step 2" in the ps
 
 What I'd like to do in this step is implement enough functionality to identify the day that has the smallest temperature spread, given more than one day's weather data. 
 
-First, I set up a test case with a mock that returns three values in succession. It failed because the current production code always returns the first entry in the list. So far, so good. 
+First, I set up a test case with a mock that returns three values in succession, like this. 
 
 ![Failing test for 3 days' data using mocks](images/withmocks-v2-test-3-days-fail.png)
 
+As expected, itt failed because the production code always returned the first entry in the list. So far, so good. 
+
+![Logic always returns 1st day in the list](images/withmocks-v2-weather-takes-1st-entry.png)
 
 
 
