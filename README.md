@@ -213,6 +213,12 @@ This is method ```getTeamWithMinimumScoringSpread()``` in class ```Football```.
 
 ![Original method (before refactoring)](images/getteamwithminimumscoringspread.png)
 
+Both these methods look for an entry in a list of value objects that meet certain criteria. In both cases, the entry of interest has the minimum difference between two integers. 
+
+![Original class (before refactoring)](images/minmaxtemps.png)
+
+![Original class (before refactoring)](images/goalsforandagainst.png)
+
 
 
 
