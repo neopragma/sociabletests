@@ -141,9 +141,13 @@ First, I set up a test case with a mock that returns three values in succession,
 
 ![Failing test for 3 days' data using mocks](images/withmocks-v2-test-3-days-fail.png)
 
-As expected, itt failed because the production code always returned the first entry in the list. So far, so good. 
+As expected, it failed because the production code always returned the first entry in the list. So far, so good. 
 
 ![Logic always returns 1st day in the list](images/withmocks-v2-weather-takes-1st-entry.png)
+
+A naive implementation makes the test case pass. 
+
+![Find smallest temperature spread](images/withmocks-v2-naive-implementation.png)
 
 
 
