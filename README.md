@@ -207,17 +207,17 @@ Part 4 of the Kata asks us to factor out common code from the Weather and Footba
 
 These two methods are almost identical. This is ```getDayWithMinimumTemperatureSpread()``` in class ```Weather```. 
 
-![Original method (before refactoring)](images/getdaywithminimumtemperaturespread.png)
+![Method getDayWithMinimumTemperatureSpread() before refactoring](images/getdaywithminimumtemperaturespread.png)
 
 This is method ```getTeamWithMinimumScoringSpread()``` in class ```Football```.
 
-![Original method (before refactoring)](images/getteamwithminimumscoringspread.png)
+![Method getTeamWithMinimumScoringSpread() before refactoring](images/getteamwithminimumscoringspread.png)
 
 Both these methods look for an entry in a list of value objects that meet certain criteria. In both cases, the entry of interest has the minimum difference between two integers. 
 
-![Original class (before refactoring)](images/minmaxtemps.png)
+![MinMaxTemps Record before refactoring](images/minmaxtemps.png)
 
-![Original class (before refactoring)](images/goalsforandagainst.png)
+![GoalsForAndAgainst Record before refactoring](images/goalsforandagainst.png)
 
 
 
