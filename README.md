@@ -201,7 +201,7 @@ Having lived through the initial horror of setting up Mockito (but still not ful
 
 It took much longer to get the Sociable Test version to the same point. The time was spent in fiddling with the details of field positions and lengths in the ```StubbedReader``` class for ```FootballDataImpl```. 
 
-### Kata 4, Part 3, Java version using mocks, refactoring #1 
+### Kata 4, Part 3, Java version using mocks, refactoring
 
 Part 4 of the Kata asks us to factor out common code from the Weather and Football solutions. Let's see how easy or hard it is to test-drive these changes, starting with the version using mocks. 
 
@@ -274,6 +274,25 @@ That reduces ```getTeamWithMinimumScoringSpread()``` to just this...
 ...and ```getDayWithMinimumTemperatureSpread()``` to this:
 
 ![Simplified method](images/getdaywithminimumtemperaturespread-simplified.png)
+
+There isn't much code in this solution, and I didn't see any further opportunities to refactor at this point. 
+
+### Kata 4, Part 3, Java version using Nullables, refactoring #1
+
+When copying source from the \*.v2 and \*.v3 packages, the project wouldn't build due to duplicate class names - the Embeddable Stub classes in ```WeatherDataImpl``` and ```FootballDataImpl```. This is part of the hand-rolled mock code I wrote to try and follow the guidelines for Nullables. 
+
+I was planning to extract that into a common class anyway, but I wanted to try and get all tests passing with the code as it currently stood in package \*.v2 for Weather and package \*.v3 for Football. Had the code been in the same package from the beginning, this name collision wouldn't have occurred (or would have occurred much sooner). My fault for keeping the code separate for parts 1 and 2 of the Kata.  
+
+The twist is the ```withInputRecords()``` method in both ```StubbedReader``` classes. To mimic the behavior of the "real" BufferedReader, that method adds header lines to the input record array that look like the header lines from the ```weather.dat``` and ```football.dat``` files. 
+
+That part of the code must differ between the Weather and Football solutions; but I'm loathe to start changing that code until I have a clean test run for the existing code. Alternatively, we could shift the burden of supplying the fake header records to test methods, and omit that logic from ```StubbedReader```. That would simplify the extraction, but complicate the test suite and invite errors in test case setup.
+
+In my opinion, this problem is a direct result of using the Nullables approach to avoid mocks. In the version that uses mocks, none of this code exists. I can only imagine how this kind of problem would mushroom in a "real" code base consisting of more than two components and a couple of helpers. The practical effect on most "average" programmers is likely to be that they just don't refactor. 
+
+As a quick workaround, I changed the name of the ```StubbedReader``` class in ```WeatherDataImpl``` to ```StubbedReader2```. That isn't a very good name, but it will soon go away. 
+
+
+
 
 
 
