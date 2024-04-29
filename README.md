@@ -165,6 +165,21 @@ This is in the ```loadMinMaxTemps()``` method of class ```WeatherDataImpl```.
 
 ![Big Hammer code to extract fields from input records](images/hacky-way-to-pick-out-input-fields.png)
 
+If we change this hack to a slightly different hack, we can extract the strings corresponding to field values in each input record into integers, removing all characters that are not numerical digits. 
+
+![Slightly less-hacky code to extract fields from input records](images/less-hacky-way-to-pick-out-fields-1.png)
+
+![Slightly less-hacky code to extract fields from input records](images/less-hacky-way-to-pick-out-fields-2.png)
+
+Now the new test case fails for the "right reason" - the production code always returns the first day number in the list. 
+
+If we put the same naive solution into the ```Weather``` class as we did in the mock version, the test cases all pass. Now both versions are at the same point.
+
+However, we spent considerably more time taking this small step with the Nullables version than we did with the version using mocks. We had to context-switch between thinking about the business logic of the application and thinking about how to make our Embeddable Stub behave like a mocked-out BufferedReader. 
+
+
+
+
 
 
 

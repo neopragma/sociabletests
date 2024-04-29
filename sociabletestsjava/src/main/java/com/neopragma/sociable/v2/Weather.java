@@ -11,7 +11,16 @@ public class Weather {
 
     public Integer getDayWithMinimumTemperatureSpreadForMonth(Integer monthNumber) {
         List<MinMaxTemps> temps = weatherData.getMinMaxTempsForMonth(monthNumber);
-        return temps.getFirst().dayNumber();
+        int dayNumber = 0;
+        int minimumTempSpread = Integer.MAX_VALUE;
+        for (MinMaxTemps dataForADay : temps) {
+            int todaysTempSpread = dataForADay.maximumTemp() - dataForADay.minimumTemp();
+            if (todaysTempSpread < minimumTempSpread) {
+                dayNumber = dataForADay.dayNumber();
+                minimumTempSpread = todaysTempSpread;
+            }
+        }
+        return dayNumber;
     }
 
 }

@@ -38,9 +38,9 @@ public class WeatherDataImpl implements Nullable, WeatherData {
                 if (Character.isDigit(line.charAt(16))) {
                     // this is a hack
                     minMaxTemps.add(new MinMaxTemps(
-                            Integer.valueOf(line.substring(12, 13)),
-                            Integer.valueOf(line.substring(15, 17)),
-                            Integer.valueOf(line.substring(21, 23))
+                            stringToInteger(line.substring(11, 13)),
+                            stringToInteger(line.substring(14, 17)),
+                            stringToInteger(line.substring(20, 23))
                     ));
                 }
             }
@@ -48,6 +48,10 @@ public class WeatherDataImpl implements Nullable, WeatherData {
             throw new RuntimeException(e);
         }
         return minMaxTemps;
+    }
+
+    private Integer stringToInteger(String str) {
+        return Integer.valueOf(str.replaceAll("[^\\d]", ""));
     }
 }
 
