@@ -101,7 +101,7 @@ Where we are:
 
 Now let's bring the Nullables with Sociable Tests version up to an equivalent point. 
 
-Per the pattern language, a Nullable is a class that can be instantiated with a minimal configuration, just suffient to provide a "valid" instance but without real functionality to read/write external data stores and so forth. James suggests defining a factory method named createNull() to handle the instantiation. 
+Per the pattern language, a Nullable is a class that can be instantiated with a minimal configuration, just suffient to provide a "valid" instance that supports all necessary "business" logic but excludes real functionality to read/write external data stores and so forth. James suggests defining a factory method named createNull() to handle the instantiation. 
 
 His article also provides examples of how to include an Embedded Stub to mimic selected functionality of an external dependency, and how to define parameters for the Nullable's createNull method to pass in values we want to be returned in our test cases. 
 
@@ -130,6 +130,16 @@ The main reason was that I had to invest far more mental energy into the details
 Even then, the result is an awful hack that will require ongoing improvement throughout the development process. All that effort amounts to hand-rolling a mock. We discard the mocking _library_, but we end up rolling our own in the end. The Nullable ```WeatherDataImpl``` class is a kludge of production code mixed with pseudo-mock code. 
 
 None of that belongs with the production code. Its presence increases the threat surface of the deployed application, without adding any value beyond what we get by using mocks and keeping all test-related code separate from the production code. At least, that's my impression so far...but I've only taken the first baby steps. Let's see how it goes from here. 
+
+### Java version using mocks, step 2 
+
+This isn't Part 2 of the Kata (it has three parts). It's just "step 2" in the pseudo-TDD development process I'm following. 
+
+What I'd like to do in this step is implement enough functionality to identify the day that has the smallest temperature spread, given more than one day's weather data. 
+
+First, I set up a test case with a mock that returns three values in succession. It failed because the current production code always returns the first entry in the list. So far, so good. 
+
+![Failing test for 3 days' data using mocks](images/withmocks-v2-test-3-days-fail.png)
 
 
 
