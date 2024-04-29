@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="261278eb-6fa6-43b8-808b-b46118562581" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v1/MinMaxTemps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v1/Weather.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v1/WeatherData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/withmocks/v1/WeatherTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v1/MinMaxTemps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v1/Nullable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v1/Weather.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v1/WeatherData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v1/WeatherDataImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/sociable/v1/WeatherTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/neopragma/withmocks/v1/WeatherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/withmocks/v1/WeatherTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +47,7 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -55,10 +58,21 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.neopragma.withmocks.v1" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.neopragma.sociable.v1" />
+      <recent name="com.neopragma.common" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.neopragma.withmocks.v1" />
+      <recent name="com.neopgragma.sociable.v1" />
+      <recent name="com.neopragma.sociable.v1" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn install" />
+      <command value="mvn clean" />
+      <command value="mvn compile" />
       <command value="mvn test" />
     </option>
   </component>
@@ -67,7 +81,7 @@
       <module name="sociabletestsjava" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.neopragma.withmocks.v1.*" />
+          <option name="PATTERN" value="com.neopragma.sociable.v1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -82,7 +96,7 @@
       <module name="sociabletestsjava" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.neopragma.withmocks.v1.*" />
+          <option name="PATTERN" value="com.neopragma.sociable.v1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
