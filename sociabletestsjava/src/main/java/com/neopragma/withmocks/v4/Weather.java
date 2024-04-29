@@ -9,18 +9,8 @@ public class Weather {
         this.weatherData = weatherData;
     }
 
-    public Integer getDayWithMinimumTemperatureSpread() {
-        List<MinMaxTemps> temps = weatherData.getMinMaxTemps();
-        int dayNumber = 0;
-        int minimumTempSpread = Integer.MAX_VALUE;
-        for (MinMaxTemps dataForADay : temps) {
-            int todaysTempSpread = dataForADay.maximumTemp() - dataForADay.minimumTemp();
-            if (todaysTempSpread < minimumTempSpread) {
-                dayNumber = dataForADay.dayNumber();
-                minimumTempSpread = todaysTempSpread;
-            }
-        }
-        return dayNumber;
+    public String getDayWithMinimumTemperatureSpread() {
+        return Helpers.findSmallestRangeIn(weatherData.getMinMaxTemps());
     }
 
 }

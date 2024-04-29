@@ -22,9 +22,9 @@ public class FootballTest {
                 .getGoalsForAndAgainst())
                 .thenReturn(
                         Arrays.asList(
-                                new GoalsForAndAgainst("Team1", 50, 40),
-                                new GoalsForAndAgainst("Team2", 50, 48),
-                                new GoalsForAndAgainst("Team3", 50, 47)
+                                new ValueRange("Team1", 40, 50),
+                                new ValueRange("Team2", 48, 50),
+                                new ValueRange("Team3", 47, 50)
                         ));
         sut = new Football(footballData);
         assertEquals("Team2", sut.getTeamWithMinimumScoringSpread());

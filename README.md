@@ -201,7 +201,7 @@ Having lived through the initial horror of setting up Mockito (but still not ful
 
 It took much longer to get the Sociable Test version to the same point. The time was spent in fiddling with the details of field positions and lengths in the ```StubbedReader``` class for ```FootballDataImpl```. 
 
-### Kata 4, Part 3, Java version using mocks 
+### Kata 4, Part 3, Java version using mocks, refactoring #1 
 
 Part 4 of the Kata asks us to factor out common code from the Weather and Football solutions. Let's see how easy or hard it is to test-drive these changes, starting with the version using mocks. 
 
@@ -219,8 +219,61 @@ Both these methods look for an entry in a list of value objects that meet certai
 
 ![GoalsForAndAgainst Record before refactoring](images/goalsforandagainst.png)
 
+The value objects could be of a generalized common class. Each contains a sort of "key" that identifies either a day or a football team and two integers that represent a range of values. 
 
+The methods to find the value object in a list that has the smallest range of values could be generalized and moved to a helper class. 
 
+The "key" for the Weather solution is the day number when the temperature range was smallest. It's currently an Integer, but there's no reason it couldn't be a String. That would make the types of the values in the data object the same. 
+
+Let's see what changes we must make to the test cases to express the intent of the refactoring. 
+
+in class ```FootballTest```, our test case refers to the value object class ```GoalsForAndAgainst```. We'll want to change those references to the name of our common value object class. Let's call it ```ValueRange```, for lack of a better name. 
+
+That will change this...
+
+![Football test case before changes](images/football-test-case-before-changes.png) 
+
+...to this...
+
+![Football test case after changes](images/football-test-case-after-changes.png)
+
+At this point the test class doesn't compile. We need to create the ```ValueRange``` class. 
+
+Why not change the other football-specific references? We want the code to be self-describing. If everything were generalized, people would not be able to see at a glance which code pertains to football and which code pertains to weather. We'll leave the class names and method names for football-related code the same. 
+
+![ValueRange Record definition](images/valuerange-record-definition.png)
+
+Now in class ```Football```, method ```getTeamWithMinimumScoringSpread()```, let's generalize the names of things so we can extract a common method to find the smallest range for "any" data. 
+
+![Method getTeamWithMinimumScoringSpread() after refactoring](images/getteamwithminimumscoringspread-after.png)
+
+We need to modify the ```FootballData``` interface so it returns a list of ```ValueRange``` objects instead of the old ```GoalsForAndAgainst``` objects. 
+
+![Interface FootBallData after refactoring](images/footballdata-interface-after.png)
+
+With these changes done, running the tests for package ```com.neopragma.withmocks.v4``` got one test failure - the one we changed. It failed for the expected reason. The code under test returned "Team1" instead of "Team2". We set the wrong expectation so we would see that the test case could fail for the right reason. It can. Fixing that, we're all green. 
+
+Now to tackle the Weather side. We start by making similar changes to class ```WeatherTest``` so we're using the common ```ValueRange``` class instead of the Weather-specific ```MinMaxTemps``` class. This time, we have to change the "key" values to Strings instead of Integers, and all references to those values. 
+
+In class ```Weather``` we change method ```getDayWithMinimumTemperatureSpread()``` to create a list of ```ValueRange``` objects instead of ```MinMaxTemps``` objects, and we change the return type to String.
+
+In class ```WeatherData```, method ```getMinMaxTemps()``` needs to return a list of ```ValueRange``` objects. 
+
+Several changes were required, but they were straightforward. 
+
+We can delete classes ```MinMaxTemps``` and ```GoalsForAndAgainst```. One more test run to make sure we didn't inadvertently break something when we deleted them. 
+
+Next, we need to extract the common code for finding the list entry with the smallest spread of values into a separate helper class. 
+
+![Extracted helper methods](images/helper-findsmallestrangein.png)
+
+That reduces ```getTeamWithMinimumScoringSpread()``` to just this...
+
+![Simplified method](images/getteamwithminimumscoringspread-simplified.png)
+
+...and ```getDayWithMinimumTemperatureSpread()``` to this:
+
+![Simplified method](images/getdaywithminimumtemperaturespread-simplified.png)
 
 
 
