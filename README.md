@@ -149,6 +149,24 @@ A naive implementation makes the test case pass.
 
 ![Find smallest temperature spread](images/withmocks-v2-naive-implementation.png)
 
+### Java version using Nullables, step 2
+
+Now let's do the same with our Nullables version. 
+
+![Failing Sociable test for 3 days' data](images/sociable-v2-test-3-days-fail.png)
+
+Here's the output from the test run:
+
+![Test output - expected 15, got 4](images/sociable-v2-expected-15-got-4.png)
+
+The new test case fails as expected, but not for a "good" reason. Notice the actual result was Day 4, which isn't correct. The production code is plucking out the second digit of the day number from the input record, and the first day in this set of input data is 14. This is because of the hacky implementation of the Embeddable Stub. 
+
+This is in the ```loadMinMaxTemps()``` method of class ```WeatherDataImpl```. 
+
+![Big Hammer code to extract fields from input records](images/hacky-way-to-pick-out-input-fields.png)
+
+
+
 
 
 

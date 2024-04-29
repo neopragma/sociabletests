@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="261278eb-6fa6-43b8-808b-b46118562581" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/MinMaxTemps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/Nullable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/Weather.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/WeatherData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/WeatherDataImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/sociable/v2/WeatherTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v2/Weather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v2/Weather.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +45,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/Users/davidnicolette/Documents/Projects/sociabletests/sociabletestsjava/src/main/java/com/neopragma/withmocks/v2",
+    "last_opened_file_path": "/Users/davidnicolette/Documents/Projects/sociabletests/sociabletestsjava/src/main/java/com/neopragma/sociable/v2",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -52,6 +57,7 @@
       <recent name="com.neopragma.withmocks.v1" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2" />
       <recent name="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v2" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -59,6 +65,7 @@
       <recent name="com.neopragma.common" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.neopragma.sociable.v2" />
       <recent name="com.neopragma.withmocks.v2" />
       <recent name="com.neopragma.withmocks.v1" />
       <recent name="com.neopgragma.sociable.v1" />
