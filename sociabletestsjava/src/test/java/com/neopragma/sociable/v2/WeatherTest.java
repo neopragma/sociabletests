@@ -10,19 +10,20 @@ public class WeatherTest {
     @Test
     public void Given_1_DaysData_itReturns_1_asTheDayWithTheMinimumTemperatureSpread() {
         sut = new Weather(WeatherDataImpl.createNull(
-                new String[] { "            1  55    57" }
+                new String[] { "   1  57    55" }
         ));
-        assertEquals(1, sut.getDayWithMinimumTemperatureSpreadForMonth(6));
+        assertEquals(1, sut.getDayWithMinimumTemperatureSpread());
     }
     @Test
     public void Given_3_DaysData_itReturns_15_asTheDayWithTheMinimumTemperatureSpread() {
         sut = new Weather(WeatherDataImpl.createNull(
                 new String[] {
-                        "           14  20    60",
-                        "           15  22    24",
-                        "           16  22    25"
+                        "  14  60    20                        ",
+                        "  15  24    22                        ",
+                        "  16  25    22                        "
                 }
         ));
-        assertEquals(15, sut.getDayWithMinimumTemperatureSpreadForMonth(6));
+        assertEquals(15, sut.getDayWithMinimumTemperatureSpread());
     }
+
 }

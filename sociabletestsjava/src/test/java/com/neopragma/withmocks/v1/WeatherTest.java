@@ -20,10 +20,10 @@ public class WeatherTest {
     @Test
     public void itReturns_1_asTheDayWithTheMinimumTemperatureSpread() {
         when(weatherData
-                .getMinMaxTempsForMonth(6))
+                .getMinMaxTemps())
                 .thenReturn(
                         Arrays.asList( new MinMaxTemps(1, 55, 57) ));
         sut = new Weather(weatherData);
-        assertEquals(1, sut.getDayWithMinimumTemperatureSpreadForMonth(6));
+        assertEquals(1, sut.getDayWithMinimumTemperatureSpread());
     }
 }

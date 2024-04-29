@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="261278eb-6fa6-43b8-808b-b46118562581" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/football.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/Driver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/weather.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/Weather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/Weather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/WeatherData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/WeatherData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/WeatherDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v2/WeatherDataImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v1/Weather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v1/Weather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v1/WeatherData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v1/WeatherData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v2/Weather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v2/Weather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v2/WeatherData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v2/WeatherData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/neopragma/sociable/v2/WeatherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/sociable/v2/WeatherTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/neopragma/withmocks/v1/WeatherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/withmocks/v1/WeatherTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/neopragma/withmocks/v2/WeatherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/withmocks/v2/WeatherTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +46,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Downloaded.Files.Path.Enabled": "false",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -73,11 +85,24 @@
     <option name="myCommands">
       <command value="mvn install" />
       <command value="mvn clean" />
-      <command value="mvn compile" />
       <command value="mvn test" />
+      <command value="mvn compile" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WeatherTest.itReturns_1_asTheDayWithTheMinimumTemperatureSpread">
+  <component name="RunManager" selected="Application.Driver">
+    <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.neopragma.sociable.v2.Driver" />
+      <module name="sociabletestsjava" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.neopragma.sociable.v2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WeatherTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sociabletestsjava" />
       <extension name="coverage">
@@ -111,6 +136,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Driver" />
         <item itemvalue="JUnit.WeatherTest.itReturns_1_asTheDayWithTheMinimumTemperatureSpread" />
         <item itemvalue="JUnit.WeatherTest" />
       </list>
@@ -128,6 +154,7 @@
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>

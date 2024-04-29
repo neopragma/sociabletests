@@ -9,8 +9,8 @@ public class Weather {
         this.weatherData = weatherData;
     }
 
-    public Integer getDayWithMinimumTemperatureSpreadForMonth(Integer monthNumber) {
-        List<MinMaxTemps> temps = weatherData.getMinMaxTempsForMonth(monthNumber);
+    public Integer getDayWithMinimumTemperatureSpread() {
+        List<MinMaxTemps> temps = weatherData.getMinMaxTemps();
         return temps.getFirst().dayNumber();
     }
 

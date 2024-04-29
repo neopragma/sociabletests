@@ -1,6 +1,7 @@
 package com.neopragma.sociable.v2;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class WeatherDataImpl implements Nullable, WeatherData {
     private BufferedReader reader;
     public static WeatherData create() {
         try {
-            return new WeatherDataImpl(new BufferedReader(new FileReader("path")));
+            return new WeatherDataImpl(new BufferedReader(new FileReader("weather.dat")));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -22,26 +23,25 @@ public class WeatherDataImpl implements Nullable, WeatherData {
         this.reader = reader;
     }
     @Override
-    public List<MinMaxTemps> getMinMaxTempsForMonth(Integer monthNumber) {
-        return loadMinMaxTemps(monthNumber);
+    public List<MinMaxTemps> getMinMaxTemps() {
+        return loadMinMaxTemps();
     }
 
-    private List<MinMaxTemps> loadMinMaxTemps(Integer monthNumber) {
+    private List<MinMaxTemps> loadMinMaxTemps() {
         List<MinMaxTemps> minMaxTemps = new ArrayList<>();
         String line;
         try {
             while ((line = reader.readLine()) != null) {
-
-                System.out.println("Got record <" + line + ">");
-
-                // create a MinMaxTemp object for each line
-                if (Character.isDigit(line.charAt(16))) {
-                    // this is a hack
-                    minMaxTemps.add(new MinMaxTemps(
-                            stringToInteger(line.substring(11, 13)),
-                            stringToInteger(line.substring(14, 17)),
-                            stringToInteger(line.substring(20, 23))
-                    ));
+                if (line.length() > 0) {
+                    // create a MinMaxTemp object for each line
+                    if (Character.isDigit(line.charAt(3))) {
+                        // this is a hack
+                        minMaxTemps.add(new MinMaxTemps(
+                                stringToInteger(line.substring(2, 4)),
+                                stringToInteger(line.substring(11, 14)),
+                                stringToInteger(line.substring(5, 8))
+                        ));
+                    }
                 }
             }
         } catch (IOException e) {
@@ -63,13 +63,6 @@ class StubbedReader extends BufferedReader {
         super(in);
     }
 
-    @Override
-    public int read(char[] cbuf, int off, int len) {
-        return EOF;
-    }
-    @Override
-    public void close() {}
-
     public String readLine() {
         if (inputRecords != null) {
             if (recordIndex >= inputRecords.length) {
@@ -90,8 +83,8 @@ class StubbedReader extends BufferedReader {
         int sourceIndex;
         int destinationIndex;
         this.inputRecords = new String[inputRecords.length + 2];
-        this.inputRecords[0] = "            Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP";
-        this.inputRecords[1] = "                                               ";
+        this.inputRecords[0] = "  Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP";
+        this.inputRecords[1] = "";
         for (sourceIndex = 0, destinationIndex = 2 ;
              sourceIndex < inputRecords.length ;
              sourceIndex++, destinationIndex++ ) {

@@ -165,7 +165,7 @@ This is in the ```loadMinMaxTemps()``` method of class ```WeatherDataImpl```.
 
 ![Big Hammer code to extract fields from input records](images/hacky-way-to-pick-out-input-fields.png)
 
-If we change this hack to a slightly different hack, we can extract the strings corresponding to field values in each input record into integers, removing all characters that are not numerical digits. 
+If we change this hack to a slightly different hack, we can extract the strings corresponding to field values in each input record into integers, removing all characters that are not numerical digits. We can also handle day numbers of 1 or 2 digits and temperatures of up to 3 digits (but not negative numbers or decimal places).
 
 ![Slightly less-hacky code to extract fields from input records](images/less-hacky-way-to-pick-out-fields-1.png)
 
@@ -176,6 +176,12 @@ Now the new test case fails for the "right reason" - the production code always 
 If we put the same naive solution into the ```Weather``` class as we did in the mock version, the test cases all pass. Now both versions are at the same point.
 
 However, we spent considerably more time taking this small step with the Nullables version than we did with the version using mocks. We had to context-switch between thinking about the business logic of the application and thinking about how to make our Embeddable Stub behave like a mocked-out BufferedReader. 
+
+Since we had to make our Embeddable Stub work the same as a BufferedReader, will the program "work" with the entire input file? I wrote a driver class, cleverly named ```Driver```, to run the application from a command line. Lo and behold, after a little tweaking of the ```substring()``` values for the fields, the "full application" ran and yielded the correct answer. 
+
+This result would have been deferred using the version with mocks, as I wouldn't have bothered to get the I/O functionality working this early in the development process.
+
+But I still don't like having hand-rolled mock code included in the production code. 
 
 
 
