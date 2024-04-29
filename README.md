@@ -82,7 +82,7 @@ The client request may arrive from any sort of user interface or API. The code i
 
 The first language to explore is Java, an OO language with static typing. 
 
-### Java version using mocks, step 1
+### Kata 4, Part 1, Java version using mocks, step 1
 
 By convention, nearly all Java developers separate production and test code by creating separate directory trees for the two, and defining the same package in both trees. Tools like Maven, Gradle, IntelliJ IDEA, and Eclipse IDE assume this is the default directory structure for all Java projects. 
 
@@ -97,7 +97,7 @@ Where we are:
 - The Java-esque form of the weather data is represented by a value object, implemented as a Java Record named ```MinMaxTemp```. 
 
 
-### Java version using Nullables, step 1
+### Kata 4, Part 1, Java version using Nullables, step 1
 
 Now let's bring the Nullables with Sociable Tests version up to an equivalent point. 
 
@@ -131,7 +131,7 @@ Even then, the result is an awful hack that will require ongoing improvement thr
 
 None of that belongs with the production code. Its presence increases the threat surface of the deployed application, without adding any value beyond what we get by using mocks and keeping all test-related code separate from the production code. At least, that's my impression so far...but I've only taken the first baby steps. Let's see how it goes from here. 
 
-### Java version using mocks, step 2 
+### Kata 4, Part 1, Java version using mocks, step 2 
 
 This isn't Part 2 of the Kata (it has three parts). It's just "step 2" in the pseudo-TDD development process I'm following. 
 
@@ -149,7 +149,7 @@ A naive implementation makes the test case pass.
 
 ![Find smallest temperature spread](images/withmocks-v2-naive-implementation.png)
 
-### Java version using Nullables, step 2
+### Kata 4, Part 1, Java version using Nullables, step 2
 
 Now let's do the same with our Nullables version. 
 
@@ -175,19 +175,33 @@ Now the new test case fails for the "right reason" - the production code always 
 
 If we put the same naive solution into the ```Weather``` class as we did in the mock version, the test cases all pass. Now both versions are at the same point.
 
-However, we spent considerably more time taking this small step with the Nullables version than we did with the version using mocks. We had to context-switch between thinking about the business logic of the application and thinking about how to make our Embeddable Stub behave like a mocked-out BufferedReader. 
+### Impressions so far
 
-Since we had to make our Embeddable Stub work the same as a BufferedReader, will the program "work" with the entire input file? I wrote a driver class, cleverly named ```Driver```, to run the application from a command line. Lo and behold, after a little tweaking of the ```substring()``` values for the fields, the "full application" ran and yielded the correct answer. 
+I spent considerably more time taking this small step with the Nullables version than with the version using mocks. We had to context-switch between thinking about the business logic of the application and thinking about how to make our Embeddable Stub behave like a mocked-out BufferedReader. 
+
+Since I had to make our Embeddable Stub work the same as a BufferedReader, will the program "work" with the entire input file? I wrote a driver class, cleverly named ```Driver```, to run the application from a command line. Lo and behold, after a little tweaking of the ```substring()``` values for the fields, the "full application" ran and yielded the correct answer. 
 
 This result would have been deferred using the version with mocks, as I wouldn't have bothered to get the I/O functionality working this early in the development process.
 
-But I still don't like having hand-rolled mock code included in the production code. 
+But I still don't like having hand-rolled mock code included in the production code, even if it is carefully not named "hand-rolled mock code." 
 
+### Kata 4, Part 2, Java version using mocks 
 
+The second part of the Kata asks us to write code roughly similar to the Weather program to analyze statistics from the English Premier Football League. A file is provided containing data about teams that played in the 2001-2002 season. 
 
+Our program is to determine the team with the smallest difference between the number of goals they scored against opponents and the number of goals opponents scored against them.
 
+The input file contains fixed-format records, like the Weather data file, but with different fields.  
 
+The challenge is intentionally similar to the Weather problem in Part 1 of the Kata, because we'll try extracting common code in Part 3 (yes, I read ahead.) It took virtually no time to set up the same kind of unit tests and starter code for this application, which is in subdirectory ```sociabletestsjava``` in package ```com.neopragma.withmocks.v3```. 
 
+Having lived through the initial horror of setting up Mockito (but still not fully recognized by IntelliJ), adding more to the project proved to be dirt simple. 
+
+### Kata 4, Part 2, Java version using Nullables 
+
+It took much longer to get the Sociable Test version to the same point. The time was spent in fiddling with the details of field positions and lengths in the ```StubbedReader``` class for ```FootballDataImpl```. 
+
+### Kata 4, Part 3, Java version using mocks 
 
 
 
