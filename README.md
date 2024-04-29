@@ -44,7 +44,9 @@ If the bad design is causing problems with mocks rather than the other way aroun
 
 What I have in mind is to try test-driving a small application using conventional TDD on the one hand, and again using Nullables and Sociable Tests on the other. 
 
-The pattern language is explicitly focused on Object-Oriented languages, so let's start with those. 
+The pattern language is explicitly focused on Object-Oriented languages, so let's start with those. I propose we try languages with static typing and dynamic typing, and languages that separate test code from production code in different ways. That way, if any of those characteristics has an effect on James' approach, we'll see it. 
+
+With that in mind, I suggest we try Java, C#, and Ruby. Java and C# use static typing and developers conventionally use different techniques to separate test and production code. Ruby uses dynamic typing. 
 
 ## What toys shall we play with?
 
@@ -58,7 +60,37 @@ Here's a screenshot of the top few records in the input file.
 
 ![Weather data](images/weather.png)
 
+This looks like fixed-format data in which each field starts at a particular offset from the beginning of each record and is a specific number of bytes in length. Numerical values have leading zeroes removed. 
 
+This format would be hard to ingest in some languages and easy in others. However, I/O handling is not the point of the exercise. Besides that, I/O is a separate concern from the "business logic" of the application. 
+
+Looking at this in terms of London School TDD, the interface between the application and the I/O functionality is at the "edge" of our code. Therefore, we want to write an adapter layer for it. 
+
+So, we already have a candidate for a mock and, conversely, for a Nullable. Good! We're using an OO language, so we'll mock the adapter interface or make the adapter class Nullable. 
+
+## Cheating 
+
+Approaching this with Detroit School TDD, I would not make assumptions about what classes to create. Instead, I would start writing microtests to tease out information about what the design "wants" to be, and when the test suite answers that question I would extract the production code into those classes and clean up the remaining test code.
+
+But that's not the point of the exercise. We want to get down to the mocks vs. Nullables exploration right away. So, I'll assume we'll want a Weather class that responds to client requests for the day that had the smallest temperature spread, and an adapter class to read the data from an external source. 
+
+## Separation of concerns
+
+The client request may arrive from any sort of user interface or API. The code in the Weather class needn't know anything about that. 
+
+## Java
+
+By convention, nearly all Java developers separate production and test code by creating separate directory trees for the two, and defining the same package in both trees. Tools like Maven, Gradle, IntelliJ IDEA, and Eclipse IDE assume this is the default directory structure for all Java projects. 
+
+So, making the same assumptions and skipping ahead a bit in the TDD process, the code in subdirectory ```sociabletestsjava``` in package ```com.neopragma.withmocks.v1``` is what I came up with as a starting point for developing Part 1 of the Kata.
+
+Where we are: 
+
+- We have a single failing unit test case that fails for "the right reason". 
+
+- We have a mock of interface ```WeatherData```, which ostensibly will become the basis for a class to read the input file and get the data into a Java-esque form. At the moment, we don't need a concrete implementation class for ```WeatherData```. 
+
+- The Java-esque form of the weather data is represented by a value object, implemented as a Java Record named ```MinMaxTemp```. 
 
 
 
