@@ -177,9 +177,9 @@ If we put the same naive solution into the ```Weather``` class as we did in the 
 
 ### Impressions so far
 
-I spent considerably more time taking this small step with the Nullables version than with the version using mocks. We had to context-switch between thinking about the business logic of the application and thinking about how to make our Embeddable Stub behave like a mocked-out BufferedReader. 
+I spent considerably more time taking this small step with the Nullables version than with the version using mocks. I had to context-switch between thinking about the business logic of the application and thinking about how to make the Embeddable Stub behave like a mocked-out BufferedReader. This involved some fiddling because the input file format is not typical for Java applications. 
 
-Since I had to make our Embeddable Stub work the same as a BufferedReader, will the program "work" with the entire input file? I wrote a driver class, cleverly named ```Driver```, to run the application from a command line. Lo and behold, after a little tweaking of the ```substring()``` values for the fields, the "full application" ran and yielded the correct answer. 
+Since I had to make the Embeddable Stub work the same as a BufferedReader, I wondered if the program would "just work" with the entire input file. I wrote a driver class, cleverly named ```Driver```, to run the application from a command line. Lo and behold, after a little tweaking of the ```substring()``` values for the fields, the "full application" ran and yielded the correct answer. 
 
 This result would have been deferred using the version with mocks, as I wouldn't have bothered to get the I/O functionality working this early in the development process.
 
@@ -202,6 +202,17 @@ Having lived through the initial horror of setting up Mockito (but still not ful
 It took much longer to get the Sociable Test version to the same point. The time was spent in fiddling with the details of field positions and lengths in the ```StubbedReader``` class for ```FootballDataImpl```. 
 
 ### Kata 4, Part 3, Java version using mocks 
+
+Part 4 of the Kata asks us to factor out common code from the Weather and Football solutions. Let's see how easy or hard it is to test-drive these changes, starting with the version using mocks. 
+
+These two methods are almost identical. This is ```getDayWithMinimumTemperatureSpread()``` in class ```Weather```. 
+
+![Original method (before refactoring)](images/getdaywithminimumtemperaturespread.png)
+
+This is method ```getTeamWithMinimumScoringSpread()``` in class ```Football```.
+
+![Original method (before refactoring)](images/getteamwithminimumscoringspread.png)
+
 
 
 
