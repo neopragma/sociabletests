@@ -45,11 +45,11 @@ Maybe I should say, when _I_ try to use them together. No matter how many times 
 
 I was looking forward to writing the same code without using mocks. I understand that the first time any of us tries something new, we encounter some speed bumps. That's only to be expected. There's a learning curve, after all. But even considering that, I found the process of getting the first failing test case to the right state to be far more tedious using Nullables than it was using mocks. 
 
-The main reason was that I had to invest far more mental energy into the details of handling file I/O than I really wanted to invest at this early stage of development. I wanted to focus on the details of the Kata, not on "infrastructure" details. But I had no choice if I wanted to write a Nullable that included an Embeddable Stub that could behave exactly like a Java BufferedReader to ingest the input file provided for the Kata. 
+The main reason was that I had to invest mental energy into the details of handling file I/O. I wanted to focus on the challenge of the Kata, and leave the I/O handling for later. But I had no choice if I wanted to write a Nullable that included an Embedded Stub that could behave exactly like a Java BufferedReader to ingest the input file provided for the Kata. 
 
-Even then, the result is an awful hack that will require ongoing improvement throughout the development process. All that effort amounts to hand-rolling a mock. We discard the mocking _library_, but we end up rolling our own in the end. The Nullable ```WeatherDataImpl``` class is a kludge of production code mixed with pseudo-mock code. 
+Even then, the result is an awful hack that will require ongoing improvement throughout the development process. All that effort amounts to hand-rolling a mock. We discard the mocking _library_, but we end up rolling our own in the end. The Nullable ```WeatherDataImpl``` class is a kludge of production code mixed with pseudo-mock code. This violates Separation of Concerns. When combined with Sociable Tests, it also weakens test isolation. 
 
-None of that belongs with the production code. Its presence increases the threat surface of the deployed application, without adding any value beyond what we get by using mocks and keeping all test-related code separate from the production code. At least, that's my impression so far...but I've only taken the first baby steps. Let's see how it goes from here. 
+None of the pseudo-mock code belongs with the production code. Its presence increases the threat surface of the deployed application, without adding any value beyond what we get by using mocks and keeping all test-related code separate from the production code. At least, that's my impression so far...but I've only taken the first baby steps. Let's see how it goes from here. 
 
 ## Kata 4, Part 1, Java version using mocks, step 2 
 
@@ -79,7 +79,7 @@ Here's the output from the test run:
 
 ![Test output - expected 15, got 4](images/sociable-v2-expected-15-got-4.png)
 
-The new test case fails as expected, but not for a "good" reason. Notice the actual result was Day 4, which isn't correct. The production code is plucking out the second digit of the day number from the input record, and the first day in this set of input data is 14. This is because of the hacky implementation of the Embeddable Stub. 
+The new test case fails as expected, but not for a "good" reason. Notice the actual result was Day 4, which isn't correct. The production code is plucking out the second digit of the day number from the input record, and the first day in this set of input data is 14. This is because of the hacky implementation of the Embedded Stub. 
 
 This is in the ```loadMinMaxTemps()``` method of class ```WeatherDataImpl```. 
 
@@ -97,9 +97,9 @@ If we put the same naive solution into the ```Weather``` class as we did in the 
 
 ## Impressions so far
 
-I spent considerably more time taking this small step with the Nullables version than with the version using mocks. I had to context-switch between thinking about the business logic of the application and thinking about how to make the Embeddable Stub behave like a mocked-out BufferedReader. This involved some fiddling because the input file format is not typical for Java applications. 
+I spent considerably more time taking this small step with the Nullables version than with the version using mocks. I had to context-switch between thinking about the business logic of the application and thinking about how to make the Embedded Stub behave like a mocked-out BufferedReader. This involved some fiddling because the input file format is not typical for Java applications. 
 
-Since I had to make the Embeddable Stub work the same as a BufferedReader, I wondered if the program would "just work" with the entire input file. I wrote a driver class, cleverly named ```Driver```, to run the application from a command line. Lo and behold, after a little tweaking of the ```substring()``` values for the fields, the "full application" ran and yielded the correct answer. 
+Since I had to make the Embedded Stub work the same as a BufferedReader, I wondered if the program would "just work" with the entire input file. I wrote a driver class, cleverly named ```Driver```, to run the application from a command line. Lo and behold, after a little tweaking of the ```substring()``` values for the fields, the "full application" ran and yielded the correct answer. 
 
 This result would have been deferred using the version with mocks, as I wouldn't have bothered to get the I/O functionality working this early in the development process.
 
@@ -147,7 +147,7 @@ The "key" for the Weather solution is the day number when the temperature range 
 
 Let's see what changes we must make to the test cases to express the intent of the refactoring. 
 
-in class ```FootballTest```, our test case refers to the value object class ```GoalsForAndAgainst```. We'll want to change those references to the name of our common value object class. Let's call it ```ValueRange```, for lack of a better name. 
+In class ```FootballTest```, our test case refers to the value object class ```GoalsForAndAgainst```. We'll want to change those references to the name of our common value object class. Let's call it ```ValueRange```, for lack of a better name. 
 
 That will change this...
 
@@ -199,7 +199,7 @@ There isn't much code in this solution, and I didn't see any further opportuniti
 
 ## Kata 4, Part 3, Java version using Nullables, refactoring #1
 
-When copying source from the \*.v2 and \*.v3 packages, the project wouldn't build due to duplicate class names - the Embeddable Stub classes in ```WeatherDataImpl``` and ```FootballDataImpl```. This is part of the hand-rolled mock code I wrote to try and follow the guidelines for Nullables. 
+When copying source from the \*.v2 and \*.v3 packages, the project wouldn't build due to duplicate class names - the Embedded Stub classes in ```WeatherDataImpl``` and ```FootballDataImpl```. This is part of the hand-rolled mock code I wrote to try and follow the guidelines for Nullables. 
 
 I was planning to extract that into a common class anyway, but I wanted to try and get all tests passing with the code as it currently stood in package \*.v2 for Weather and package \*.v3 for Football. Had the code been in the same package from the beginning, this name collision wouldn't have occurred (or would have occurred much sooner). My fault for keeping the code separate for parts 1 and 2 of the Kata.  
 
@@ -213,7 +213,39 @@ As a quick workaround, I changed the name of the ```StubbedReader``` class in ``
 
 Extracting a single ```StubbedReader``` class is straightforward and doesn't require any changes to test code. But this will be more than "just" a refactoring, because I need to support the fake header records for the two input file formats. 
 
-The code in ```WeatherDataImpl``` and ```FootballDataImpl``` that uses the ```StubbedReader``` instances will have to pass the appropriate fake header records to those instances somehow. Then, the logic in the ```StubbedReader``` will have to change slightly to handle the fake header records. 
+The code in ```WeatherDataImpl``` and ```FootballDataImpl``` that uses the ```StubbedReader``` instances will have to pass the appropriate fake header records to those instances. Then, the logic in the ```StubbedReader``` will have to change slightly to handle the fake header records. 
+
+With ```StubbedReader``` now separate from ```WeatherDataImpl``` and ```FootballDataImpl```, I moved the responsibility for inserting the header records to the callers of method ```withInputRecords()```. 
+
+Here's the original ```createNull()``` method in class ```WeatherDataImpl```. 
+
+![Original WeatherDataImpl.createNull()](images/orig-weatherdataimpl-createnull.png)
+
+Here's the original ```withInputRecords()``` method in the Embedded Stub class ```StubbedReader``` from class ```WeatherDataImpl```. 
+
+![Original WeatherDataImpl StubbedReader.withInputRecords()](images/orig-weatherdataimpl-withinputrecords.png)
+
+I took the code from ```withInputRecord``` that adds fake header records to the array of fake input records and moved it to the caller, ```WeatherDataImpl.createNull()```. 
+
+The methods then looked like this:
+
+![New WeatherDataImpl.createNull()](images/new-weatherdataimpl-createnull.png)
+
+![New WeatherDataImpl StubbedReader.withInputRecords()](images/new-weatherdataimpl-withinputrecords.png)
+
+Now let's make similar changes to ```FootballDataImpl```. The original version:
+
+![Original FootballDataImpl.createNull()](images/orig-footballdataimpl-createnull.png)
+
+The modified version:
+
+![New FootballDataImpl.createNull()](images/new-footballdataimpl-createnull.png)
+
+Both ```WeatherDataImpl``` and ```FootballDataImpl``` can use the same ```StubbedReader```.
+
+And that concludes the first refactoring. 
+
+
 
 
 

@@ -14,8 +14,16 @@ public class WeatherDataImpl implements Nullable, WeatherData {
         }
     }
     public static WeatherData createNull(String[] inputRecords) {
-        return new WeatherDataImpl(new StubbedReader2(new StringReader(""))
-                .withInputRecords(inputRecords));
+        String[] allRecords = new String[inputRecords.length + 2];
+        allRecords[0] = "  Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP";
+        allRecords[1] = "";
+        System.arraycopy(inputRecords,
+                0,
+                allRecords,
+                2,
+                inputRecords.length);
+        return new WeatherDataImpl(new StubbedReader(new StringReader(""))
+                .withInputRecords(allRecords));
     }
 
     private WeatherDataImpl(BufferedReader reader) {
@@ -54,42 +62,3 @@ public class WeatherDataImpl implements Nullable, WeatherData {
     }
 }
 
-class StubbedReader2 extends BufferedReader {
-    private String[] inputRecords = null;
-    private int recordIndex = 0;
-    private final int EOF = -1;
-    public StubbedReader2(Reader in) {
-        super(in);
-    }
-
-    public String readLine() {
-        if (inputRecords != null) {
-            if (recordIndex >= inputRecords.length) {
-                return null;
-            } else {
-                return inputRecords[recordIndex++];
-            }
-        } else {
-            try {
-                return super.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public StubbedReader2 withInputRecords(String[] inputRecords) {
-        int sourceIndex;
-        int destinationIndex;
-        this.inputRecords = new String[inputRecords.length + 2];
-        this.inputRecords[0] = "  Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP";
-        this.inputRecords[1] = "";
-        for (sourceIndex = 0, destinationIndex = 2 ;
-             sourceIndex < inputRecords.length ;
-             sourceIndex++, destinationIndex++ ) {
-            this.inputRecords[destinationIndex] = inputRecords[sourceIndex];
-        }
-        return this;
-    }
-
-}

@@ -2,6 +2,7 @@ package com.neopragma.sociable.v4;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FootballDataImpl implements Nullable, FootballData {
@@ -14,6 +15,14 @@ public class FootballDataImpl implements Nullable, FootballData {
         }
     }
     public static FootballData createNull(String[] inputRecords) {
+        String[] allRecords = new String[inputRecords.length + 1];
+        allRecords[0] = "       Team            P     W    L   D    F      A     Pts";
+        System.arraycopy(inputRecords,
+                0,
+                allRecords,
+                1,
+                inputRecords.length);
+
         return new FootballDataImpl(new StubbedReader(new StringReader(""))
                 .withInputRecords(inputRecords));
     }
@@ -54,41 +63,3 @@ public class FootballDataImpl implements Nullable, FootballData {
     }
 }
 
-class StubbedReader extends BufferedReader {
-    private String[] inputRecords = null;
-    private int recordIndex = 0;
-    private final int EOF = -1;
-    public StubbedReader(Reader in) {
-        super(in);
-    }
-
-    public String readLine() {
-        if (inputRecords != null) {
-            if (recordIndex >= inputRecords.length) {
-                return null;
-            } else {
-                return inputRecords[recordIndex++];
-            }
-        } else {
-            try {
-                return super.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public StubbedReader withInputRecords(String[] inputRecords) {
-        int sourceIndex;
-        int destinationIndex;
-        this.inputRecords = new String[inputRecords.length + 1];
-        this.inputRecords[0] = "       Team            P     W    L   D    F      A     Pts";
-        for (sourceIndex = 0, destinationIndex = 1 ;
-             sourceIndex < inputRecords.length ;
-             sourceIndex++, destinationIndex++ ) {
-            this.inputRecords[destinationIndex] = inputRecords[sourceIndex];
-        }
-        return this;
-    }
-
-}
