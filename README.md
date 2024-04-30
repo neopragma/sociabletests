@@ -84,29 +84,7 @@ Approaching this with Detroit School TDD, I would not make assumptions about wha
 
 But that's not the point of the exercise. We want to get down to the mocks vs. Nullables exploration right away. So, I'll assume we'll want a Weather class that responds to client requests for the day that had the smallest temperature spread, and an adapter class to read the data from an external source. Those will be our two components, with one depending on the other. 
 
-## Exploration 1: Java
-
-The first language to explore is Java, an OO language with static typing. There's a rambling sort of walk-through of what I did, in the nature of a travel diary, in [a separate document](java-exploration.md). 
-
-Here's the tl;dr.
-
-#### Developer experience
-
-Working with Java, Maven, Mockito, and IntelliJ together isn't exactly a dream weekend at [Barbie's beach house](https://www.vogue.com/article/barbie-dreamhouse-airbnb-malibu). A development approach that eliminates one type of dependency - in this case, the mocking library - sounds like an instant improvement.
-
-Yet I found working with the Nullables version was more tedious and time-consuming than working with the mock version. To my surprise, I soon felt eager to go back to struggling with Mockito/IntelliJ integration. On balance, it was less troublesome than using Nullables.
-
-I also didn't like the frequent context-switching between hand-rolling the Embedded Stub and working on the actual problem at hand. There was no way to write test cases without the stub. I wanted to focus on the application logic at first, and mocks enable that.
-
-#### Recruiting and staff retention
-
-The vast majority of Java developers available for hire are already familiar with mock libraries. Every organization that uses Nullables will have their own "flavor" of it, as it's all hand-written. That means surprises, and lots of them, in the sense of the Principle of Least Surprise. It's not out of the question to expect an organization that required this approach to face higher turnover of technical staff than they would otherwise. 
-
-#### Codebase size
-
-The Nullables solution for Kata 4 ended up with thirteen (13) production classes as compared with six (6) for the version using mocks. 
-
-Granted, I didn't finish the whole thing using mocks, and there would be eight (8) classes in a version equivalent to the Nullables version. Even so, the exercise suggests there's more code to manage with the Nullables approach.
+## General observations (language-independent)
 
 #### Separation of concerns 
 
@@ -133,6 +111,30 @@ Not all applications are cloud applications, but cloud applications have some ad
 While the Kata solution is not as complicated as a "real" codebase, I worry that the Socialized Tests would weaken test isolation, inviting test failures that do not point directly to the immediate cause of a problem, but instead break multiple tests cases at once. This would require 20th-century-style problem analysis in situations when a well-isolated unit test could point directly to the problem. If true, this would also impact throughput negatively.
 
 It reminds me of relying on integration tests or other types of tests of large scope for all levels of testing. In my experience, we're better served by building test suites at multiple levels of abstraction, with more small ones than large ones, each calling out a very specific system behavior. 
+
+## Exploration 1: Java
+
+The first language to explore is Java, an OO language with static typing. There's a rambling sort of walk-through of what I did, in the nature of a travel diary, in [a separate document](java-exploration.md). 
+
+Here's the tl;dr.
+
+#### Developer experience
+
+Working with Java, Maven, Mockito, and IntelliJ together isn't exactly a dream weekend at [Barbie's beach house](https://www.vogue.com/article/barbie-dreamhouse-airbnb-malibu). A development approach that eliminates one type of dependency - in this case, the mocking library - sounds like an instant improvement.
+
+Yet I found working with the Nullables version was more tedious and time-consuming than working with the mock version. To my surprise, I soon felt eager to go back to struggling with Mockito/IntelliJ integration. On balance, it was less troublesome than using Nullables.
+
+I also didn't like the frequent context-switching between hand-rolling the Embedded Stub and working on the actual problem at hand. There was no way to write test cases without the stub. I wanted to focus on the application logic at first, and mocks enable that.
+
+#### Recruiting and staff retention
+
+The vast majority of Java developers available for hire are already familiar with mock libraries. Every organization that uses Nullables will have their own "flavor" of it, as it's all hand-written. That means surprises, and lots of them, in the sense of the Principle of Least Surprise. It's not out of the question to expect an organization that required this approach to face higher turnover of technical staff than they would otherwise. 
+
+#### Codebase size
+
+The Nullables solution for Kata 4 ended up with thirteen (13) production classes as compared with six (6) for the version using mocks. 
+
+Granted, I didn't finish the whole thing using mocks, and there would be eight (8) classes in a version equivalent to the Nullables version. Even so, the exercise suggests there's more code to manage with the Nullables approach.
 
 ## C#
 
