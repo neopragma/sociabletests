@@ -122,7 +122,7 @@ I'm not comfortable having excess code present in the deployed production applic
 
 James suggests some possible use cases for Nullables in production code. They are highly dependent on what the application does, not relevant in most cases, and can always be implemented in some other way.
 
-Not all applications are cloud applications, cloud applications have some additional considerations beyond "regular" applications. They're sensitive to "gray failures" and to unusual sequences of events that aren't easy (if even possible) to set up in a controlled test environment prior to deployment. The more "extra" code there is in the environment, the more chances there are for unexpected things to happen. It's generally a good idea to minimize production code and keep things pretty tight.
+Not all applications are cloud applications, but cloud applications have some additional considerations that may be relevant here. They're sensitive to "gray failures" and to unusual sequences of events that aren't easy (if even possible) to set up in a controlled test environment prior to deployment. The more "extra" code there is in the environment, the more chances there are for unexpected things to happen. It's generally a good idea to minimize production code and keep things pretty tight.
 
 #### Blurred distinction between isolated low-level tests and tests of larger scope
 
