@@ -122,7 +122,7 @@ I also didn't like the frequent context-switching between hand-rolling the Embed
 
 #### Recruiting and staff retention
 
-The vast majority of Java developers available for hire are already familiar with mock libraries. Every organization that uses Nullables will have their own "flavor" of it, as it's all hand-written. That means surprises, and lots of them, in the sense of the Principle of Least Surprise. It's not out of the question to expect an organization that required this approach to face higher turnover of technical staff than they would otherwise. 
+The vast majority of Java developers available for hire are already familiar with mock libraries. Every organization that uses Nullables will have their own "flavor" of it, as it's all hand-written. That means surprises, and lots of them, in the sense of the [Principle of Least Surprise](http://principles-wiki.net/principles:principle_of_least_surprise). It's not out of the question to expect an organization that required this approach to face higher turnover of technical staff than they would otherwise. 
 
 #### Codebase size
 
