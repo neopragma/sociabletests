@@ -6,7 +6,7 @@ public class Helpers {
         String key = null;
         int minimumSpread = Integer.MAX_VALUE;
         for (ValueRange valueRange : valueRanges) {
-            int valueSpread = valueRange.maximumValue() - valueRange.minimumValue();
+            int valueSpread = Math.abs(valueRange.maximumValue() - valueRange.minimumValue());
             if (valueSpread < minimumSpread) {
                 key = valueRange.key();
                 minimumSpread = valueSpread;

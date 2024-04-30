@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="261278eb-6fa6-43b8-808b-b46118562581" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/Helpers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/ValueRange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java-exploration.md" beforeDir="false" afterPath="$PROJECT_DIR$/../java-exploration.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/Football.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/Football.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/FootballData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/FootballData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/FootballDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/FootballDataImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/Weather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/Weather.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/WeatherData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/WeatherData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/WeatherDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/WeatherDataImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/neopragma/sociable/v4/WeatherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/neopragma/sociable/v4/WeatherTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/Helpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/sociable/v4/Helpers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v4/Helpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neopragma/withmocks/v4/Helpers.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
