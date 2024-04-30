@@ -21,7 +21,7 @@ Where we are:
 
 Now let's bring the Nullables with Sociable Tests version up to an equivalent point. 
 
-Per the pattern language, a Nullable is a class that can be instantiated with a minimal configuration, just suffient to provide a "valid" instance that supports all necessary "business" logic but excludes real functionality to read/write external data stores and so forth. James suggests defining a factory method named createNull() to handle the instantiation. 
+Per the pattern language, a Nullable is a class that can be instantiated with a minimal configuration, just suffient to provide a "valid" instance that supports all necessary "business" logic but excludes real functionality to read/write external data stores and so forth. James suggests defining a factory methods named create() and createNull() to handle the instantiation. 
 
 His article also provides examples of how to include an Embedded Stub to mimic selected functionality of an external dependency, and how to define parameters for the Nullable's createNull method to pass in values we want to be returned in our test cases. 
 
@@ -37,25 +37,13 @@ Where we are:
 
 ## Impressions so far 
 
-At this point, I had not built enough functionality to experience the potential value of Nullables and Sociable Tests over mocks and isolated tests, but I already had an impression of the two approaches from the perspective of how hard or easy they are to use.
+I found the process of getting the first failing test case to the right state to be far more tedious using Nullables than it was using mocks. 
 
-Just getting to this bare-bones starting point was a bit of a hassle using mocks. In my view, it's always a hassle to use Java with Maven or Gradle plus IntelliJ IDEA or Eclipse with Mockito or any other mocking library added on. All those tools work fine individually; the hassle comes up when you try to use them together. 
-
-Maybe I should say, when _I_ try to use them together. No matter how many times I've used these tools together, it never gets any easier. You're probably better at this than I, so that might sound funny to you. But I may be a pretty good example of an "average" programmer, and that's what you'll have on your team, so don't laugh too hard. 
-
-I was looking forward to writing the same code without using mocks. I understand that the first time any of us tries something new, we encounter some speed bumps. That's only to be expected. There's a learning curve, after all. But even considering that, I found the process of getting the first failing test case to the right state to be far more tedious using Nullables than it was using mocks. 
-
-The main reason was that I had to invest mental energy into the details of handling file I/O. I wanted to focus on the challenge of the Kata, and leave the I/O handling for later. But I had no choice if I wanted to write a Nullable that included an Embedded Stub that could behave exactly like a Java BufferedReader to ingest the input file provided for the Kata. 
-
-Even then, the result is an awful hack that will require ongoing improvement throughout the development process. All that effort amounts to hand-rolling a mock. We discard the mocking _library_, but we end up rolling our own in the end. The Nullable ```WeatherDataImpl``` class is a kludge of production code mixed with pseudo-mock code. This violates Separation of Concerns. When combined with Sociable Tests, it also weakens test isolation. 
-
-None of the pseudo-mock code belongs with the production code. Its presence increases the threat surface of the deployed application, without adding any value beyond what we get by using mocks and keeping all test-related code separate from the production code. At least, that's my impression so far...but I've only taken the first baby steps. Let's see how it goes from here. 
+The main reason was that I had to invest mental energy into the details of handling file I/O. I wanted to focus on the challenge of the Kata, and leave the I/O handling for later. But I had no choice if I wanted to write a Nullable that included an Embedded Stub that could behave exactly like a Java BufferedReader to ingest the input file provided for the Kata. There was no way to make any progress at all without that stub in place.
 
 ## Kata 4, Part 1, Java version using mocks, step 2 
 
-This isn't Part 2 of the Kata (it has three parts). It's just "step 2" in the pseudo-TDD development process I'm following. 
-
-What I'd like to do in this step is implement enough functionality to identify the day that has the smallest temperature spread, given more than one day's weather data. 
+The aim of this step is to implement enough functionality to identify the day that has the smallest temperature spread, given more than one day's weather data. 
 
 First, I set up a test case with a mock that returns three values in succession, like this. 
 
@@ -103,8 +91,6 @@ Since I had to make the Embedded Stub work the same as a BufferedReader, I wonde
 
 This result would have been deferred using the version with mocks, as I wouldn't have bothered to get the I/O functionality working this early in the development process.
 
-But I still don't like having hand-rolled mock code included in the production code, even if it is carefully not named "hand-rolled mock code." 
-
 ## Kata 4, Part 2, Java version using mocks 
 
 The second part of the Kata asks us to write code roughly similar to the Weather program to analyze statistics from the English Premier Football League. A file is provided containing data about teams that played in the 2001-2002 season. 
@@ -114,8 +100,6 @@ Our program is to determine the team with the smallest difference between the nu
 The input file contains fixed-format records, like the Weather data file, but with different fields.  
 
 The challenge is intentionally similar to the Weather problem in Part 1 of the Kata, because we'll try extracting common code in Part 3 (yes, I read ahead.) It took virtually no time to set up the same kind of unit tests and starter code for this application, which is in subdirectory ```sociabletestsjava``` in package ```com.neopragma.withmocks.v3```. 
-
-Having lived through the initial horror of setting up Mockito (but still not fully recognized by IntelliJ), adding more to the project proved to be dirt simple. 
 
 ## Kata 4, Part 2, Java version using Nullables 
 
@@ -211,12 +195,6 @@ I was planning to extract that into a common class anyway, but I wanted to try a
 The twist is the ```withInputRecords()``` method in both ```StubbedReader``` classes. To mimic the behavior of the "real" BufferedReader, that method adds header lines to the input record array that look like the header lines from the ```weather.dat``` and ```football.dat``` files. 
 
 That part of the code must differ between the Weather and Football solutions; but I'm loathe to start changing that code until I have a clean test run for the existing code. Alternatively, we could shift the burden of supplying the fake header records to test methods, and omit that logic from ```StubbedReader```. That would simplify the extraction, but complicate the test suite and invite errors in test case setup.
-
-In my opinion, this problem is a direct result of using the Nullables approach to avoid mocks. In the version that uses mocks, none of this code exists. I can only imagine how this kind of problem would mushroom in a "real" code base consisting of more than two components and a couple of helpers. The practical effect on most "average" programmers is likely to be that they just don't refactor. 
-
-As a quick workaround, I changed the name of the ```StubbedReader``` class in ```WeatherDataImpl``` to ```StubbedReader2```. That isn't a very good name, but it will soon go away. 
-
-Extracting a single ```StubbedReader``` class is straightforward and doesn't require any changes to test code. But this will be more than "just" a refactoring, because I need to support the fake header records for the two input file formats. 
 
 The code in ```WeatherDataImpl``` and ```FootballDataImpl``` that uses the ```StubbedReader``` instances will have to pass the appropriate fake header records to those instances. Then, the logic in the ```StubbedReader``` will have to change slightly to handle the fake header records. 
 

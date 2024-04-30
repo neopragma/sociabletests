@@ -4,7 +4,7 @@ Sociable Tests are a kind of executable test used in software development and te
 
 Through his long experience applying test-driven development (TDD) and related practices, and teaching/coaching such practices in a wide range of companies over the years, James noticed certain recurring problems with executable test suites and application design that he felt may arise from conventional approaches to TDD. Even if the problems don't arise from those practices _per se_, they are at least commonly seen in codebases that were built using TDD.  
 
-He wanted to find a way to enjoy the benefits of TDD that didn't tend to create or exacerbate those problems. Sociable Tests are part of his solution, which he calls a "pattern language" for testing. His approach is documented in the article, ["Testing Without Mocks: A Pattern Language"](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks). There is more to the approach than just Sociable Tests, but that is the focus of this exploration. 
+He wanted to find a way to enjoy the benefits of TDD that didn't tend to create or exacerbate those problems. Sociable Tests are part of his solution, which he calls a "pattern language" for testing. His approach is documented in the article, ["Testing Without Mocks: A Pattern Language"](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks). There is more to the approach than just Nullables and Sociable Tests, but that is the focus of this exploration. 
 
 ## Schools of TDD
 
@@ -26,7 +26,11 @@ Most material you see on the subject will talk about _classes_, _objects_, and _
 
 One issue James noticed is the difficulty in working with test doubles, such as mocks and stubs. Complicated mock setups and fragile test cases are common problems. But what are mocks and why do people use them?
 
-In order to isolate the code under test from external dependencies for the duration of specific test cases, we use a construct known as a Test Double. A Test Double stands in for a real dependency of the code under test in much the same way as a [stunt double](https://stuntteam.org/what-is-a-stunt-double-everything-you-need-to-know/) stands in for an actor in a movie. I don't know who coined the term or when, but it became popularized after the publication of Gerard Meszaros' 2007 book, _xUnit Test Patterns: Refactoring Test Code_. 
+In order to isolate the code under test from external dependencies for the duration of specific test cases, we use a construct known as a Test Double. A Test Double stands in for a real dependency of the code under test in much the same way as a [stunt double](https://stuntteam.org/what-is-a-stunt-double-everything-you-need-to-know/) stands in for an actor in a movie. 
+
+Like a stunt double, a test double is not as good-looking as the original, but as long as it's dressed up to look like the real thing it serves its purpose.
+
+I don't know who coined the term or when, but it became popularized after the publication of Gerard Meszaros' 2007 book, _xUnit Test Patterns: Refactoring Test Code_. 
 
 Meszaros is also credited with creating a taxomony of Test Doubles. As far as I know he didn't make them up, but he sought to regularize the terminology around them. People were using various terms that seemed intuitive to them, but the hodge-podge of inconsistent terms were confusing for people interested in getting started with TDD and refactoring. Meszaros settled on _stub_, _mock_, _spy_, _fake_, and _dummy_. 
 
@@ -78,31 +82,53 @@ Approaching this with Detroit School TDD, I would not make assumptions about wha
 
 But that's not the point of the exercise. We want to get down to the mocks vs. Nullables exploration right away. So, I'll assume we'll want a Weather class that responds to client requests for the day that had the smallest temperature spread, and an adapter class to read the data from an external source. Those will be our two components, with one depending on the other. 
 
-## Separation of concerns
+## Exploration 1: Java
 
-The client request may arrive from any sort of user interface or API. The code in the Weather class needn't know anything about that. 
-
-## Java
-
-The first language to explore is Java, an OO language with static typing. There's a rambling sort of walk-through of what I did, sort of in the nature of a travel diary, in [a separate document](java-exploration.md). 
+The first language to explore is Java, an OO language with static typing. There's a rambling sort of walk-through of what I did, in the nature of a travel diary, in [a separate document](java-exploration.md). 
 
 Here's the tl;dr.
 
-On the whole, working with the Nullables version was more tedious and time-consuming than working with the mock version. The Nullables solution for Kata 4 ended up with thirteen (13) production classes as compared with six (6) for the version using mocks. 
+#### Developer experience
 
-The most complicated logic is in the ```StubbedReader``` class, which is to all intents and purposes just a hand-rolled mock. Most of the development time went into that class, as well. 
+Working with Java, Maven, Mockito, and IntelliJ together isn't exactly a dream weekend at Barbie's beach house. A development approach that eliminates one type of dependency - in this case, the mocking library - sounds like an instant improvement.
 
-I'm not comfortable having the excess code present in the deployed production application as it affords hackers opportunities to hang malware onto the unused code. 
+Yet I found working with the Nullables version was more tedious and time-consuming than working with the mock version. To my surprise, I soon felt eager to go back to struggling with Mockito/IntelliJ integration. On balance, it was less troublesome than using Nullables.
 
-While the Java ecosystem in general does not provide the best available developer experience, and I have not figured out all the nuances of making IntelliJ work smoothly with Mockito (probably a personal problem), given the choice of the two approaches I would go with the mock-based approach. 
+I also didn't like the frequent context-switching between hand-rolling the Embedded Stub and working on the actual problem at hand. There was no way to write test cases without the stub. I wanted to focus on the application logic at first, and mocks enable that.
 
-Another factor in favor of using the mock approach is that the vast majority of Java developers available for hire are already familiar with it. The cumbersome and potentially convoluted code to support Nullables with Sociable Tests could be challenging for most developers to work with. It's not out of the question to think an organization that required this approach would face higher turnover of technical staff than they would otherwise. 
+### Recruiting and staff retention
 
-While the Kata solution is not as complicated as a "real" codebase, I worry that the Socialized Tests would weaken test isolation, inviting test failures that do not point directly to the immediate cause of a problem, but instead break multiple tests cases at once. This would require 20th-century-style problem analysis in situations when a well-isolated unit test could point directly to the problem. 
+The vast majority of Java developers available for hire are already familiar with mock libraries. Every organization that uses Nullables will have their own "flavor" of it, as it's all hand-written. That means surprises, and lots of them, in the sense of the Principle of Least Surprise. It's not out of the question to expect an organization that required this approach to face higher turnover of technical staff than they would otherwise. 
 
-It reminds me of relying on integration tests or other types of tests of large scope for all levels of testing. In my experience, we're better served by building test suites at multiple levels of abstraction, with the majority of them low-level cases of well-controlled scope.  
+#### Codebase size
 
-For Java applications, at least, I would avoid using Nullables in place of mocks. It seems to have been developed in an organiation that mainly uses JavaScript. It's possible that language is more suited to it than Java. 
+The Nullables solution for Kata 4 ended up with thirteen (13) production classes as compared with six (6) for the version using mocks. 
+
+Granted, I didn't finish the whole thing using mocks, and there would be eight (8) classes in a version equivalent to the Nullables version. Even so, the exercise suggests there's more code to manage with the Nullables approach.
+
+#### Separation of concerns 
+
+Blending production code with stub code in the same class or source file felt like a violation of Separation of Concerns. Depending on the main responsibility of the class, it may be valid for it to support a Nullable instance. If the only purpose of the Nullable instance is to pretend not to be a test double, then I think that's a separate concern. 
+
+#### Impact on throughput
+
+The most complicated logic is in the ```StubbedReader``` class, which is to all intents and purposes just a hand-rolled mock or stub. Most of the development time went into that class, as well. It's still a hack, and would require modification to correspond with every future change to the product. I suspect this is characteristic of the approach. A codebase containing hundreds or even thousands of these things would cause teams to burn a lot of time working on code that isn't really part of the product.
+
+The exploration suggests a "real" team that worked in this way would spend proportionally more time on test setup code than they normally would do. That means less time spent on value-add activities, lower process cycle efficiency, and lower throughput.
+
+#### Unused code in production
+
+I'm not comfortable having excess code present in the deployed production application as it affords hackers opportunities to hang malware onto the unused code. I think people call this the "threat surface" of the system. The hand-rolled mocks are not used in production  They provide an area in memory where hackers can inject malware without being noticed.
+
+James suggests some possible use cases for Nullables in production code. They are highly dependent on what the application does, not relevant in most cases, and can always be implemented in some other way.
+
+Not all applications are cloud applications, cloud applications have some additional considerations beyond "regular" applications. They're sensitive to "gray failures" and to unusual sequences of events that aren't easy (if even possible) to set up in a controlled test environment prior to deployment. The more "extra" code there is in the environment, the more chances there are for unexpected things to happen. It's generally a good idea to minimize production code and keep things pretty tight.
+
+#### Blurred distinction between isolated low-level tests and tests of larger scope
+
+While the Kata solution is not as complicated as a "real" codebase, I worry that the Socialized Tests would weaken test isolation, inviting test failures that do not point directly to the immediate cause of a problem, but instead break multiple tests cases at once. This would require 20th-century-style problem analysis in situations when a well-isolated unit test could point directly to the problem. If true, this would also impact throughput negatively.
+
+It reminds me of relying on integration tests or other types of tests of large scope for all levels of testing. In my experience, we're better served by building test suites at multiple levels of abstraction, with more small ones than large ones, each calling out a very specific system behavior. 
 
 ## C#
 
