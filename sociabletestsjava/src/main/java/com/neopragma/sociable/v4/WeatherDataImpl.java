@@ -6,6 +6,7 @@ import java.util.List;
 
 public class WeatherDataImpl implements Nullable, WeatherData {
     private BufferedReader reader;
+
     public static WeatherData create() {
         try {
             return new WeatherDataImpl(new BufferedReader(new FileReader("weather.dat")));
@@ -13,6 +14,7 @@ public class WeatherDataImpl implements Nullable, WeatherData {
             throw new RuntimeException(e);
         }
     }
+
     public static WeatherData createNull(String[] inputRecords) {
         String[] allRecords = new String[inputRecords.length + 2];
         allRecords[0] = "  Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP";
@@ -29,13 +31,11 @@ public class WeatherDataImpl implements Nullable, WeatherData {
     private WeatherDataImpl(BufferedReader reader) {
         this.reader = reader;
     }
-    @Override
-    public List<MinMaxTemps> getMinMaxTemps() {
-        return loadMinMaxTemps();
-    }
 
-    private List<MinMaxTemps> loadMinMaxTemps() {
-        List<MinMaxTemps> minMaxTemps = new ArrayList<>();
+    @Override
+    public List<ValueRange> getMinMaxTemps() {
+
+        List<ValueRange> valueRanges = new ArrayList<>();
         String line;
         try {
             while ((line = reader.readLine()) != null) {
@@ -43,10 +43,10 @@ public class WeatherDataImpl implements Nullable, WeatherData {
                     // create a MinMaxTemp object for each line
                     if (Character.isDigit(line.charAt(3))) {
                         // this is a hack
-                        minMaxTemps.add(new MinMaxTemps(
-                                stringToInteger(line.substring(2, 4)),
-                                stringToInteger(line.substring(11, 14)),
-                                stringToInteger(line.substring(5, 8))
+                        valueRanges.add(new ValueRange(
+                                line.substring(2, 4),
+                                Helpers.stringToInteger(line.substring(11, 14)),
+                                Helpers.stringToInteger(line.substring(5, 8))
                         ));
                     }
                 }
@@ -54,11 +54,7 @@ public class WeatherDataImpl implements Nullable, WeatherData {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return minMaxTemps;
-    }
-
-    private Integer stringToInteger(String str) {
-        return Integer.valueOf(str.replaceAll("[^\\d]", ""));
+        return valueRanges;
     }
 }
 

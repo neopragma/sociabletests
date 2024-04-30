@@ -2,7 +2,6 @@ package com.neopragma.sociable.v4;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FootballDataImpl implements Nullable, FootballData {
@@ -31,12 +30,8 @@ public class FootballDataImpl implements Nullable, FootballData {
         this.reader = reader;
     }
     @Override
-    public List<GoalsForAndAgainst> getGoalsForAndAgainst() {
-        return loadGoalsForAndAgainst();
-    }
-
-    private List<GoalsForAndAgainst> loadGoalsForAndAgainst() {
-        List<GoalsForAndAgainst> goalsForAndAgainst = new ArrayList<>();
+    public List<ValueRange> getGoalsForAndAgainst() {
+        List<ValueRange> valueRanges = new ArrayList<>();
         String line;
         try {
             while ((line = reader.readLine()) != null) {
@@ -44,10 +39,10 @@ public class FootballDataImpl implements Nullable, FootballData {
                     // create a GoalsForAndAgainst object for each line
                     if (Character.isDigit(line.charAt(44))) {
                         // this is a hack
-                        goalsForAndAgainst.add(new GoalsForAndAgainst(
+                        valueRanges.add(new ValueRange(
                                 line.substring(7, 22),
-                                stringToInteger(line.substring(43, 46)),
-                                stringToInteger(line.substring(50, 53))
+                                Helpers.stringToInteger(line.substring(50, 53)),
+                                Helpers.stringToInteger(line.substring(43, 46))
                         ));
                     }
                 }
@@ -55,11 +50,8 @@ public class FootballDataImpl implements Nullable, FootballData {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return goalsForAndAgainst;
+        return valueRanges;
     }
 
-    private Integer stringToInteger(String str) {
-        return Integer.valueOf(str.replaceAll("[^\\d]", ""));
-    }
 }
 

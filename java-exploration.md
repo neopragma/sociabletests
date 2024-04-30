@@ -195,9 +195,14 @@ That reduces ```getTeamWithMinimumScoringSpread()``` to just this...
 
 ![Simplified method](images/getdaywithminimumtemperaturespread-simplified.png)
 
-There isn't much code in this solution, and I didn't see any further opportunities to refactor at this point. 
+## Kata 4, Part 3, Java version using Nullables, refactoring #1 
 
-## Kata 4, Part 3, Java version using Nullables, refactoring #1
+This is the same refactoring I did for the mock version, to generalize the ```GoalsForAndAgainst``` and ```MinMaxTemps``` value object classes and extract the code to find the list entry with the smallest range of values to a Helper class. 
+
+Here I experienced an advantage of the Nullables approach. There was no need to modify the test cases to make them refer to ```ValueRange``` objects, because the test code for the Nullables solution passes fake input records as Strings rather than Lists of ```ValueRange``` objects. 
+
+
+## Kata 4, Part 3, Java version using Nullables, refactoring #2
 
 When copying source from the \*.v2 and \*.v3 packages, the project wouldn't build due to duplicate class names - the Embedded Stub classes in ```WeatherDataImpl``` and ```FootballDataImpl```. This is part of the hand-rolled mock code I wrote to try and follow the guidelines for Nullables. 
 
@@ -246,11 +251,25 @@ Both ```WeatherDataImpl``` and ```FootballDataImpl``` can use the same ```Stubbe
 And that concludes the first refactoring. 
 
 
+## Kata 4, Part 3, Java version using Nullables, refactoring #3 
 
+Both ```WeatherDataImpl``` and ```FootballDataImpl``` contain the same one-line helper method, ```stringToInteger()```. The method takes a string that may contain a numerical value along with non-numeric characters, removes all the non-numeric characters and returns an Integer. We could move this to the ```Helpers``` class we created earlier.
 
+It's only a one-liner, but it is used in more than one place and it contains a Regular Expression. If multiple copies of it exist in the codebase, the Regular Expression may be modified unintentionally and the results could be confusing. So, let's move it. 
 
+No changes to test code are necessary.
 
+This refactoring was quite simple to test-drive. I'm still not convinced this code should exist at all, however.
 
+## Observations 
+
+On the whole, working with the Nullables version was more tedious and time-consuming than working with the mock version. The Nullables solution for Kata 4 ended up with thirteen (13) classes. The most complicated logic is in the ```StubbedReader``` class, which is to all intents and purposes just a hand-rolled mock. I'm not comfortable having the excess code present in the deployed production application as it affords hackers opportunities to hang malware onto the unused code. 
+
+While the Java ecosystem in general does not provide the best available developer experience, and I have not figured out all the nuances of making IntelliJ work smoothly with Mockito (probably a personal problem), given the choice of the two approaches I would go with the mock-based approach. 
+
+Another factor in favor of using the mock approach is that the vast majority of Java developers available for hire are already familiar with it. The cumbersome and potentially quite convoluted code to support Nullables with Sociable Tests could be challenging for most developers to work with. It's not out of the question to think an organization that required this approach would face higher turnover of technical staff than they would otherwise. 
+
+For Java applications, at least, I would avoid it. It seems to have been developed in an organiation that mainly uses JavaScript. It's possible that language is more suited to it than Java. 
 
 
 
