@@ -146,20 +146,20 @@ TBD
 
 ## Exploration 3: Ruby 
 
-As it seems the Nullables approach was developed in a shop that mainly uses JavaScript, it seemed reasonable to try it using another dynamically-types language. 
+As it seems the Nullables approach was developed in a shop that mainly uses JavaScript, it seemed reasonable to try it using another dynamically-typed language. 
 
 TBD
 
 
 ## Exploration 4: F# 
 
-The pattern language was developed with OO languages in mind. Since TDD applies to all kinds of languges, it seemed sensible to try the Nullables and Sociable Tests approach using non-OO languages, as well. F# is a functional language for the .NET environment.
+The pattern language was developed with OO languages in mind. Since TDD applies to all kinds of languges, it seemed sensible to try the Nullables and Sociable Tests approach using non-OO languages, as well. F# is a Functional language for the .NET environment.
 
 TBD
 
 
 ## Exploration 5: COBOL 
 
-Procedural Languages represent another category of imperative languages, neither Object-Oriented nor Functional (intrinsically). COBOL is a well-known procedural language designed for business applications. It's still used in legacy systems in the financial, energy, and public services sectors. 
+Procedural languages represent another category of imperative languages, neither Object-Oriented nor Functional (intrinsically). COBOL is a well-known procedural language designed for business applications. It's still used in legacy systems in the financial, energy, and public services sectors. 
 
 TBD
