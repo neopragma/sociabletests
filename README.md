@@ -46,9 +46,9 @@ It's common to hear/read that using mocks with TDD leads to bad software design.
 
 Now, no one likes to think they had anything to do with sinking the ship. So, people often blame their tools - in this case, the use of mocks or the use of TDD itself. But I'm pretty sure if you don't apply fundamental software design principles to your work, you can cause the same problems using Nullables and Sociable Tests as you can using mocks. 
 
-![Guilty dog](images/guilty-dog.png)
+!["The cat did it," said the dog](images/guilty-dog.png)
 
-If the bad design is causing problems with mocks rather than the other way around, then substituting Nullables and Sociable Tests for mocks won't solve it. Let's find out.
+If bad design is causing problems with mocks rather than the other way around, then substituting Nullables and Sociable Tests for mocks won't solve it. Let's find out.
 
 ## About this exploration 
 
