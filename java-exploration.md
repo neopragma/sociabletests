@@ -261,20 +261,6 @@ No changes to test code are necessary.
 
 This refactoring was quite simple to test-drive. I'm still not convinced this code should exist at all, however.
 
-## Observations 
-
-On the whole, working with the Nullables version was more tedious and time-consuming than working with the mock version. The Nullables solution for Kata 4 ended up with thirteen (13) classes. The most complicated logic is in the ```StubbedReader``` class, which is to all intents and purposes just a hand-rolled mock. I'm not comfortable having the excess code present in the deployed production application as it affords hackers opportunities to hang malware onto the unused code. 
-
-While the Java ecosystem in general does not provide the best available developer experience, and I have not figured out all the nuances of making IntelliJ work smoothly with Mockito (probably a personal problem), given the choice of the two approaches I would go with the mock-based approach. 
-
-Another factor in favor of using the mock approach is that the vast majority of Java developers available for hire are already familiar with it. The cumbersome and potentially quite convoluted code to support Nullables with Sociable Tests could be challenging for most developers to work with. It's not out of the question to think an organization that required this approach would face higher turnover of technical staff than they would otherwise. 
-
-For Java applications, at least, I would avoid it. It seems to have been developed in an organiation that mainly uses JavaScript. It's possible that language is more suited to it than Java. 
-
-
-
-
-
 
 
 

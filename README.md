@@ -82,6 +82,30 @@ The client request may arrive from any sort of user interface or API. The code i
 
 The first language to explore is Java, an OO language with static typing. There's a rambling sort of walk-through of what I did, sort of in the nature of a travel diary, in [a separate document](java-exploration.md). 
 
+Here's the tl;dr.
+
+On the whole, working with the Nullables version was more tedious and time-consuming than working with the mock version. The Nullables solution for Kata 4 ended up with thirteen (13) production classes as compared with six (6) for the version using mocks. 
+
+The most complicated logic is in the ```StubbedReader``` class, which is to all intents and purposes just a hand-rolled mock. Most of the development time went into that class, as well. 
+
+I'm not comfortable having the excess code present in the deployed production application as it affords hackers opportunities to hang malware onto the unused code. 
+
+While the Java ecosystem in general does not provide the best available developer experience, and I have not figured out all the nuances of making IntelliJ work smoothly with Mockito (probably a personal problem), given the choice of the two approaches I would go with the mock-based approach. 
+
+Another factor in favor of using the mock approach is that the vast majority of Java developers available for hire are already familiar with it. The cumbersome and potentially convoluted code to support Nullables with Sociable Tests could be challenging for most developers to work with. It's not out of the question to think an organization that required this approach would face higher turnover of technical staff than they would otherwise. 
+
+While the Kata solution is not as complicated as a "real" codebase, I worry that the Socialized Tests would weaken test isolation, inviting test failures that do not point directly to the immediate cause of a problem, but instead break multiple tests cases at once. This would require 20th-century-style problem analysis in situations when a well-isolated unit test could point directly to the problem. 
+
+It reminds me of relying on integration tests or other types of tests of large scope for all levels of testing. In my experience, we're better served by building test suites at multiple levels of abstraction, with the majority of them low-level cases of well-controlled scope.  
+
+For Java applications, at least, I would avoid using Nullables in place of mocks. It seems to have been developed in an organiation that mainly uses JavaScript. It's possible that language is more suited to it than Java. 
+
+
+
+
+
+
+
 ## C#
 
 ## Ruby 
