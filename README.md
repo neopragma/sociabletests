@@ -28,7 +28,7 @@ One issue James noticed is the difficulty in working with test doubles, such as 
 
 In order to isolate the code under test from external dependencies for the duration of specific test cases, we use a construct known as a Test Double. A Test Double stands in for a real dependency of the code under test in much the same way as a [stunt double](https://stuntteam.org/what-is-a-stunt-double-everything-you-need-to-know/) stands in for an actor in a movie. 
 
-Like a stunt double, a test double is not as good-looking as the original, but as long as it's dressed up to look like the real thing it serves its purpose.
+Like a stunt double, a test double is not as good-looking as the original, but as long as it's dressed up to look like the real thing it's all good.
 
 I don't know who coined the term or when, but it became popularized after the publication of Gerard Meszaros' 2007 book, _xUnit Test Patterns: Refactoring Test Code_. 
 
@@ -38,7 +38,7 @@ J.B. Rainsberger's 2001 book, _JUnit Recipes: Practical Methods for Programmer T
 
 Regardless of who should get credit for what, the basic idea of a _mock_ is a software construct that looks and acts like a real external dependency, but isn't real. It can return a predefined response to a call to any method/function of the real dependency, and it can keep track of the interactions between the client code (usually a test case) and itself. It reduces the cost of test setup and execution and ensures the behavior of the dependency will be consistent across executions of the test case, so the test case provides consistent and reliable results. 
 
-Most people these days say "mock" when they refer to any type of test double. Some people like to harp on that, but here I'm just going to say "mock" and leave it at that.
+Most people these days say "mock" when they refer to any type of test double. Some people are quick to remind us that there are specific names for specific types, but here I'm just going to say "mock" and leave it at that.
 
 ## Do mocks lead to bad design?
 
