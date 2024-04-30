@@ -21,7 +21,7 @@ Where we are:
 
 Now let's bring the Nullables with Sociable Tests version up to an equivalent point. 
 
-Per the pattern language, a Nullable is a class that can be instantiated with a minimal configuration, just suffient to provide a "valid" instance that supports all necessary "business" logic but excludes real functionality to read/write external data stores and so forth. James suggests defining a factory methods named create() and createNull() to handle the instantiation. 
+Per the pattern language, a Nullable is a class that can be instantiated with a minimal configuration, just suffient to provide a "valid" instance that supports all necessary "business" logic but excludes real functionality to read/write external data stores and so forth. James suggests defining factory methods named create() and createNull() to handle the instantiation. 
 
 His article also provides examples of how to include an Embedded Stub to mimic selected functionality of an external dependency, and how to define parameters for the Nullable's createNull method to pass in values we want to be returned in our test cases. 
 
