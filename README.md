@@ -112,6 +112,8 @@ Granted, I didn't finish the whole thing using mocks, and there would be eight (
 
 Blending production code with stub code in the same class or source file felt like a violation of Separation of Concerns. Depending on the main responsibility of the class, it may be valid for it to support a Nullable instance. If the only purpose of the Nullable instance is to pretend not to be a test double, then I think that's a separate concern. 
 
+![I'm not a double, I'm an Embedded Stub!](not-a-double.png)
+
 #### Impact on throughput
 
 The most complicated logic is in the ```StubbedReader``` class, which is to all intents and purposes just a hand-rolled mock or stub. Most of the development time went into that class, as well. It's still a hack, and would require modification to correspond with every future change to the product. I suspect this is characteristic of the approach. A codebase containing hundreds or even thousands of these things would cause teams to burn a lot of time working on code that isn't really part of the product.
