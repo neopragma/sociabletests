@@ -94,15 +94,15 @@ Blending production code with stub code in the same class or source file felt li
 
 #### Unused code in production
 
-I'm not comfortable having excess code present in the deployed production application as it affords hackers opportunities to stick malware there, using the unused object code as a patch area. I think people call this the "threat surface" of the system. The hand-rolled mocks are not used in production  They provide an area in memory where hackers can inject malware without being noticed.
+I'm not comfortable having excess code present in the deployed production application as it affords hackers opportunities to stick malware there, using the unused object code as a patch area. I think people call this the "threat surface" of the system. The hand-rolled mocks are not used in production. They provide an area in memory where hackers can inject malware without being noticed.
 
 James suggests some possible use cases for Nullables in production code. They are highly dependent on what the application does, not relevant in most cases, and can always be implemented in some other way.
 
-Not all applications are cloud applications, but cloud applications have some additional considerations that may be relevant here. They're sensitive to "gray failures" and to unusual sequences of events that aren't easy (if even possible) to set up in a controlled test environment prior to deployment. The more "extra" code there is in the environment, the more chances there are for unexpected things to happen. It's generally a good idea to minimize production code and keep things pretty tight.
+Not all applications are cloud applications, but cloud applications have some additional considerations that may be relevant here. They're susceptible to "gray failures" and to unusual sequences of events that aren't easy (if even possible) to set up in a controlled test environment prior to deployment. The more "extra" code there is in the environment, the more chances there are for unexpected things to happen. It's generally a good idea to minimize production code and keep things pretty tight.
 
 #### Blurred distinction between isolated low-level tests and tests of larger scope
 
-While the Kata solution is not as complicated as a "real" codebase, I worry that the Socialized Tests would weaken test isolation, inviting test failures that do not point directly to the immediate cause of a problem, but instead break multiple tests cases at once. This would require 20th-century-style problem analysis in situations when a well-isolated unit test could point directly to the problem. If true, this would also impact throughput negatively.
+While the Kata solution is not as complicated as a "real" codebase, I worry that the Sociable Tests would weaken test isolation, inviting test failures that do not point directly to the immediate cause of a problem, but instead break multiple tests cases at once. This would require 20th-century-style problem analysis in situations when a well-isolated unit test could point directly to the problem. If true, this would also impact throughput negatively.
 
 It reminds me of relying on integration tests or other types of tests of large scope for all levels of testing. In my experience, we're better served by building test suites at multiple levels of abstraction, with more small ones than large ones, each calling out a very specific system behavior. 
 
@@ -137,17 +137,29 @@ The most complicated logic is in the ```StubbedReader``` class, which is to all 
 The exploration suggests a "real" team that worked in this way would spend proportionally more time on test setup code than they normally would do. That means less time spent on value-add activities, lower process cycle efficiency, and lower throughput.
 
 
-## C#
+## Exploration 2: C#
 
-Next, I tried another statically-typed OO language that's widely used for business applications, C#. The "travel diary" is in [a separate document](csharp-exploration.md).
+Next, I tried another statically-typed OO language that's widely used for business applications, C#. 
 
-Here's the tl;dr.
-
-
+TBD
 
 
-## Ruby 
+## Exploration 3: Ruby 
 
-As it seems the Nullables approach was developed in a shop that mainly uses JavaScript, it seemed reasonable to try it using a nother dynamically-types language. 
+As it seems the Nullables approach was developed in a shop that mainly uses JavaScript, it seemed reasonable to try it using another dynamically-types language. 
+
+TBD
 
 
+## Exploration 4: F# 
+
+The pattern language was developed with OO languages in mind. Since TDD applies to all kinds of languges, it seemed sensible to try the Nullables and Sociable Tests approach using non-OO languages, as well. F# is a functional language for the .NET environment.
+
+TBD
+
+
+## Exploration 5: COBOL 
+
+Procedural Languages represent another category of imperative languages, neither Object-Oriented nor Functional (intrinsically). COBOL is a well-known procedural language designed for business applications. It's still used in legacy systems in the financial, energy, and public services sectors. 
+
+TBD
