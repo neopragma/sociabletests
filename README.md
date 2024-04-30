@@ -52,7 +52,7 @@ If the bad design is causing problems with mocks rather than the other way aroun
 
 ## About this exploration 
 
-To get a sense of Nullables, I wanted to test-driving a small application using conventional TDD on the one hand, and again using Nullables and Sociable Tests on the other. 
+To get a sense of Nullables, I wanted to test-drive a small application using conventional TDD on the one hand, and again using Nullables and Sociable Tests on the other. 
 
 James' pattern language is explicitly focused on Object-Oriented languages, so let's start with those. I propose we try languages with static typing and dynamic typing, and languages that separate test code from production code in different ways. That way, if any of those characteristics has an effect on James' approach, we'll see it. 
 
@@ -92,7 +92,7 @@ Here's the tl;dr.
 
 #### Developer experience
 
-Working with Java, Maven, Mockito, and IntelliJ together isn't exactly a dream weekend at Barbie's beach house. A development approach that eliminates one type of dependency - in this case, the mocking library - sounds like an instant improvement.
+Working with Java, Maven, Mockito, and IntelliJ together isn't exactly a dream weekend at [Barbie's beach house](https://www.vogue.com/article/barbie-dreamhouse-airbnb-malibu). A development approach that eliminates one type of dependency - in this case, the mocking library - sounds like an instant improvement.
 
 Yet I found working with the Nullables version was more tedious and time-consuming than working with the mock version. To my surprise, I soon felt eager to go back to struggling with Mockito/IntelliJ integration. On balance, it was less troublesome than using Nullables.
 
