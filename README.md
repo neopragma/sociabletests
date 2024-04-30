@@ -1,4 +1,4 @@
-# Learning About Sociable Tests
+# Learning About Nullables and Sociable Tests
 
 Sociable Tests are a kind of executable test used in software development and testing. They were devised by [James Shore](https://www.jamesshore.com), author of [_The Art of Agile Development_](https://jamesshore.com/v2/books/aoad2) (highly recommended, by the way) and a leading proponent of robust software engineering practices. 
 
@@ -12,7 +12,7 @@ TDD has a long history in the software industry, and you're probably familiar wi
 
 There are several ways to approach TDD that have yielded good results, and many more ways in which TDD has been misunderstood and misapplied, with...well, _unsurprising_ results. It's easy to see how TDD may be misunderstood because some of the key terms used to describe it are not really precise - notably the words "test," "driven," "development," and "unit."
 
-In a nutshell, there are a couple of popular ways to approach TDD. They are sometimes called the Detroit School (or Chicago School) and the London School of TDD. For reasons that remain unclear to me, many people seem to think the two are very different, and/or we must choose either one or the other when we use TDD. 
+In a nutshell, there are a couple of popular ways to approach TDD. They are sometimes called the Detroit School (or Chicago School) and the London School of TDD. For reasons that remain unclear to me, many people seem to think the two are very different, and we must choose either one or the other when we use TDD. 
 
 Practitioners actually mix and match the two freely. The choice depends on what we're doing at the moment. We don't even pause and think, "Gee, I guess I should switch to the other school now." We just do what makes sense in context. So, it's a little puzzling that people make such a fuss over it.
 
@@ -28,7 +28,7 @@ One issue James noticed is the difficulty in working with test doubles, such as 
 
 In order to isolate the code under test from external dependencies for the duration of specific test cases, we use a construct known as a Test Double. A Test Double stands in for a real dependency of the code under test in much the same way as a [stunt double](https://stuntteam.org/what-is-a-stunt-double-everything-you-need-to-know/) stands in for an actor in a movie. 
 
-Like a stunt double, a test double is not as good-looking as the original, but as long as it's dressed up to look like the real thing it's all good.
+Like a stunt double, a test double is not as good-looking as the original, but as long as it's [dressed up to look like the real thing](https://metro.co.uk/2020/08/28/johnny-depps-pirates-caribbean-stunt-double-career-ending-injury-epic-fight-scenes-gift-actor-13119975/) it's all good.
 
 I don't know who coined the term or when, but it became popularized after the publication of Gerard Meszaros' 2007 book, _xUnit Test Patterns: Refactoring Test Code_. 
 
@@ -46,11 +46,13 @@ It's common to hear/read that using mocks with TDD leads to bad software design.
 
 Now, no one likes to think they had anything to do with sinking the ship. So, people often blame their tools - in this case, the use of mocks or the use of TDD itself. But I'm pretty sure if you don't apply fundamental software design principles to your work, you can cause the same problems using Nullables and Sociable Tests as you can using mocks. 
 
+![Guilty dog](images/guilty-dog.png)
+
 If the bad design is causing problems with mocks rather than the other way around, then substituting Nullables and Sociable Tests for mocks won't solve it. Let's find out.
 
 ## About this exploration 
 
-What I have in mind is to try test-driving a small application using conventional TDD on the one hand, and again using Nullables and Sociable Tests on the other. 
+To get a sense of Nullables, I wanted to test-driving a small application using conventional TDD on the one hand, and again using Nullables and Sociable Tests on the other. 
 
 James' pattern language is explicitly focused on Object-Oriented languages, so let's start with those. I propose we try languages with static typing and dynamic typing, and languages that separate test code from production code in different ways. That way, if any of those characteristics has an effect on James' approach, we'll see it. 
 
