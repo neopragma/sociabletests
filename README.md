@@ -118,7 +118,7 @@ The exploration suggests a "real" team that worked in this way would spend propo
 
 #### Unused code in production
 
-I'm not comfortable having excess code present in the deployed production application as it affords hackers opportunities to hang malware onto the unused code. I think people call this the "threat surface" of the system. The hand-rolled mocks are not used in production  They provide an area in memory where hackers can inject malware without being noticed.
+I'm not comfortable having excess code present in the deployed production application as it affords hackers opportunities to stick malware there, using the unused object code as a patch area. I think people call this the "threat surface" of the system. The hand-rolled mocks are not used in production  They provide an area in memory where hackers can inject malware without being noticed.
 
 James suggests some possible use cases for Nullables in production code. They are highly dependent on what the application does, not relevant in most cases, and can always be implemented in some other way.
 
