@@ -96,7 +96,7 @@ Yet I found working with the Nullables version was more tedious and time-consumi
 
 I also didn't like the frequent context-switching between hand-rolling the Embedded Stub and working on the actual problem at hand. There was no way to write test cases without the stub. I wanted to focus on the application logic at first, and mocks enable that.
 
-### Recruiting and staff retention
+#### Recruiting and staff retention
 
 The vast majority of Java developers available for hire are already familiar with mock libraries. Every organization that uses Nullables will have their own "flavor" of it, as it's all hand-written. That means surprises, and lots of them, in the sense of the Principle of Least Surprise. It's not out of the question to expect an organization that required this approach to face higher turnover of technical staff than they would otherwise. 
 
