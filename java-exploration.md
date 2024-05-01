@@ -369,7 +369,7 @@ All tests passed.
 
 JS May 1: "In the Nullables patterns, WeatherDataImpl and FootballDataImpl are 'high level infrastructure wrappers.' They should delegate to a 'low level infrastructure wrapper' that talks to the external system. In this case, I would have them delegate to something that abstracted the file system. Because I like stupid-obvious names, I would call it 'FileSystem.' It can expose the only thing you care about, which is 'String readFileContents(filename).'"
 
-Another advantage of this approach is that the "business" logic doesn't need to deal with I/O exceptions. That will simplify the code. 
+Another advantage of using an infrastructure wrapper is that the "business" logic doesn't need to deal with I/O exceptions. 
 
 I think the current way to read the full content of a text file into a String in Java is ```Files.readString()```. The available facilities change a bit from release to release of Java. 
 
@@ -387,12 +387,20 @@ As they currently stand, the ```create()``` and ```createNull()``` methods of ``
 
 ![Original create() and createNull()](images/weather-create-orig.png)
 
-Moving the responsibility for the stub into the infrastructure wrapper class ```FileSystem``` will make this code a little cleaner. One effect will be to eliminate this kludge: 
+Using the "die roller" example [from James' article](https://jamesshore.com/v2/projects/nullables/testing-without-mocks#nullables) as a guide, I created an infrastructure wrapper class named ```FileSystem```. This is where the promise of "less code" fell apart. I attribute it to differences between JavaScript and Java. In Java, this requires considerably more code than in JavaScript. It also causes a fair amount of unused code to be deployed with the production application, and still has the potential risks of expanding the threat surface of the application. 
 
-![BufferedReader kludge](images/bufferedreader-kludge.png) 
+Here's ```FileSystem```. 
 
-I was passing a ```StringReader``` based on an empty string to the constructor of ```StubbedReader``` because there's no no-arg constructor for ```BufferedReader```. The code is just clutter, and can be simplified. As I write this, I'm thinking I shouldn't use ```BufferdReader``` anyway - but that's nothing to do with the Nullables pattern.
+![FileSystem class](images/filesystem-class.png)
 
+
+
+
+
+
+
+
+![WeatherFile changes](images/weatherfile-1.png) 
 
 
 
