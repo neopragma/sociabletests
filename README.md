@@ -140,6 +140,8 @@ The exploration suggests a "real" team that worked in this way would spend propo
 
 James Shore took a look at the solution in package ```com.neopragma.sociable.v4``` and kindly offered detailed feedback on it. I'll refer to his comments as "JS May 1" because I saw them on May 1, 2024. I'll document how his feedback changed my understanding of the technique.
 
+Let's get the Java implementation in shape before moving on to other languages. There's no need to repeat the noob mistakes over and over.
+
 There are common mistakes that people who have a background using mocks make when they start using this technique. It seems I made them all. So, let's examine the mistakes. 
 
 We thought it would be useful to keep the previous results in place and refactor the Java solution to align more closely with James' approach. That way, you can see how an experienced developer can make these mistakes, and that it's all part of the learning curve. We all struggle with new things, and that's normal.
@@ -202,15 +204,58 @@ After:
 
 All tests passed. 
 
+Now we want to do the same thing on the Football side. 
 
-## Correction 2: Improve names 
+All tests passed. 
+
+
+## Correction 3: Improve names 
 
 JS May 1: "And as long as you're combining Weather and WeatherData, why not call it what it is? It's an abstraction over the ```weather.dat``` file. I would call it ```WeatherFile```. 
 
-There were additional suggestions related to renaming this class ```WeatherFile```, which we'll get to in a moment. For now, we'll just rename it. 
+There were additional suggestions related to renaming this class ```WeatherFile```, which we'll get to in a moment, step by step. For now, we'll just rename it. 
+
+All tests passed.
+
+The same for Football again.
+
+All tests passed. 
 
 
-## Correction 3: 
+## Correction 4: Create infrastructure wrapper class
+
+JS May 1: "In the Nullables patterns, WeatherDataImpl and FootballDataImpl are 'high level infrastructure wrappers.' They should delegate to a 'low level infrastructure wrapper' that talks to the external system. In this case, I would have them delegate to something that abstracted the file system. Because I like stupid-obvious names, I would call it 'FileSystem.' It can expose the only thing you care about, which is 'String readFileContents(filename).'"
+
+Another advantage of this approach is that the "business" logic doesn't need to deal with I/O exceptions. That will simplify the code. 
+
+I think the current way to read the full content of a text file into a String in Java is ```Files.readString()```. The available facilities change a bit from release to release of Java. 
+
+But that isn't what I need here. I need to process each record individually to pluck out the substrings that correspond to logical "fields" in the record, and deal with leading spaces in the numerical values. 
+
+What we're given for the Kata is sort of a mix of mainframe-style file formats and \*nix-style file formats. Fields begin at a given offset from the beginning of each record and they have a fixed length (mainframe-style), but records are variable-length and terminated with a newline character (\*nix-style). So we have to muck with the data, whether by scanning through a giant String and looking for the newlines, or by processing one record at a time and plucking out the fields. 
+
+This is a detail pertaining to the format of the data, and nothing to do with adjusting the structure of the code to fit the Nullables pattern. 
+
+Let's start with the Weather code. 
+
+In method ```getDayWithMinimumTemperatureSpread()```, we read the input file and convert the data into a form that's easier to process than the raw records. We're getting each record from a ```BufferedReader``` instance - either a real one or a stubbed one. We can get the records from our new ```FileSystem``` wrapper instead. The rest of the logic can remain as it is. 
+
+As they currently stand, the ```create()``` and ```createNull()``` methods of ```WeatherFile``` look like this.
+
+![Original create() and createNull()](images/weather-create-orig.png)
+
+Moving the responsibility for the stub into the infrastructure wrapper class ```FileSystem``` will make this code a little cleaner. One effect will be to eliminate this kludge: 
+
+![BufferedReader kludge](images/bufferedreader-kludge.png) 
+
+I was passing a ```StringReader``` based on an empty string to the constructor of ```StubbedReader``` because there's no no-arg constructor for ```BufferedReader```. The code is just clutter, and can be simplified. As I write this, I'm thinking I shouldn't use ```BufferdReader``` anyway - but that's nothing to do with the Nullables pattern.
+
+
+
+
+
+
+
 
 
 
