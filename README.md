@@ -160,7 +160,7 @@ There were two separate issues initially. First, my own understanding of the Nul
 
 **After May 1**
 
-I initially noted this concern under General Observations, but after applying James' suggestions to bring the Java solution into better alignment with the Nullable patters, I learned that Java requires a lot more code than JavaScript to implement an infrastructure wrapper with an Embedded Stub. So I'm moving this concern here, to the Java-specific section of the notes. 
+I initially noted this concern under General Observations, but after applying James' suggestions to bring the Java solution into better alignment with the Nullable pattern, I learned that Java requires a lot more code than JavaScript to implement an infrastructure wrapper with an Embedded Stub. So I'm moving this concern here, to the Java-specific section of the notes. 
 
 ### Impact on throughput
 

@@ -362,8 +362,4 @@ All tests passed.
 
 JS May 1: "A full implementation would have a nullable StdOut and System exit, which would allow you to test Driver, but we'll let that slide."
 
-
-
-
-
-
+Maybe we can add this later. For now, I think we have a good example of how to code an Embedded Stub in Java, and we can get more value by moving on to the next languge.
