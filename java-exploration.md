@@ -239,8 +239,27 @@ No changes to test code are necessary.
 
 This refactoring was quite simple to test-drive. I'm still not convinced this code should exist at all, however.
 
+## Continuing development of the Java solution 
 
+James Shore took a look at the solution in package ```com.neopragma.sociable.v4``` and kindly offered detailed feedback on it. I'll refer to his comments as "JS May 1" because I saw them on May 1, 2024. I'll document how his feedback changed my understanding of the technique.
 
+There are common mistakes that people who have a background using mocks make when they start using this technique. It seems I made them all. So, let's examine the mistakes. 
+
+We thought it would be useful to keep the previous results in place and refactor the Java solution to align more closely with James' approach. That way, you can see how an experienced developer can make these mistakes, and that it's all part of the learning curve. We all struggle with new things, and that's normal.
+
+In addition, if you work in a place that has started to adopt this technique, the already-existing codebase may have been built using mocks, and the same general kinds of issues may exist. Showing the mistakes followed by gradual corrections may be useful. 
+
+We can also avoid repeating the same mistakes with other programming languages as we continue to explore Nullables and Sociable Tests. 
+
+## Correction 1: Remove interfaces 
+
+Let's start with the low-hanging fruit.
+
+JS May 1: "You don't need interfaces. Your code doesn't have multiple implementations of the interface, so they're redundant. WeatherData and WeatherDataImpl can be combined into WeatherData. Ditto for FootballData."
+
+I defined those interfaces as the basis for mocks, and then carried over the same design to the Nullables version of the code. I agree with James' observation. We can reduce the number of classes in the solution by two quite easily. 
+
+These changes are in package ```com.neopragma.sociable.v5```.
 
 
 

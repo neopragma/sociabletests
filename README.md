@@ -136,6 +136,89 @@ The most complicated logic is in the ```StubbedReader``` class, which is to all 
 
 The exploration suggests a "real" team that worked in this way would spend proportionally more time on test setup code than they normally would do. That means less time spent on value-add activities, lower process cycle efficiency, and lower throughput.
 
+## Continuing development of the Java solution 
+
+James Shore took a look at the solution in package ```com.neopragma.sociable.v4``` and kindly offered detailed feedback on it. I'll refer to his comments as "JS May 1" because I saw them on May 1, 2024. I'll document how his feedback changed my understanding of the technique.
+
+There are common mistakes that people who have a background using mocks make when they start using this technique. It seems I made them all. So, let's examine the mistakes. 
+
+We thought it would be useful to keep the previous results in place and refactor the Java solution to align more closely with James' approach. That way, you can see how an experienced developer can make these mistakes, and that it's all part of the learning curve. We all struggle with new things, and that's normal.
+
+In addition, if you work in a place that has started to adopt this technique, the already-existing codebase may have been built using mocks, and the same general kinds of issues may exist. Showing the mistakes followed by gradual corrections may be useful. 
+
+We can also avoid repeating the same mistakes with other programming languages as we continue to explore Nullables and Sociable Tests. 
+
+## Correction 1: Remove interfaces 
+
+Let's start with the low-hanging fruit.
+
+JS May 1: "You don't need interfaces. Your code doesn't have multiple implementations of the interface, so they're redundant. WeatherData and WeatherDataImpl can be combined into WeatherData. Ditto for FootballData."
+
+I defined those interfaces as the basis for mocks, and then mindlessly carried over the same design to the Nullables version of the code. I agree with James' observation. We can reduce the number of classes in the solution by two quite easily. 
+
+These changes are in package ```com.neopragma.sociable.v5```.
+
+I started by using the Safe Delete feature of IntelliJ to remove interface FootballData. The IDE flagged five places in the code where deleting the interface might be unsafe:
+
+![FootballData Safe Delete output](images/footballdata-safe-delete.png)
+
+The ```Football``` class has a reference to the name ```FootballData```. That's fine, as I plan to rename ```FootballDataImpl``` to ```FootballData``` in a minute. 
+
+![Safe Delete warning in Football](images/safedelete-football.png)
+
+```FootballDataImpl``` implements interface ```FootballData```. I'll remove that reference and rename this class, so this one won't be a problem. 
+
+No need to repeat all the warnings here - they're references to the name ```FootballData```, which will all be fine once I rename class ```FootballDataImpl```. There's also an ```@Override``` annotation to remove in that class. 
+
+All tests passed. 
+
+Next I repeated the same process for ```WeatherDataImpl``` and ```WeatherData```. 
+
+All tests passed. 
+
+## Correction 2: Simplify class structure 
+
+JS May 1: "...Weather/Football doesn't have any meaningful code. They're both answering a question about the underlying Weather file. Why not answer that question directly in WeatherData..." 
+
+My last set of refactorings reduced ```Weather``` and ```Football``` almost to nothing. This suggestion really amounts to continuing the refactorings I had started until their logical conclusion. 
+
+Moving this method from ```Weather``` to ```WeatherData``` enables us to eliminate class ```Weather```. 
+
+![getday() method](images/getday-method.png)
+
+We also needed to change references in ```Driver``` to ```WeatherData``` instead of ```Weather```. This simplified the code in ```Driver```. 
+
+All tests passed.
+
+Now we have a one-line method that calls another method in the same class, and isn't used anywhere else. We can simplify that.
+
+Before:
+
+![Two methods in WeatherData](images/getminmaxtemps-orig.png)
+
+After:
+
+![One method in WeatherData](images/getminmaxtemps-after.png)
+
+All tests passed. 
+
+
+## Correction 2: Improve names 
+
+JS May 1: "And as long as you're combining Weather and WeatherData, why not call it what it is? It's an abstraction over the ```weather.dat``` file. I would call it ```WeatherFile```. 
+
+There were additional suggestions related to renaming this class ```WeatherFile```, which we'll get to in a moment. For now, we'll just rename it. 
+
+
+## Correction 3: 
+
+
+
+
+
+
+
+
 
 ## Exploration 2: C#
 
