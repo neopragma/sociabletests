@@ -387,20 +387,16 @@ As they currently stand, the ```create()``` and ```createNull()``` methods of ``
 
 ![Original create() and createNull()](images/weather-create-orig.png)
 
-Using the "die roller" example [from James' article](https://jamesshore.com/v2/projects/nullables/testing-without-mocks#nullables) as a guide, I created an infrastructure wrapper class named ```FileSystem```. This is where the promise of "less code" fell apart. I attribute it to differences between JavaScript and Java. In Java, this requires considerably more code than in JavaScript. It also causes a fair amount of unused code to be deployed with the production application, and still has the potential risks of expanding the threat surface of the application. 
+Using the "die roller" example [from James' article](https://jamesshore.com/v2/projects/nullables/testing-without-mocks#nullables) as a guide, I created an infrastructure wrapper class named ```FileSystem```. You can find the source under subdirectory ```sociabletestsjava``` in package ```com.neopragma.sociable.v5```.
 
-Here's ```FileSystem```. 
+This is where the promise of "less code" fell apart. I attribute it to differences between JavaScript and Java. In Java, this requires considerably more code than in JavaScript. It also causes a fair amount of unused code to be deployed with the production application, and still has the potential risks of expanding the threat surface of the application. 
 
-![FileSystem class](images/filesystem-class.png)
+I modified the ```WeatherFile``` class to work with the new ```FileSystem``` class. The new version of that class is also in package ```com.neopragma.sociable.v5```. 
 
+All tests passed. 
 
+Next I did the same for the ```FootballFile``` class. 
 
-
-
-
-
-
-![WeatherFile changes](images/weatherfile-1.png) 
 
 
 
