@@ -239,9 +239,51 @@ No changes to test code are necessary.
 
 This refactoring was quite simple to test-drive. I'm still not convinced this code should exist at all, however.
 
+## Observations up to this point
+
+#### Developer experience
+
+Working with Java, Maven, Mockito, and IntelliJ together isn't exactly a dream weekend at [Barbie's beach house](https://www.vogue.com/article/barbie-dreamhouse-airbnb-malibu). A development approach that eliminates one type of dependency - in this case, the mocking library - sounds like an instant improvement.
+
+Yet I found working with the Nullables version was more tedious and time-consuming than working with the mock version. To my surprise, I soon felt eager to go back to struggling with Mockito/IntelliJ integration. On balance, it was less troublesome than using Nullables.
+
+I also didn't like the frequent context-switching between hand-rolling the Embedded Stub and working on the actual problem at hand. There was no way to write test cases without the stub. I wanted to focus on the application logic at first, and mocks enable that.
+
+**After May 1** 
+
+With the benefit of James' feedback and continued practice, I started to get a better sense of the Nullables pattern. Originally, I had brought a mock-oriented mindset to the work, and that caused some friction. As I started to adjust my thinking, I found the developer experience easier than I did at first. 
+
+#### Recruiting and staff retention
+
+The vast majority of Java developers available for hire are already familiar with mock libraries. Every organization that uses Nullables will have their own "flavor" of it, as it's all hand-written. That means surprises, and lots of them, in the sense of the [Principle of Least Surprise](http://principles-wiki.net/principles:principle_of_least_surprise). It's not out of the question to expect an organization that required this approach to face higher turnover of technical staff than they would otherwise. 
+
+**After May 1** 
+
+I still think this is a factor to consider. The pattern language is not a standard "thing" that is supported by a well-known library "everyone" uses. Maybe someday it will be.
+
+#### Codebase size
+
+The Nullables solution for Kata 4 ended up with thirteen (13) production classes as compared with six (6) for the version using mocks. 
+
+Granted, I didn't finish the whole thing using mocks, and there would be eight (8) classes in a version equivalent to the Nullables version. Even so, the exercise suggests there's more code to manage with the Nullables approach.
+
+**After May 1** 
+
+This is another initial impression that changed once I started to think in terms of the Nullable pattern and stopped trying to map "mock-oriented thinking" onto it. 
+
+#### Impact on throughput
+
+The most complicated logic is in the ```StubbedReader``` class, which is to all intents and purposes just a hand-rolled mock or stub. Most of the development time went into that class, as well. It's still a hack, and would require modification to correspond with every future change to the product. I suspect this is characteristic of the approach. A codebase containing hundreds or even thousands of these things would cause teams to burn a lot of time working on code that isn't really part of the product.
+
+The exploration suggests a "real" team that worked in this way would spend proportionally more time on test setup code than they normally would do. That means less time spent on value-add activities, lower process cycle efficiency, and lower throughput.
+
+**After May 1** 
+
+This is another initial impression that changed once I started to think in terms of the Nullable pattern and stopped trying to map "mock-oriented thinking" onto it. 
+
 ## Continuing development of the Java solution 
 
-James Shore took a look at the solution in package ```com.neopragma.sociable.v4``` and kindly offered detailed feedback on it. I'll refer to his comments as "JS May 1" because I saw them on May 1, 2024. I'll document how his feedback changed my understanding of the technique.
+Let's get the Java implementation in shape before moving on to other languages. There's no need to repeat the noob mistakes over and over.
 
 There are common mistakes that people who have a background using mocks make when they start using this technique. It seems I made them all. So, let's examine the mistakes. 
 
@@ -257,9 +299,101 @@ Let's start with the low-hanging fruit.
 
 JS May 1: "You don't need interfaces. Your code doesn't have multiple implementations of the interface, so they're redundant. WeatherData and WeatherDataImpl can be combined into WeatherData. Ditto for FootballData."
 
-I defined those interfaces as the basis for mocks, and then carried over the same design to the Nullables version of the code. I agree with James' observation. We can reduce the number of classes in the solution by two quite easily. 
+I defined those interfaces as the basis for mocks, and then mindlessly carried over the same design to the Nullables version of the code. I agree with James' observation. We can reduce the number of classes in the solution by two quite easily. 
 
 These changes are in package ```com.neopragma.sociable.v5```.
+
+I started by using the Safe Delete feature of IntelliJ to remove interface FootballData. The IDE flagged five places in the code where deleting the interface might be unsafe:
+
+![FootballData Safe Delete output](images/footballdata-safe-delete.png)
+
+The ```Football``` class has a reference to the name ```FootballData```. That's fine, as I plan to rename ```FootballDataImpl``` to ```FootballData``` in a minute. 
+
+![Safe Delete warning in Football](images/safedelete-football.png)
+
+```FootballDataImpl``` implements interface ```FootballData```. I'll remove that reference and rename this class, so this one won't be a problem. 
+
+No need to repeat all the warnings here - they're references to the name ```FootballData```, which will all be fine once I rename class ```FootballDataImpl```. There's also an ```@Override``` annotation to remove in that class. 
+
+All tests passed. 
+
+Next I repeated the same process for ```WeatherDataImpl``` and ```WeatherData```. 
+
+All tests passed. 
+
+## Correction 2: Simplify class structure 
+
+JS May 1: "...Weather/Football doesn't have any meaningful code. They're both answering a question about the underlying Weather file. Why not answer that question directly in WeatherData..." 
+
+My last set of refactorings reduced ```Weather``` and ```Football``` almost to nothing. This suggestion really amounts to continuing the refactorings I had started until their logical conclusion. 
+
+Moving this method from ```Weather``` to ```WeatherData``` enables us to eliminate class ```Weather```. 
+
+![getday() method](images/getday-method.png)
+
+We also needed to change references in ```Driver``` to ```WeatherData``` instead of ```Weather```. This simplified the code in ```Driver```. 
+
+All tests passed.
+
+Now we have a one-line method that calls another method in the same class, and isn't used anywhere else. We can simplify that.
+
+Before:
+
+![Two methods in WeatherData](images/getminmaxtemps-orig.png)
+
+After:
+
+![One method in WeatherData](images/getminmaxtemps-after.png)
+
+All tests passed. 
+
+Now we want to do the same thing on the Football side. 
+
+All tests passed. 
+
+
+## Correction 3: Improve names 
+
+JS May 1: "And as long as you're combining Weather and WeatherData, why not call it what it is? It's an abstraction over the ```weather.dat``` file. I would call it ```WeatherFile```. 
+
+There were additional suggestions related to renaming this class ```WeatherFile```, which we'll get to in a moment, step by step. For now, we'll just rename it. 
+
+All tests passed.
+
+The same for Football again.
+
+All tests passed. 
+
+
+## Correction 4: Create infrastructure wrapper class
+
+JS May 1: "In the Nullables patterns, WeatherDataImpl and FootballDataImpl are 'high level infrastructure wrappers.' They should delegate to a 'low level infrastructure wrapper' that talks to the external system. In this case, I would have them delegate to something that abstracted the file system. Because I like stupid-obvious names, I would call it 'FileSystem.' It can expose the only thing you care about, which is 'String readFileContents(filename).'"
+
+Another advantage of this approach is that the "business" logic doesn't need to deal with I/O exceptions. That will simplify the code. 
+
+I think the current way to read the full content of a text file into a String in Java is ```Files.readString()```. The available facilities change a bit from release to release of Java. 
+
+But that isn't what I need here. I need to process each record individually to pluck out the substrings that correspond to logical "fields" in the record, and deal with leading spaces in the numerical values. 
+
+What we're given for the Kata is sort of a mix of mainframe-style file formats and \*nix-style file formats. Fields begin at a given offset from the beginning of each record and they have a fixed length (mainframe-style), but records are variable-length and terminated with a newline character (\*nix-style). So we have to muck with the data, whether by scanning through a giant String and looking for the newlines, or by processing one record at a time and plucking out the fields. 
+
+This is a detail pertaining to the format of the data, and nothing to do with adjusting the structure of the code to fit the Nullables pattern. 
+
+Let's start with the Weather code. 
+
+In method ```getDayWithMinimumTemperatureSpread()```, we read the input file and convert the data into a form that's easier to process than the raw records. We're getting each record from a ```BufferedReader``` instance - either a real one or a stubbed one. We can get the records from our new ```FileSystem``` wrapper instead. The rest of the logic can remain as it is. 
+
+As they currently stand, the ```create()``` and ```createNull()``` methods of ```WeatherFile``` look like this.
+
+![Original create() and createNull()](images/weather-create-orig.png)
+
+Moving the responsibility for the stub into the infrastructure wrapper class ```FileSystem``` will make this code a little cleaner. One effect will be to eliminate this kludge: 
+
+![BufferedReader kludge](images/bufferedreader-kludge.png) 
+
+I was passing a ```StringReader``` based on an empty string to the constructor of ```StubbedReader``` because there's no no-arg constructor for ```BufferedReader```. The code is just clutter, and can be simplified. As I write this, I'm thinking I shouldn't use ```BufferdReader``` anyway - but that's nothing to do with the Nullables pattern.
+
+
 
 
 
