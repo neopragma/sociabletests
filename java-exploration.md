@@ -269,7 +269,13 @@ Granted, I didn't finish the whole thing using mocks, and there would be eight (
 
 **After May 1** 
 
-This is another initial impression that changed once I started to think in terms of the Nullable pattern and stopped trying to map "mock-oriented thinking" onto it. 
+There were two separate issues initially. First, my own understanding of the Nullables pattern was incorrect. I wrote more code than necessary to implement most of the ideas in the model. The second issue looks like a language-specific problem. It takes more code to implement an infrastructure wrapper with an Embedded Stub in Java than it does in JavaScript. 
+
+#### Unused code in production 
+
+**After May 1**
+
+I initially noted this concern under General Observations, but after applying James' suggestions to bring the Java solution into better alignment with the Nullable patters, I learned that Java requires a lot more code than JavaScript to implement an infrastructure wrapper with an Embedded Stub. So I'm moving this concern here, to the Java-specific section of the notes. 
 
 #### Impact on throughput
 
@@ -279,7 +285,7 @@ The exploration suggests a "real" team that worked in this way would spend propo
 
 **After May 1** 
 
-This is another initial impression that changed once I started to think in terms of the Nullable pattern and stopped trying to map "mock-oriented thinking" onto it. 
+While my initial implementation of ```StubbedReader``` deviated from the pattern in that it was in a separate class, when I adjusted the structure of the code to align with the Nullable pattern the complexity moved into the infrastructure wrapper class, ```FileSystem```. The complexity is still there. As noted elsewhere, this appears to be due to the way Java works. 
 
 ## Continuing development of the Java solution 
 
@@ -396,6 +402,13 @@ I modified the ```WeatherFile``` class to work with the new ```FileSystem``` cla
 All tests passed. 
 
 Next I did the same for the ```FootballFile``` class. 
+
+All tests passed. 
+
+
+## Correction 5: Make the Driver class testable 
+
+JS May 1: "A full implementation would have a nullable StdOut and System exit, which would allow you to test Driver, but we'll let that slide."
 
 
 

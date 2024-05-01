@@ -108,7 +108,7 @@ Not all applications are cloud applications, but cloud applications have some ad
 
 **After May 1** 
 
-When the Nullables pattern is used correctly, it does not result in excessive "additional" code in production. But I still worry about the unused stub code scattered throughout the codebase. It's good that it isn't as extensive as I had feared at first.
+Applying James' suggestions, I learned that creating infrastructure wrappers with Embedded Stubs involves far more code in Java than it does in JavaScript. I'm moving this concern from the General Observations section to the Java-specific section. It seems like a language-specific issue.
 
 #### Blurred distinction between isolated low-level tests and tests of larger scope
 

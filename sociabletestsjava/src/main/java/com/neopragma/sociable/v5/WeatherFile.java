@@ -1,6 +1,5 @@
 package com.neopragma.sociable.v5;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
