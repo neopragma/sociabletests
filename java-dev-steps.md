@@ -380,10 +380,17 @@ All tests passed.
 
 JS May 2: "Parameters for WeatherFile createNull() (and Football file)...should be at caller's level of abstraction, not the file's. In other words, pass in the temperatures you want to return, not the records. It should convert them to records." 
 
-This makes sense from a general design standpoint. It's interesting to pass in values that are then converted into records that are then converted into value objects. It "feels" like such a test case would be vulnerable to failures due to things other than the code under test not behaving as expected. But let's get things set up properly per the pattern before worrying about other matters. Maybe the value of this will become obvious in the process.
+There are two different points here. The first, regarding the appropriate level of abstraction for the parameters, makes good sense. It was easy to make the relevant changes.
 
-These were fairly small changes, and all tests passed. 
+But the idea of passing in the temperatures we want, writing "extra" code in the Nullable object to convert that data into records, and then running those records through the code under test (finally!) feels like overkill. Remember, all that code goes to production. Do we want it there?
 
+The way input is fed into the solution has to match the format of the files given in the Kata's instructions. There's no algorithm to convert a temperature range into the <em>header records</em> for the input file. Besides that, ultimately we would want test cases for invalid input files. We have to be able to specify the exact contents of input files.
+
+Passing temperature ranges into the ```Driver``` class for testing would almost certainly bypass some important logic in the code under test. Without header records, how would we check that the code handles missing header records properly? Should it throw an exception and die? Should it issue a warning message and continue? Should it silently ignore the records that don't contain numbers? 
+
+Is this a point of diminishing returns for the model, where the rough edges of the "real world requirements" go against the grain of the pattern? I'd like to wrangle the Java solution into a clean implementation consistent with the model, but it's possible this Kata doesn't lend itself nicely to the model. In contrast, consider the dice roller example from the original article; it seems to be tailor-made to show the testing model. 
+
+I decided to have the test cases continue to pass in fake records rather than temperature ranges (or football scores, for the other part of the Kata). This may be okay for purposes of the present exercise, as everything we have to work with isn't necessarily free of rough edges. The model has to be able to handle that somewhat gracefully; at least as gracefully as the alternative, Test Doubles. 
 
 ## Correction 8: Rename of FileSystem class 
 
