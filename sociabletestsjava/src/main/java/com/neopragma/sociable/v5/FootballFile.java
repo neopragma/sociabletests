@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FootballFile implements Nullable {
-    private FileSystem fileSystem;
-    private FootballFile(FileSystem fileSystem) {
+public class FootballFile {
+    private final FileWrapper fileSystem;
+    private FootballFile(FileWrapper fileSystem) {
         this.fileSystem = fileSystem;
     }
     public static FootballFile create() {
-        return new FootballFile(FileSystem.create().withPath("football.dat"));
+        return new FootballFile(FileWrapper.create("football.dat"));
     }
     public static FootballFile createNull(String[] inputRecords) {
         String[] allRecords = new String[inputRecords.length + 1];
@@ -21,8 +21,7 @@ public class FootballFile implements Nullable {
                 1,
                 inputRecords.length);
 
-        return new FootballFile(FileSystem.createNull()
-                .withInputRecords(inputRecords));
+        return new FootballFile(FileWrapper.createNull(allRecords));
     }
     public String getTeamWithMinimumScoringSpread() {
         List<ValueRange> valueRanges = new ArrayList<>();
@@ -42,6 +41,5 @@ public class FootballFile implements Nullable {
         }
         return Helpers.findSmallestRangeIn(valueRanges);
     }
-
 }
 

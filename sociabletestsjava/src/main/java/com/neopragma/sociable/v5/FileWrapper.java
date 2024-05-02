@@ -2,22 +2,18 @@ package com.neopragma.sociable.v5;
 
 import java.io.*;
 
-public class FileSystem {
+public class FileWrapper {
     private ReaderWrapper reader;
-    private FileSystem() {}
-    public static FileSystem create() {
-        return new FileSystem();
+    private FileWrapper() {}
+    public static FileWrapper create(String path) {
+        FileWrapper tempFileSystem = new FileWrapper();
+        tempFileSystem.reader = new RealReader().withPath(path);
+        return tempFileSystem;
     }
-    public static FileSystem createNull() {
-        return new FileSystem();
-    }
-    public FileSystem withPath(String path) {
-        reader = new RealReader().withPath(path);
-        return this;
-    }
-    public FileSystem withInputRecords(String[] inputRecords) {
-        reader = new StubbedReader().withInputRecords(inputRecords);
-        return this;
+    public static FileWrapper createNull(String[] inputRecords) {
+        FileWrapper tempFileSystem = new FileWrapper();
+        tempFileSystem.reader = new StubbedReader().withInputRecords(inputRecords);
+        return tempFileSystem;
     }
     public String nextRecord() {
         return reader.nextRecord();

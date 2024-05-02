@@ -358,8 +358,43 @@ Next I did the same for the ```FootballFile``` class.
 All tests passed. 
 
 
-## Correction 5: Make the Driver class testable 
+## Correction 5: Make the Driver class testable (not done at this time)
 
 JS May 1: "A full implementation would have a nullable StdOut and System exit, which would allow you to test Driver, but we'll let that slide."
 
 Maybe we can add this later. For now, I think we have a good example of how to code an Embedded Stub in Java, and we can get more value by moving on to the next languge.
+
+
+## Correction 6: Remove the Nullable interface 
+
+James had further feedback after reviewing the above changes. I'll label them "JS May 2" (although in fact it was still May 1).
+
+JS May 2: "Nullable interface is unnecessary."
+
+True. It's a common Java convention to define a "tagging" interface to help people notice how a given class is used. I think it's idiomatic Java, but as my goal at the moment is to get to a clean baseline for Nullable-compliant code, I removed it. Its removal had no effect on the functionality. 
+
+All tests passed.
+
+
+## Correction 7: Change parameters for WeatherFile and FootballFile create methods
+
+JS May 2: "Parameters for WeatherFile createNull() (and Football file)...should be at caller's level of abstraction, not the file's. In other words, pass in the temperatures you want to return, not the records. It should convert them to records." 
+
+This makes sense from a general design standpoint. It's interesting to pass in values that are then converted into records that are then converted into value objects. It "feels" like such a test case would be vulnerable to failures due to things other than the code under test not behaving as expected. But let's get things set up properly per the pattern before worrying about other matters. Maybe the value of this will become obvious in the process.
+
+These were fairly small changes, and all tests passed. 
+
+
+## Correction 8: Rename of FileSystem class 
+
+JS May 2: "FileSystem isn't quite right. First off, I misunderstood how you were using it - this isn't a FileSystem, it's a File, or maybe a LineDelimitedFile."
+
+True. "File" is a class name used in basic Java packages, so I'd prefer not to duplicate it; and "LineDelimitedFile" isn't quite right, either. The format of the file is kind of a hybrid, as noted elsewhere. But James was looking at the latest version of the source code, and not the step-by-step notes, so he may not have seen the file layout. I decided to call it FileWrapper. If that's not okay, it will be easy enough to change later. 
+
+All tests passed. 
+
+
+
+
+
+

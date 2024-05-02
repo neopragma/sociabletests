@@ -3,13 +3,13 @@ package com.neopragma.sociable.v5;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherFile implements Nullable {
-    private FileSystem fileSystem;
-    private WeatherFile(FileSystem fileSystem) {
+public class WeatherFile {
+    private final FileWrapper fileSystem;
+    private WeatherFile(FileWrapper fileSystem) {
         this.fileSystem = fileSystem;
     }
     public static WeatherFile create() {
-        return new WeatherFile(FileSystem.create().withPath("weather.dat"));
+        return new WeatherFile(FileWrapper.create("weather.dat"));
     }
     public static WeatherFile createNull(String[] inputRecords) {
         String[] allRecords = new String[inputRecords.length + 2];
@@ -20,8 +20,7 @@ public class WeatherFile implements Nullable {
                 allRecords,
                 2,
                 inputRecords.length);
-        return new WeatherFile(FileSystem.createNull()
-                .withInputRecords(allRecords));
+        return new WeatherFile(FileWrapper.createNull(allRecords));
     }
     public String getDayWithMinimumTemperatureSpread() {
         List<ValueRange> valueRanges = new ArrayList<>();
