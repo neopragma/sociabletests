@@ -30,7 +30,7 @@ Granted, I didn't finish the whole thing using mocks, and there would be eight (
 
 **After May 1** 
 
-There were two separate issues initially. First, my own understanding of the Nullables pattern was incorrect. I wrote more code than necessary to implement most of the ideas in the model. The second issue looks like a language-specific problem. It takes more code to implement an infrastructure wrapper with an Embedded Stub in Java than it does in JavaScript. 
+There were two separate issues initially. First, my own understanding of the Nullables pattern was incorrect. I wrote more code than necessary to implement most of the ideas in the model. The second issue looks like a language-specific problem. It takes more code to implement an infrastructure wrapper with an Embedded Stub in Java than it does in JavaScript. There are fewer classes now than I had originally, but there remains quite a lot of "extra" code that effectively duplicates the functionality of mocks and stubs, but has to be written and maintained directly.
 
 ## Unused code in production 
 
