@@ -100,7 +100,7 @@ It still seems to me the Embedded Stubs are effectively the same thing as Test D
 
 #### Unused code in production
 
-I'm not comfortable having excess code present in the deployed production application as it affords hackers opportunities to stick malware there, using the unused object code as a patch area. I think people call this the "threat surface" of the system. The hand-rolled mocks are not used in production. They provide an area in memory where hackers can inject malware without being noticed.
+I'm not comfortable having excess code present in the deployed production application as it affords hackers opportunities to stick malware there, using the unused object code as a patch area. I think people call this the "threat surface" of the system. The hand-rolled Embedded Stubs are not used in production. They provide an area in memory where hackers can inject malware without being noticed.
 
 James suggests some possible use cases for Nullables in production code. They are highly dependent on what the application does, not relevant in most cases, and can always be implemented in some other way.
 
@@ -128,30 +128,36 @@ The first language to explore is Java, an OO language with static typing.
 - [Steps I took](java-dev-steps.md). 
 - [Java-specific observations](java-observations.md).
 
+## Exploration 2: Ruby 
 
-## Exploration 2: C#
+As it seems the Nullables approach was developed in a shop that mainly uses JavaScript, it seemed reasonable to try it using another dynamically-typed language. Will the approach be as easy to use with Ruby as with JavaScript? Let's find out.
 
-Next, I tried another statically-typed OO language that's widely used for business applications, C#. 
+- tl;dr - TBD 
+- Steps I took - TBD
+- Ruby-specific observations - TBD
 
-TBD
+## Exploration 3: C#
+
+C# is a statically-typed OO language, widely used for business applications. In may respects, it's very similar to Java. There are some differences that make it interesting for this exploration, in my opinion. Let's find out.
 
 
-## Exploration 3: Ruby 
-
-As it seems the Nullables approach was developed in a shop that mainly uses JavaScript, it seemed reasonable to try it using another dynamically-typed language. 
-
-TBD
-
+- tl;dr - TBD 
+- Steps I took - TBD
+- C#-specific observations - TBD
 
 ## Exploration 4: F# 
 
 The pattern language was developed with OO languages in mind. Since TDD applies to all kinds of languges, it seemed sensible to try the Nullables and Sociable Tests approach using non-OO languages, as well. F# is a Functional language for the .NET environment.
 
-TBD
-
+- tl;dr - TBD 
+- Steps I took - TBD
+- F#-specific observations - TBD
 
 ## Exploration 5: COBOL 
 
-Procedural languages represent another category of imperative languages, neither Object-Oriented nor Functional (intrinsically). COBOL is a well-known procedural language designed for business applications. It's still used in legacy systems in the financial, energy, and public services sectors. 
+Procedural languages represent another category of imperative languages, intrinsically neither Object-Oriented nor Functional, although they may have some OO and/or Functional support. COBOL is a well-known procedural language designed for business applications. It's still used in legacy systems in the financial, energy, and public services sectors. 
 
-TBD
+- tl;dr - TBD 
+- Steps I took - TBD
+- COBOL-specific observations - TBD
+
