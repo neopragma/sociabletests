@@ -123,10 +123,53 @@ Until now, I haven't learned anything about the Nullables approach that alleviat
 ## Exploration 1: Java
 
 The first language to explore is Java, an OO language with static typing. 
-
-- tl;dr - For me, it's a no-go for Java. 
+ 
 - [Steps I took](java-dev-steps.md). 
 - [Java-specific observations](java-observations.md).
+
+### tl;dr 
+
+Initially, I had thought this approach was a no-go for Java. On reflection, I want to give it a qualified "yes." 
+
+There are three general concerns to be addressed.
+
+- test code deployed to production 
+- increased threat surface due to unused code in production - Embedded Stubs require more code in Java than in some other languages
+- potential recruitment and retention challenges due to non-standard approach - developers want to stay marketable
+
+Famously, Java runs on many different platforms. A couple of production environments may provide enough security and bandwidth to cancel out the first two concerns. Those environments also alleviate the concern about recruitment and retention, for reasons unrelated to Java community conventions. 
+
+#### Cloud environment
+
+If the application is deployed into a cloud environment and is executed in a virtual machine or container, the environment provides some isolation for the code, and if the size of the code is larger than necessary it will not interfere with any other applications. If you're deploying discrete services that are "right-sized" rather than a large, monolithic application, so much the better.
+
+In addition, two operational standards can help with security concerns. 
+
+The first is the phoenix server strategy, in which server instances are routinely destroyed and re-created from base instances that are "clean." This reduces the time available for hackers to introduce malware, and when they succeed, it limits the time when the malware can be active. For instance, if servers are cycled every hour, then malware will never live more than an hour. Its average lifespan will be on the order of 30 minutes.
+
+The second is active, real-time monitoring of the production environment. This is usually based on the concept of _observability_, and is handled with special tooling and software design details. Some people conflate aggregated log analysis with observability-based monitoring, but log analysis occurs after the fact and provides bad actors with too much time to cause trouble before intrusions are detected.
+
+In a cloud environment managed in that way, I can see using Embedded Stubs as substitutes for Test Doubles. 
+
+#### Mainframe environment 
+
+The other environment that can alleviate these concerns is the IBM System Z, popularly called "mainframe." This is relevant to Java in particular. Java is a first-class citizen of the System Z. Other popular languages for cloud solutions don't enjoy the same degree of custom support for performance and security.
+
+One relevant characteristic of the Z platform is the huge amount of memory available. Memory is called _storage_ in that environment. Z systems can be configured with over 40 terabytes of real storage and 6 terabytes of flash memory. The 64-bit addressing mode allows for a theoretical maximum of 16 exabytes of virtual storage per address space. A little excess code here and there has no measurable effect on throughput. 
+
+Another relevant characteristic is the extensive security measures built into the system. Regardless of which operating system hosts the application, it benefits from the on-chip CPACF crypto accelerator in each processor core as well as the Crypto Express device, which applies security algorithms to every instruction execution (plus more that is too lengthy to describe here). 
+
+For the traditional operating systems, z/OS, z/VSE, z/TPF, and the type 1 hypervisor z/VM, there are also four different software-based storage protection schemes checking every store and fetch operation. For KVM and Linux LPARS, the Crypto Express can be fitted with a Kubernetes adapter, extending further hardware-level security features to cloud workloads that run in those environments on the System Z. 
+
+The measures IBM has taken to maximize performance for Java also help with security, to an extent. Java bytecodes are taken apart and put back together under the covers. Bytecodes run under highly customized JVMs. Five levels of software-based performance enhancements are dynamically applied at runtime based on frequency of method calls. The unused code deployed into production (that is, the Embedded Stubs) may not exist for long in virtual storage. They are never called, so the system may remove them to free up storage. An infrequently-called method will be loaded on demand, but there's no need to keep it resident all the time. 
+
+In that environment, I can see using Embedded Stubs as substitutes for Test Doubles for Java. 
+
+#### Recruitment and retention concerns 
+
+Both cloud environments and the System Z are enjoying growth in job opportunities (and the System Z is used as a cloud infrastructure, too). Many software professionals will be glad to have an opportunity to get started in one or both these environments. 
+
+Another consideration is that most jobs in these areas are filled by H1B visa holders (in the US, anyway). They are constrained by the fact their visas are "owned" by their employers. Even if they worry that their mainstream Java skills may be eroded by focusing on a non-standard way of structuring code, the stability of their employment is likely to be a more important consideration. 
 
 ## Exploration 2: Ruby 
 
