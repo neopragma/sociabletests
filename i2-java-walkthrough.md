@@ -170,7 +170,7 @@ code is considerably more complicated than in the other version.
 
 The input file provided with the Kata looks like this. 
 
-![weather.dat file](images/weatherfile-1.png)
+![weather.dat file](images/weather.png)
 
 It appears to be a "report" that has been formatted to be readable by humans. Fields begin in specific 
 columns and have fixed lengths. Numerical values have had their leading zeroes stripped off and replaced
