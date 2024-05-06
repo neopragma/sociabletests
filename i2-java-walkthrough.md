@@ -92,6 +92,4 @@ Using the pattern language, the way to do this is to define an adapter for the e
 
 The source files for this exploration are in subdirectory ```iteration2-sociabletestsjava```. The version using mocks lives in package ```com.neopragma.withmocks.v1``` and the version using Sociable Tests lives in package ```com.neopragma.sociable.v1```. 
 
-James has written [a separate article](https://www.jamesshore.com/v2/projects/nullables/how-are-nullables-different-from-mocks) dedicated to the question of how Nullables differ from mocks. One assertion in the article is that isolated mock-based tests can't catch certain types of bugs, while Sociable Tests based on Nullables can. There's an unstated underlying assumption that teams who use isolated, mock-based tests don't use any other methods of testing or test-driving their code. To be fair, I know there are teams that fall into that habit; but if we assume a team applies good practices for organizing test suites and writing test cases, I don't agree that this is a real "difference" between the two approaches.
-
 
