@@ -162,7 +162,7 @@ On the other hand, if we don't worry about academic purity we _can_ write Java c
 at least _similar_ to the model, and avoid using a mocking library. Compare this test class
 with the one for the corresponding version that uses mocks. 
 
-![Sociable WeatherTest](images/i2/i2-java-sociable-weathertest-1)
+![Sociable WeatherTest](images/i2/i2-java-sociable-weathertest-1.png)
 
 I wouldn't say this is necessarily _simpler_ than the other version, but it's not really any
 more complicated. As far as developer effort is concerned, the test cases are a wash. The production
