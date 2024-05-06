@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WeatherTest {
+public class SandboxTest {
 
     @Test
     public void given_high_75_and_low_35_it_returns_difference_of_40() {
