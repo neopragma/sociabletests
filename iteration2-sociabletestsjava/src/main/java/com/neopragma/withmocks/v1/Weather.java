@@ -1,6 +1,5 @@
 package com.neopragma.withmocks.v1;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Weather {
@@ -9,7 +8,7 @@ public class Weather {
         this.reader = reader;
     }
 
-    public String readNextRecord() throws IOException {
+    public String readLine() throws IOException {
         return reader.readLine();
     }
 }

@@ -20,8 +20,8 @@ public class WeatherTest {
                 "abc", "def", null
         );
         Weather cut = new Weather(mockReader);
-        assertEquals("abc", cut.readNextRecord());
-        assertEquals("def", cut.readNextRecord());
-        assertEquals(null, cut.readNextRecord());
+        assertEquals("abc", cut.readLine());
+        assertEquals("def", cut.readLine());
+        assertEquals(null, cut.readLine());
     }
 }

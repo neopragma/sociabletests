@@ -1,2 +1,6 @@
+com/neopragma/sociable/v1/Weather$StubbedReaderWrapper.class
 com/neopragma/withmocks/v1/ReaderWrapper.class
 com/neopragma/withmocks/v1/Weather.class
+com/neopragma/sociable/v1/Weather$ReaderWrapper.class
+com/neopragma/sociable/v1/Weather$RealReaderWrapper.class
+com/neopragma/sociable/v1/Weather.class

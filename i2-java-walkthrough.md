@@ -112,12 +112,62 @@ Here's what I ended up with:
 
 ![ReaderWrapper class](images/i2/i2-java-readerwrapper-1.png)
 
-![WeatherTest class](images/i2/i2-java-weathertest-1.png)
+![WeatherTest class](images/i2/i2-java-mock-weathertest-1.png)
 
 
 ## Version using Nullables
 
 Let's see how the above compares with using a Nullable with an Embedded Stub. 
+
+On the plus side, I didn't have to deal with the flakiness of Mockito plus IntelliJ IDEA. 
+
+However, there are many issues with my code. At first I followed the examples from James' article
+carefully. This resulted in code that did nothing at all. To get it to yield the same results
+as the version using mocks, this is the way the ```Weather``` class ended up:
+
+![Weather using Nullable (1 of 3)](images/i2/i2-java-sociable-weather-1-a.png)
+![Weather using Nullable (2 of 3)](images/i2/i2-java-sociable-weather-1-b.png)
+![Weather using Nullable (3 of 3)](images/i2/i2-java-sociable-weather-1-c.png)
+
+Apart from being much longer than the other version, this code deviates from the 
+pattern language in several ways.
+
+According to the model, the factory methods should take no arguments.
+Based on feedback from James on my "iteration 1" exploration, we are also 
+not supposed to use Builder-style methods or setter methods
+to supply necessary values to the class, the thin wrapper, the real
+implementation, or the stubbed implementation. Is this feasible in Java?
+
+The BufferedReader instance member in RealReaderWrapper and the String[]
+instance member in StubbedReaderWrapper are supposed to be declared final,
+per the model. Yet there is no way to assign values to them when they
+are declared final. All the constructors and factory methods are supposed
+to take zero arguments. 
+
+The Thin Wrapper interface and its two implementations are supposed to be private - 
+in this case, visible only inside class ```Weather```. But the path name for the real
+implementation and the list of fake records for the stubbed implementation must be
+supplied from outside class ```Weather```. Otherwise, the whole setup is useless. 
+
+The resulting code is so opaque that it can't be configured for test cases.
+
+Therefore, this code fails the test. It is not a valid implementation of
+the Nullables and Embedded Stub approach because it doesn't follow all
+the rules. If we followed all the rules, the code would do nothing. We can't really
+compare the version using mocks with the version using Nullables in an apples-to-apples way,
+because we can't stay true to the model using the Java language, except for the most trivial
+examples, such as the Die Roller example. 
+
+On the other hand, if we don't worry about academic purity we _can_ write Java code that is
+at least _similar_ to the model, and avoid using a mocking library. Compare this test class
+with the one for the corresponding version that uses mocks. 
+
+![Sociable WeatherTest](images/i2/i2-java-sociable-weathertest-1)
+
+I wouldn't say this is necessarily _simpler_ than the other version, but it's not really any
+more complicated. As far as developer effort is concerned, the test cases are a wash. The production
+code is considerably more complicated than in the other version. 
+
 
 
 
