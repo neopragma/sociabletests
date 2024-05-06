@@ -22,7 +22,7 @@ Now the test passes.
 
 ![First passing example](images/i2/i2-java-test-1-pass.png)
 
-We know we'll have to pluck the day number and temperatures out of the input recrd. Let's drive out that functionality next. We set up an example to check that the code can extract the day number from a record. We write the implementation wrong in a deliberate way to ensure the example can fail for the right reason. In this case, we extract bytes 2 through 5 instead of bytes 2 through 4. We should end up with the day number plus an extra blank space.
+We know we'll have to pluck the day number and temperatures out of the input record. Let's drive out that functionality next. We set up an example to check that the code can extract the day number from a record. We write the implementation wrong in a deliberate way to ensure the example can fail for the right reason. In this case, we extract bytes 2 through 5 instead of bytes 2 through 4. We should end up with the day number plus an extra blank space.
 
 ![Extract the day number](images/i2/i2-java-test-2-1.png)
 
@@ -72,7 +72,7 @@ At this point, we have snippets of code in a test class that verifiably extract 
 
 The solution has to process a list of input records and find the day that had the smallest difference between minimum and maximum temperatures. That suggests we'll need a list of objects that contain the day number and the temperature difference for that day. Java doesn't natively support tuples. There's a library we could use for that, but we'd rather not add a dependency to the project just for that. We can use a Java Record instead.
 
-Before getting into list processing, let's make sure the code we have will produce a Java Record with the contents we want. 
+Before getting into list processing, let's make sure the code we have will produce a Java Record with the contents we want. We cobble together the pieces based on some of the small examples we've coded. It doesn't have to be pretty at this point.
 
 ![Testing code to create a Java Record](images/i2/i2-java-test-5-1.png)
 
