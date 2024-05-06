@@ -28,7 +28,7 @@ However, in cases when it makes sense to write an Interaction Test (and I think 
 
 This is nothing more complicated than the "red" step in the red-green-refactor cycle. The only way the refactoring could "break" test cases is if the team modified the production code before they modified the affected test cases. In that case, by definition they are not test-driving the refactoring, even if they insist that they "always" use TDD. That's a matter of skills or mindset or habit, not of tools or methods or architectural models.
 
-### Assumption 3 - it's okey to deploy a small amount of test code to production
+### Assumption 3 - it's okay to deploy a small amount of test code to production
 
 Nearly all suggestions that people make for improving our software development and delivery practices seem to be aimed at increasing team productivity and/or simplifying the developer experience. James' approach seems to be aligned with this general priority. I could be wrong about that; we haven't discussed this aspect of it.
 
