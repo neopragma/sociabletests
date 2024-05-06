@@ -82,6 +82,8 @@ This is getting to be a bit much to jam into a test class. Let's think about dom
 
 This part of the Kata concerns weather, so let's encapsulate our logic in a class named ```Weather```. We are asked to find the day with the smallest temperature range in the input data, and return the day number. But users/clients are not going to create the input records themselves and pass them directly to the Weather application. They'll specify a file the Weather application must read. File I/O is a separate concern from the application logic. So we have two entities - the ```Weather``` class for the "business logic" and some other class to manage access to the file. 
 
+## It's time to split the code into isolated tests and Sociable Tests
+
 We don't want to have real files as dependencies in our unit test suite, so we need a way to supply the ```Weather``` class with a real or fake file. 
 
 This is where we start to do things differently when we're using mocks and when we're using James' pattern language for testing. We'll supply our fake file to the ```Weather``` class in different ways.
@@ -95,5 +97,29 @@ Using the pattern language, the way to do this is to define an adapter for the e
 <img alt="Embedded Stub" src="images/i2/weather-stub.png" width="400"/>
 
 The source files for this exploration are in subdirectory ```iteration2-sociabletestsjava```. The version using mocks lives in package ```com.neopragma.withmocks.v1``` and the version using Sociable Tests lives in package ```com.neopragma.sociable.v1```. 
+
+## Version using mocks 
+
+The goal was to use a mock to substitute test records when the ```Weather``` class read the input file. Ideally, substituting a fake return value when the code under test called method ```readLine()``` on a ```BufferedReader``` instance would have satisfied the need. But ```BufferedReader``` doesn't lend itself to mocking or stubbing. We have to wrap it in some other class and then mock the wrapper class. The wrapper class has no function in the application; it only exists to enable mocking or stubbing of the ```readLine()``` method. So, in a sense we have to hack the test code, even from the very beginning of writing the application. This is not a strong argument in favor of using mocks. 
+
+I chose to use IntelliJ IDEA for this exploration because it's the most widely-used IDE for Java development. I expected difficulties working with IntelliJ IDEA and Mockito, as I have never seen this combination of tools work easily together. In this case, IntelliJ could not recognize the dependency ```org.mockito.junit.jupiter.MockitoExtension```. After an hour of fiddling with it, I deleted the line ```@ExtendWith(MockitoExtension.class)``` and started to type it slowly, allowing the IDE to catch up with my fingers. The IDE presented a list of possible completions and I selected the one I needed. That way, the IDE was able to recognize the dependency; but when I typed in the source line myself, the IDE was unable to make any connections between the code and the context of the project. Rather than a convenience, autocompletion was a requirement. This is something I dislike about this tool stack, and it's another negative vote for using mocks for this exploration.
+
+When tools demand my attention and force me to fiddle with them instead of focusing on the work I'm trying to do, I don't like it.
+
+Here's what I ended up with:
+
+![Initial Weather class](images/i2/i2-java-mock-weather-1.png)
+
+![ReaderWrapper class](images/i2/i2-java-readerwrapper-1.png)
+
+![WeatherTest class](images/i2/i2-java-weathertest-1.png)
+
+
+
+
+
+## Version using Nullables
+
+
 
 
