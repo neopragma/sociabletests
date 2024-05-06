@@ -149,8 +149,6 @@ in this case, visible only inside class ```Weather```. But the path name for the
 implementation and the list of fake records for the stubbed implementation must be
 supplied from outside class ```Weather```. Otherwise, the whole setup is useless. 
 
-The resulting code is so opaque that it can't be configured for test cases.
-
 Therefore, this code fails the test. It is not a valid implementation of
 the Nullables and Embedded Stub approach because it doesn't follow all
 the rules. If we followed all the rules, the code would do nothing. We can't really
@@ -167,6 +165,28 @@ with the one for the corresponding version that uses mocks.
 I wouldn't say this is necessarily _simpler_ than the other version, but it's not really any
 more complicated. As far as developer effort is concerned, the test cases are a wash. The production
 code is considerably more complicated than in the other version. 
+
+## Parsing input records 
+
+The input file provided with the Kata looks like this. 
+
+![weather.dat file](images/weatherfile-1.png)
+
+It appears to be a "report" that has been formatted to be readable by humans. Fields begin in specific 
+columns and have fixed lengths. Numerical values have had their leading zeroes stripped off and replaced
+by spaces. So, we have to pluck out the values using substrings, as we did in some of the initial 
+test cases. 
+
+The file also contains "header" records. Those don't contain any weather data that our application
+cares about. However, if we receive a file that isn't formatted per specifications, we should
+probably treat that as an error condition. 
+
+Let's see how we can support those requirements. 
+
+
+
+
+
 
 
 
