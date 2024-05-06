@@ -115,10 +115,10 @@ Here's what I ended up with:
 ![WeatherTest class](images/i2/i2-java-weathertest-1.png)
 
 
-
-
-
 ## Version using Nullables
+
+Let's see how the above compares with using a Nullable with an Embedded Stub. 
+
 
 
 

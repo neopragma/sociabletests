@@ -10,9 +10,6 @@ public class Weather {
     }
 
     public String readNextRecord() throws IOException {
-        System.out.println("in readNextRecord(). reader is " + reader);
-        String line = reader.readLine();
-        System.out.println("line is " + line);
-        return line;
+        return reader.readLine();
     }
 }
