@@ -297,7 +297,8 @@ That should do it...
 ## Version using Nullables: Find smallest temperature difference 
 
 Let's get the solution up to the same point using a Nullable with an Embedded Stub. 
-We won't repeat every step in the TDD process. 
+We won't take screenshots for every step in the TDD process. Everything is identical 
+except some of the code in the test case.
 
 The code ended up pretty much the same as in the version using mocks, except that the 
 ```Weather``` class consists mostly of code to support the Embedded Stub, and the 
