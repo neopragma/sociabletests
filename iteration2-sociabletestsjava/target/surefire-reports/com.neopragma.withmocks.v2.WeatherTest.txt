@@ -1,4 +1,17 @@
 -------------------------------------------------------------------------------
 Test set: com.neopragma.withmocks.v2.WeatherTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.526 s -- in com.neopragma.withmocks.v2.WeatherTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.530 s <<< FAILURE! -- in com.neopragma.withmocks.v2.WeatherTest
+com.neopragma.withmocks.v2.WeatherTest.it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference -- Time elapsed: 0.523 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <TemperatureDifference[dayNumber=15, difference=9]> but was: <TemperatureDifference[dayNumber=99, difference=1000]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.neopragma.withmocks.v2.WeatherTest.it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference(WeatherTest.java:30)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

@@ -241,6 +241,32 @@ Method ```readLine()``` in class ```Weather```:
 
 ![Refactored Weather code](images/i2/i2-java-mock-weather-4.png)
 
+Okay, a slight improvement. Now let's enhance the solution so it processes multiple input records 
+and returns a ```List``` of ```TemperatureDifference``` instances. 
+
+But we don't want that to come 
+directly from method ```readLine()```. We want ```readLine()``` to be a private method in class 
+```Weather```. Per the instructions for the Kata, the Weather application should return the day 
+number of the day that had the smallest difference between minimum and maximum temperatures. 
+
+So let's change the test case so that it calls a different method; say, ```smallestTemperatureRange()```. 
+
+![Initial test case for smallest difference](images/i2/i2-java-mock-test-smallest-1.png)
+
+The code in class ```Weather``` looks like this:
+
+![Initial code to return the smallest difference](images/i2/i2-java-mock-test-smallest-2.png)
+
+That's not a complete implementation, and we expect the example to fail. It fails as predicted.
+
+![Initial test failure as predicted](images/i2/i2-java-mock-test-smallest-3.png)
+
+
+
+
+
+
+
 
 
 

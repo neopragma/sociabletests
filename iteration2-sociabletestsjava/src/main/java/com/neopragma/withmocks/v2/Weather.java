@@ -10,7 +10,10 @@ public class Weather {
     public Weather(ReaderWrapper reader) {
         this.reader = reader;
     }
-    public TemperatureDifference readLine() throws IOException {
+    public TemperatureDifference smallestTemperatureRange() {
+        return new TemperatureDifference("99", 1000);
+    }
+    private TemperatureDifference readLine() throws IOException {
         String record = reader.readLine();
         if (record == null) {
             return null;

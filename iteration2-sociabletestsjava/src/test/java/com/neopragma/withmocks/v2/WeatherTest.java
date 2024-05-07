@@ -19,16 +19,14 @@ public class WeatherTest {
     private static final String EOF = null;
     @Mock
     ReaderWrapper mockReader;
+
     @Test
-    public void it_reads_two_records() throws IOException {
+    public void it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference() {
         when(mockReader.readLine()).thenReturn(
                 testRecord1, testRecord2, EOF
         );
-        TemperatureDifference expected1 = new TemperatureDifference(" 9", 54);
-        TemperatureDifference expected2 = new TemperatureDifference("15", 9);
+        TemperatureDifference expected = new TemperatureDifference("15", 9);
         Weather cut = new Weather(mockReader);
-        assertEquals(expected1, cut.readLine());
-        assertEquals(expected2, cut.readLine());
-        assertEquals(EOF, cut.readLine());
+        assertEquals(expected, cut.smallestTemperatureRange());
     }
 }
