@@ -183,7 +183,7 @@ we care about, so that wouldn't be too troublesome. But I didn't.)
 
 The file also contains "header" records. Those don't contain any weather data that our application
 cares about. However, if we receive a file that isn't formatted per specifications, we should
-probably treat that as an error condition. 
+probably treat that as an error condition. We will defer that until a later iteration.
 
 Let's see how we can support those requirements. 
 
@@ -193,7 +193,7 @@ The idea is to "drive" us to improve the implementation of ```readLine()``` in c
 ![readLine test before changes](images/i2/i2-java-mock-test-readline-1.png) 
 
 Taking baby steps, here's a version of the test case that provides a couple of data records. 
-We'll deal with header records in a minute. 
+We'll ignore header records for now. 
 
 ![readLine test with initial changes](images/i2/i2-java-mock-test-readline-2.png) 
 
@@ -297,10 +297,42 @@ That should do it...
 ## Version using Nullables: Find smallest temperature difference 
 
 Let's get the solution up to the same point using a Nullable with an Embedded Stub. 
-We won't repeat every step in the TDD process. We'll resume the walkthrough at the point 
-where things become different for Nullables.
+We won't repeat every step in the TDD process. 
 
-(in progress)
+The code ended up pretty much the same as in the version using mocks, except that the 
+```Weather``` class consists mostly of code to support the Embedded Stub, and the 
+```WeatherTest``` class continues to be simpler than in the version using mocks, since 
+there's no code to configure mocks. 
+
+Here's the test case for method ```smallestTemperatureRange()``` in the version using mocks:
+
+![Test case using a mock](images/i2/i2-java-mock-test-smallest-1.png) 
+
+Here's the same test case in the version using the Embedded Stub:
+
+![Test case using a mock](images/i2/i2-java-nullable-test-smallest-1.png)
+
+The only difference is the small amount of code where we inject the test records for 
+the stubbed ```readLine()``` method.
+
+On the whole, the developer experience seems to be the same for both approaches. 
+Once you have a way to fake out the input file, you just keep building test cases on it. 
+The relative difficulty of the initial setup doesn't carry forward into repeated use 
+of the resulting structure. So, there's no particular advantage to either approach when it comes to developer effort. 
+
+I'm still not sure that the marginally-simpler test cases are worth the cost of having 
+what appears to be a large amount of additional code in the deployed application, only 
+to support testing. This could be an artifact of the way Java works, and possibly the 
+way most or all statically-typed languages work. 
+
+## Changing the implementation for file access 
+
+Both the mock and the Embedded Stub aim to fake out the ```readLine()``` method of the 
+```BufferedReader``` class. Therefore, it might be informative to refactor the way we 
+handle file access. What's the relative difficulty of two approaches when we change 
+the "thing" we're faking out? 
+
+
 
 
 
