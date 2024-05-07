@@ -104,7 +104,8 @@ The goal was to use a mock to substitute test records when the ```Weather``` cla
 
 I chose to use IntelliJ IDEA for this exploration because it's the most widely-used IDE for Java development. I expected difficulties working with IntelliJ IDEA and Mockito, as I have never seen this combination of tools work easily together. In this case, IntelliJ could not recognize the dependency ```org.mockito.junit.jupiter.MockitoExtension```. After an hour of fiddling with it, I deleted the line ```@ExtendWith(MockitoExtension.class)``` and started to type it slowly, allowing the IDE to catch up with my fingers. The IDE presented a list of possible completions and I selected the one I needed. That way, the IDE was able to recognize the dependency; but when I typed in the source line myself, the IDE was unable to make any connections between the code and the context of the project. Rather than a convenience, autocompletion was a requirement. 
 
-This is something I dislike about this tool stack, but it isn't a problem with using a mock library _per se_, it's an idiosyncrasy of the IDE. 
+This is something I dislike about this tool stack, but it isn't a problem with using a mock library _per se_ 
+it's an idiosyncrasy of the IDE. 
 There's no reason we couldn't use, say, Eclipse or NetBeans or VSCode or Vim or Emacs or any of dozens of other tools. I used IntelliJ because it's the market leader, and therefore the developer experience might be broadly representative. 
 
 Here's what I ended up with:
@@ -163,11 +164,12 @@ with the one for the corresponding version that uses mocks.
 
 ![Sociable WeatherTest](images/i2/i2-java-sociable-weathertest-1.png)
 
-I wouldn't say this is necessarily _simpler_ than the other version, but it's not really any
-more complicated. As far as developer effort is concerned, the test cases are a wash. The production
-code is considerably more complicated than in the other version. 
+This code is simpler than the version using mocks. As far as developer effort is concerned, the test cases are a wash. The production
+code is considerably more complicated than the version tested with mocks, as it contains no test code. 
 
 ## Version using mocks: Find smallest temperature difference 
+
+Now we want to develop the solution up to the point that it can find the day that has the smallest difference between the minimum and maximum temperatures. 
 
 The input file provided with the Kata looks like this. 
 
