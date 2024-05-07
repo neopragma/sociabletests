@@ -175,13 +175,60 @@ The input file provided with the Kata looks like this.
 It appears to be a "report" that has been formatted to be readable by humans. Fields begin in specific 
 columns and have fixed lengths. Numerical values have had their leading zeroes stripped off and replaced
 by spaces. So, we have to pluck out the values using substrings, as we did in some of the initial 
-test cases. 
+test cases. (We _could_ process the records as space-delimited fields; the tricky bits come after the fields
+we care about, so that wouldn't be too troublesome. But I didn't.)
 
 The file also contains "header" records. Those don't contain any weather data that our application
 cares about. However, if we receive a file that isn't formatted per specifications, we should
 probably treat that as an error condition. 
 
 Let's see how we can support those requirements. 
+
+We need to change this test case in ```WeatherTest``` so that it takes more-realistic input records. 
+The idea is to "drive" us to improve the implementation of ```readLine()``` in class ```Weather```. 
+
+![readLine test before changes](images/i2/i2-java-mock-test-readline-1.png) 
+
+Taking baby steps, here's a version of the test case that provides a couple of data records. 
+We'll deal with header records in a minute. 
+
+![readLine test with initial changes](images/i2/i2-java-mock-test-readline-2.png) 
+
+Now let's check that the example fails for the right reason. Our prediction is that the returned string values 
+will not match the expected values. 
+
+![readLine test failure](images/i2/i2-java-mock-test-readline-3.png) 
+
+Okay, that looks fine. Let's adjust the expectations and get to green before modifying the implementation. 
+
+![readLine test failure](images/i2/i2-java-mock-test-readline-4.png) 
+
+![readLine test failure](images/i2/i2-java-mock-test-readline-5.png) 
+
+Nothing terribly interesting so far. Let's add in some of the logic we came up with earlier to extract the relevant 
+fields from each record. 
+
+We can move the ```TemperatureDifference``` Record from the Sandbox test file to its own source file and give it public visibility.
+
+![TemperatureDifference Record](images/i2/i2-java-temperaturedifference.png)
+
+Now we can adjust our test expectations and the return type from ```readline()``` so that we're working with 
+```TemperatureDifference``` instances instead of plain Strings. We're still just checking the 
+result of method ```readLine()```.
+
+![readLine test with TemperatureDifference](images/i2/i2-java-mock-test-readline-6.png)
+
+![Weather code with TemperatureDifference](images/i2/i2-java-mock-weather-2.png)
+
+
+
+
+
+
+
+
+
+
 
 
 
