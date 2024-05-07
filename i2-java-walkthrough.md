@@ -218,6 +218,9 @@ result of method ```readLine()```.
 
 ![readLine test with TemperatureDifference](images/i2/i2-java-mock-test-readline-6.png)
 
+The implementation to return a ```TemperatureDifference``` instead of a ```String``` is taken directly 
+from our earlier ```SandboxTest``` example. 
+
 ![Weather code with TemperatureDifference](images/i2/i2-java-mock-weather-2.png)
 
 
