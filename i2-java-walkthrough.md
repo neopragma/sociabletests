@@ -105,7 +105,7 @@ The goal was to use a mock to substitute test records when the ```Weather``` cla
 I chose to use IntelliJ IDEA for this exploration because it's the most widely-used IDE for Java development. I expected difficulties working with IntelliJ IDEA and Mockito, as I have never seen this combination of tools work easily together. In this case, IntelliJ could not recognize the dependency ```org.mockito.junit.jupiter.MockitoExtension```. After an hour of fiddling with it, I deleted the line ```@ExtendWith(MockitoExtension.class)``` and started to type it slowly, allowing the IDE to catch up with my fingers. The IDE presented a list of possible completions and I selected the one I needed. That way, the IDE was able to recognize the dependency; but when I typed in the source line myself, the IDE was unable to make any connections between the code and the context of the project. Rather than a convenience, autocompletion was a requirement. 
 
 This is something I dislike about this tool stack, but it isn't a problem with using a mock library _per se_, it's an idiosyncrasy of the IDE. 
-There's no reason we could use, say, Eclipse or NetBeans or VSCode or Vim or Emacs or any of dozens of other tools. I used IntelliJ because it's the market leader, and therefore the developer experience might be broadly representative. 
+There's no reason we couldn't use, say, Eclipse or NetBeans or VSCode or Vim or Emacs or any of dozens of other tools. I used IntelliJ because it's the market leader, and therefore the developer experience might be broadly representative. 
 
 Here's what I ended up with:
 
