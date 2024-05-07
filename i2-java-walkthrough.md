@@ -300,6 +300,9 @@ Let's get the solution up to the same point using a Nullable with an Embedded St
 We won't take screenshots for every step in the TDD process. Everything is identical 
 except some of the code in the test case.
 
+That's good information. It tells us the pattern language doesn't affect the TDD process 
+in any way. All the work is the same except the details of how we set up Test Doubles.
+
 The code ended up pretty much the same as in the version using mocks, except that the 
 ```Weather``` class consists mostly of code to support the Embedded Stub, and the 
 ```WeatherTest``` class continues to be simpler than in the version using mocks, since 
