@@ -166,7 +166,7 @@ I wouldn't say this is necessarily _simpler_ than the other version, but it's no
 more complicated. As far as developer effort is concerned, the test cases are a wash. The production
 code is considerably more complicated than in the other version. 
 
-## Parsing input records 
+## Version using mocks: Find smallest temperature difference 
 
 The input file provided with the Kata looks like this. 
 
@@ -291,7 +291,13 @@ That should do it...
 
 ...and it does.
 
+## Version using Nullables: Find smallest temperature difference 
 
+Let's get the solution up to the same point using a Nullable with an Embedded Stub. 
+We won't repeat every step in the TDD process. We'll resume the walkthrough at the point 
+where things become different for Nullables.
+
+(in progress)
 
 
 
