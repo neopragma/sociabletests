@@ -1,6 +1,8 @@
 package com.neopragma.withmocks.v2;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Weather {
     private ReaderWrapper reader;
@@ -11,16 +13,31 @@ public class Weather {
         this.reader = reader;
     }
     public TemperatureDifference smallestTemperatureRange() {
-        return new TemperatureDifference("99", 1000);
-    }
-    private TemperatureDifference readLine() throws IOException {
-        String record = reader.readLine();
-        if (record == null) {
-            return null;
+        try {
+            return readLines()
+                .stream()
+                .reduce(new TemperatureDifference("99",1000),
+                    (smallestSoFar, currentElement) ->
+                        currentElement.difference() < smallestSoFar.difference() ?
+                            currentElement : smallestSoFar
+                );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return new TemperatureDifference(
-                record.substring(dayNumberField.startPosition(),dayNumberField.endPosition()),
-                Helpers.extractNumericField(record, maximumTemperatureField)
-                        - Helpers.extractNumericField(record, minimumTemperatureField));
+    }
+    private List<TemperatureDifference> readLines() throws IOException {
+        ArrayList<TemperatureDifference> result = new ArrayList<>();
+        String record = reader.readLine();
+        while (record != null) {
+            result.add(
+                new TemperatureDifference(
+                            record.substring(dayNumberField.startPosition(),dayNumberField.endPosition()),
+                            Helpers.extractNumericField(record, maximumTemperatureField)
+                                    - Helpers.extractNumericField(record, minimumTemperatureField)
+                )
+            );
+            record = reader.readLine();
+        }
+        return result;
     }
 }

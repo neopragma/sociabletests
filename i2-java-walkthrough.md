@@ -250,6 +250,7 @@ directly from method ```readLine()```. We want ```readLine()``` to be a private 
 number of the day that had the smallest difference between minimum and maximum temperatures. 
 
 So let's change the test case so that it calls a different method; say, ```smallestTemperatureRange()```. 
+That name is a little more descriptive, and we don't want to try and test a private method directly. 
 
 ![Initial test case for smallest difference](images/i2/i2-java-mock-test-smallest-1.png)
 
@@ -260,6 +261,39 @@ The code in class ```Weather``` looks like this:
 That's not a complete implementation, and we expect the example to fail. It fails as predicted.
 
 ![Initial test failure as predicted](images/i2/i2-java-mock-test-smallest-3.png)
+
+Let's sneak up on it by calling ```readLine()``` once and seeing if the code returns the values 
+from the first input record. 
+
+![Initial test failure as predicted](images/i2/i2-java-mock-test-smallest-4.png)
+
+![Initial test failure as predicted](images/i2/i2-java-mock-test-smallest-5.png)
+
+That's good - the first test record was for day 9 and had a temperature difference of 54 degrees. 
+
+The next step is to read all the input records and find the day with the smallest temperature difference. 
+Our current failing example is appropriate for driving out that behavior. 
+
+First, we'll adjust the ```readLine()``` method so it reads all the lines. From ```smallestTemperatureRange()``` 
+we'll return the first entry in the list, knowing that won't be right.
+
+![Initial test failure as predicted](images/i2/i2-java-mock-test-smallest-6.png)
+
+The same example fails for the same reason as before - no need to take a screenshot of that. 
+
+Let's change ```smallestTemperatureRange()``` to return the ```TemperatureDifference``` with the smallest difference value. 
+
+![Initial test failure as predicted](images/i2/i2-java-mock-test-smallest-7.png)
+
+That should do it...
+
+![Initial test failure as predicted](images/i2/i2-java-mock-test-smallest-8.png)
+
+...and it does.
+
+
+
+
 
 
 
