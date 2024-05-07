@@ -223,6 +223,25 @@ from our earlier ```SandboxTest``` example.
 
 ![Weather code with TemperatureDifference](images/i2/i2-java-mock-weather-2.png)
 
+Before going on, let's refactor this code a little. Those hard-coded substring arguments are irksome. 
+We're test-driving these changes, although we aren't 
+taking screenshots of every little step. 
+
+![Weather code with TemperatureDifference](images/i2/i2-java-mock-weather-3.png)
+
+Well, that's not very pretty. How about this?
+
+![HelpersTest](images/i2/i2-java-helperstest-1.png)
+
+Class ```Helpers```:
+
+![Helpers](images/i2/i2-java-helpers-1.png)
+
+Method ```readLine()``` in class ```Weather```:
+
+![Refactored Weather code](images/i2/i2-java-mock-weather-4.png)
+
+
 
 
 

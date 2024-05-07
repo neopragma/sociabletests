@@ -1,5 +1,7 @@
+com/neopragma/withmocks/v2/Helpers.class
 com/neopragma/withmocks/v1/ReaderWrapper.class
 com/neopragma/withmocks/v1/Weather.class
+com/neopragma/withmocks/v2/FieldPosition.class
 com/neopragma/sociable/v1/Weather$ReaderWrapper.class
 com/neopragma/sociable/v1/Weather$RealReaderWrapper.class
 com/neopragma/withmocks/v2/Weather.class
