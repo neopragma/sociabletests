@@ -473,7 +473,11 @@ the case when we use test-driven development. Changing the test case to have dif
 test case "red," but it is not "broken." It's _supposed_ to be "red" at that point. 
 
 This is my fourth attempt to get the pattern right using Java, and I feel as if I'm still not getting it entirely right. 
-In any case, I don't think there's value in continuing with the rest of the Kata. What we've done so far gives us a 
+In any case, I don't think there's value in continuing with the rest of the Kata. 
+
+It's true that we haven't added logic to handle the header records in the input file, but that logic is 
+the same for both testing approaches, so there's nothing much to learn from adding it. 
+What we've done so far gives us a 
 reasonably good feel for how the two approaches differ. I think it's time to move on to another language.
 
 
