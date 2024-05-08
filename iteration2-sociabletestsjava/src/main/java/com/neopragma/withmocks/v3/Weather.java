@@ -30,8 +30,8 @@ public class Weather {
     }
     private List<TemperatureDifference> readLines() throws IOException {
         ArrayList<TemperatureDifference> result = new ArrayList<>();
-        try (Stream<String> lines = Files
-                .lines(Path.of("weather.dat"))) {
+        try (Stream<String> lines =
+                reader.readLine()) {
                     lines.forEach((line) -> {
                     result.add(
                         new TemperatureDifference(
@@ -42,8 +42,6 @@ public class Weather {
                     );
                 }
             );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
         return result;
     }

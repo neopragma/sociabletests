@@ -364,9 +364,38 @@ Now we'd like to replace the ```Reader``` approach with Java Streams; something 
 ![readLines() after refactoring](images/i2/i2-java-readlines-after.png)
 
 The question becomes, "What can we mock or stub?" We want ```Stream<String> lines``` to be loaded from 
-the file in production and from an array or list of fake input records for testing. We'd like to identify 
-a small part of this code that we could stub without having to rip apart the chain of Stream method calls, 
-as that structure is idiomatic Java. 
+the file in production and from an array or list of fake input records for testing. It looks as if we 
+could change ```ReaderWrapper.readLine()``` to return a Stream of Strings, either by calling 
+```Files.lines()``` with a ```Path``` or by converting an array of Strings into a Stream. 
+
+What's funny is that it's starting to look a little like an Embedded Stub, except the stub isn't 
+embedded. We have to take a step in the direction of James' pattern language just to enable mocking. 
+There's still a difference - we aren't introducing any test code to the production code. 
+
+Also amusing - with this change, we no longer need Mockito at all. Granted, in a "real" application, we 
+might have been using mocks for other things, but in this small example we've just eliminated the only 
+use of a mock that we had. 
+
+By writing State-Based Tests instead of Interaction Tests, we'll rarely have to change test cases in 
+order to refactor production code; but in this case the change does impact our test case. Does this 
+mean the claim that testing with mocks causes refactorings to break test cases? No, it does not. 
+
+If we follow the discipline of TDD, then we'll think about how our tests might be affected by the 
+refactoring we intend, and modify the tests first. So we modify our test class as follows: 
+
+![WeatherTest changes to prep for refactoring file I/O](images/i2/i2-java-mock-test-smallest-9.png)
+
+Next, we modify our ```ReaderWrapper``` class to return ```Stream<String>``` instead of ```String```:
+
+![ReaderWrapper changes to refactor file I/O](images/i2/i2-java-readerwrapper-2.png)
+
+Finally, we modify the production code in ```Weather``` to use Stream I/O instead of Reader I/O:
+
+![Weather refactored to use Stream I/O](images/i2/i2-java-mock-weather-5.png)
+
+
+
+
 
 
 
