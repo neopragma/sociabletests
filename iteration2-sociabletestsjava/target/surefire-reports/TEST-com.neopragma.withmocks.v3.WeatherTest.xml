@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.neopragma.withmocks.v3.WeatherTest" time="0.533" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.neopragma.withmocks.v3.WeatherTest" time="0.527" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/21.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/davidnicolette/Documents/Projects/sociabletests/iteration2-sociabletestsjava/target/surefire/surefirebooter-20240508075932524_3.jar /Users/davidnicolette/Documents/Projects/sociabletests/iteration2-sociabletestsjava/target/surefire 2024-05-08T07-59-32_472-jvmRun1 surefire-20240508075932524_1tmp surefire_0-20240508075932524_2tmp"/>
+    <property name="sun.java.command" value="/Users/davidnicolette/Documents/Projects/sociabletests/iteration2-sociabletestsjava/target/surefire/surefirebooter-20240508080503890_3.jar /Users/davidnicolette/Documents/Projects/sociabletests/iteration2-sociabletestsjava/target/surefire 2024-05-08T08-05-03_849-jvmRun1 surefire-20240508080503890_1tmp surefire_0-20240508080503890_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="com.neopragma.withmocks.v3.*Test"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/davidnicolette/Documents/Projects/sociabletests/iteration2-sociabletestsjava/target/surefire/surefirebooter-20240508075932524_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/davidnicolette/Documents/Projects/sociabletests/iteration2-sociabletestsjava/target/surefire/surefirebooter-20240508080503890_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21.0.1"/>
@@ -60,7 +60,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference" classname="com.neopragma.withmocks.v3.WeatherTest" time="0.53">
+  <testcase name="it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference" classname="com.neopragma.withmocks.v3.WeatherTest" time="0.522">
     <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/davidnicolette/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
