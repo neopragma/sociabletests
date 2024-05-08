@@ -399,11 +399,85 @@ The test passes.
 ![Weather.readLines() using Stream I/O](images/i2/i2-java-mock-weather-6.png)
 
 
-
-
 ## Changing file access in the version using Nullables
 
-Now let's see how to do the same refactoring in the version using Nullables.
+The refactoring for the version using Nullables is basically the same. We start with the test case. Here's the current version. 
+
+![Test case for Sociable version](images/i2/i2-java-sociable-weathertest-2.png)
+
+The first step is to modify the test case so that we expect the Embedded Stub to return type ```Stream<String>``` 
+instead of a series of ```String``` values. 
+
+![Modified test case for Sociable version](images/i2/i2-java-sociable-weathertest-3.png)
+
+At this point, the test class doesn't compile. That's normal. We need to change the Embedded Stub in 
+class ```Weather``` so it returns ```Stream<String>```. 
+
+That means changing interface ```ReaderWrapper```, class ```RealReaderWrapper```, and class ```StubbedReaderWrapper```. 
+All these are defined inside class ```Weather```. 
+
+Interface ```ReaderWrapper``` before: 
+
+![Interface ReaderWrapper before](images/i2/i2-java-sociable-readerwrapper-before.png)
+
+Interface ```ReaderWrapper``` after: 
+
+![Interface ReaderWrapper after](images/i2/i2-java-sociable-readerwrapper-after.png)
+
+Private class ```RealReaderWrapper``` before:
+
+![RealReaderWrapper before](images/i2/i2-java-sociable-realreaderwrapper-before.png)
+
+Private class ```RealReaderWrapper``` after:
+
+![RealReaderWrapper after](images/i2/i2-java-sociable-realreaderwrapper-after.png)
+
+Private class ```StubbedReaderWrapper``` before:
+
+![StubbedReaderWrapper before](images/i2/i2-java-sociable-stubbedreaderwrapper-before.png)
+
+Private class ```StubbedReaderWrapper``` after:
+
+![StubbedReaderWrapper after](images/i2/i2-java-sociable-stubbedreaderwrapper-after.png)
+
+Finally, we can modify method ```readLines()``` in class ```Weather``` as we did in the other version. 
+
+![Refactored readLines() method](images/i2/i2-java-sociable-readlines-refactored.png)
+
+And the test passes. 
+
+![Weather.readLines() using Stream I/O](images/i2/i2-java-mock-weather-6.png)
+
+## Comparing the two refactoring experiences 
+
+I found the effort required to accomplish the refactoring was greater using the Nullable approach than 
+using mocks. Most of the additional effort was due to the way Java works, and is not inherent to the pattern language.  
+
+Internal to the production 
+```Weather``` class, we had to define a Thin Wrapper, a stub Interface, a "real" implementation of the 
+interface, and a "stubbed" implementation. 
+
+Due to the way Java wraps ```FileReader``` inside of 
+```BufferedReader``` and, for the Streams implementation, the way it wraps a real path name inside of ```Files.lines()```, 
+we needed another wrapper to inject into ```Weather```. This was necessary for the version using mocks, as well. 
+
+The changes to the test class were trivial, both for the version using mocks and the version using the Nullable. 
+
+Ultimately, the two main benefits of the Nullables approach over the use of mocks were not apparent, in this case. 
+
+Weakening test isolation to make the tests Sociable isn't worth the cost of the test-only code added 
+to the production class, ```Weather```. Including test code in the deployed application is not a good idea, 
+in my opinion. I also think isolated tests are preferable; but that's also an opinion. 
+
+The other putative benefit is that when using mocks, a refactoring can break test cases. I didn't find that to be 
+the case when we use test-driven development. Changing the test case to have different expectations makes the 
+test case "red," but it is not "broken." It's _supposed_ to be "red" at that point. 
+
+This is my fourth attempt to get the pattern right using Java, and I feel as if I'm still not getting it entirely right. 
+In any case, I don't think there's value in continuing with the rest of the Kata. What we've done so far gives us a 
+reasonably good feel for how the two approaches differ. I think it's time to move on to another language.
+
+
 
 
 

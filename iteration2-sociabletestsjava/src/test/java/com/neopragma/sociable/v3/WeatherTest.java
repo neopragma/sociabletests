@@ -2,6 +2,8 @@ package com.neopragma.sociable.v3;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WeatherTest {
     private final String testRecord1 =
@@ -12,9 +14,8 @@ public class WeatherTest {
 
     @Test
     public void it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference() {
-        Weather cut = Weather.createNull(new String[]{
-                testRecord1, testRecord2, EOF
-        });
+        Weather cut = Weather.createNull(
+                new String[]{ testRecord1, testRecord2 });
         TemperatureDifference expected = new TemperatureDifference("15", 9);
         assertEquals(expected, cut.smallestTemperatureRange());
     }

@@ -1,11 +1,12 @@
 package com.neopragma.sociable.v3;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Weather {
     private final ReaderWrapper reader;
@@ -36,35 +37,29 @@ public class Weather {
     }
     private List<TemperatureDifference> readLines() throws IOException {
         ArrayList<TemperatureDifference> result = new ArrayList<>();
-        String record = reader.readLine();
-        while (record != null) {
-            result.add(
-                    new TemperatureDifference(
-                            record.substring(dayNumberField.startPosition(),dayNumberField.endPosition()),
-                            Helpers.extractNumericField(record, maximumTemperatureField)
-                                    - Helpers.extractNumericField(record, minimumTemperatureField)
-                    )
-            );
-            record = reader.readLine();
+        try (Stream<String> lines = reader.readLine()) {
+            lines.forEach((line) -> {
+                result.add(new TemperatureDifference(
+                        line.substring(dayNumberField.startPosition(), dayNumberField.endPosition()),
+                        Helpers.extractNumericField(line, maximumTemperatureField)
+                                - Helpers.extractNumericField(line, minimumTemperatureField)
+                ));
+            });
         }
         return result;
     }
     interface ReaderWrapper {
-        String readLine();
+        Stream<String> readLine();
     }
     static class RealReaderWrapper implements ReaderWrapper {
-        private BufferedReader bufferedReader = null;
+        private final String pathName;
         public RealReaderWrapper(String pathName) {
-            try {
-                bufferedReader = new BufferedReader(new FileReader(pathName));
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            this.pathName = pathName;
         }
         @Override
-        public String readLine() {
+        public Stream<String> readLine() {
             try {
-                return bufferedReader.readLine();
+                return Files.lines(Path.of(pathName));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -73,18 +68,12 @@ public class Weather {
 
     static class StubbedReaderWrapper implements ReaderWrapper {
         private String[] records = null;
-        private int recordIndex = 0;
         public StubbedReaderWrapper(String[] records) {
             this.records = records;
         }
         @Override
-        public String readLine() {
-            String line = null;
-            if (recordIndex < records.length) {
-                line = records[recordIndex];
-                recordIndex++;
-            }
-            return line;
+        public Stream<String> readLine() {
+            return Arrays.stream(records);
         }
     }
 }
