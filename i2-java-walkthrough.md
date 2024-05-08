@@ -363,9 +363,14 @@ Now we'd like to replace the ```Reader``` approach with Java Streams; something 
 
 ![readLines() after refactoring](images/i2/i2-java-readlines-after.png)
 
-The question becomes, "What can we mock or stub?"
+The question becomes, "What can we mock or stub?" We want ```Stream<String> lines``` to be loaded from 
+the file in production and from an array or list of fake input records for testing. We'd like to identify 
+a small part of this code that we could stub without having to rip apart the chain of Stream method calls, 
+as that structure is idiomatic Java. 
 
 
+
+ 
 
 
 
