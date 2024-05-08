@@ -350,7 +350,7 @@ Here's the current implementation.
 The highlighted line is the only part that's mocked. It refers to an instance variable, 
 ```reader```, which is a reference to this:
 
-~[ReaderWrapper](images/i2/i2-java-readerwrapper-1.png)
+![ReaderWrapper](images/i2/i2-java-readerwrapper-1.png)
 
 
 
