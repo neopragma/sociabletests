@@ -405,15 +405,14 @@ The refactoring for the version using Nullables is basically the same. We start 
 
 ![Test case for Sociable version](images/i2/i2-java-sociable-weathertest-2.png)
 
-The first step is to modify the test case so that we expect the Embedded Stub to return type ```Stream<String>``` 
-instead of a series of ```String``` values. 
+The first step is to modify the test case. The ```BufferedReader``` stub had to include a _null_ to simulate the way 
+```BufferedReader``` signals "end of file." Using Streams, we don't see that _null_. 
 
 ![Modified test case for Sociable version](images/i2/i2-java-sociable-weathertest-3.png)
 
-At this point, the test class doesn't compile. That's normal. We need to change the Embedded Stub in 
-class ```Weather``` so it returns ```Stream<String>```. 
+At this point, the test fails for the right reason - the production code doesn't yet use Stream I/O. 
 
-That means changing interface ```ReaderWrapper```, class ```RealReaderWrapper```, and class ```StubbedReaderWrapper```. 
+To get to green, we must change interface ```ReaderWrapper```, class ```RealReaderWrapper```, and class ```StubbedReaderWrapper```. 
 All these are defined inside class ```Weather```. 
 
 Interface ```ReaderWrapper``` before: 
