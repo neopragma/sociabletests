@@ -352,14 +352,19 @@ The highlighted line is the only part that's mocked. It refers to an instance va
 
 ![ReaderWrapper](images/i2/i2-java-readerwrapper-1.png)
 
+The ```ReaderWrapper``` takes a ```BufferedReader``` as a constructor argument, and test cases can 
+pass in a Mock of a ```BufferedReader```. The point is to substitute only the ```readLine()``` method 
+of ```BufferedReader```, which doesn't lend itself to stubbing because its constructor requires an 
+actual path name as an argument. The ```ReaderWrapper``` class is made necessary by Java's wrapping of 
+a ```FileReader``` inside a ```BufferedReader```. The class structure makes for an interesting exercise for 
+both mocking and Nullables. 
 
-
-
-
-
-
+Now we'd like to replace the ```Reader``` approach with Java Streams; something like this:
 
 ![readLines() after refactoring](images/i2/i2-java-readlines-after.png)
+
+The question becomes, "What can we mock or stub?"
+
 
 
 
