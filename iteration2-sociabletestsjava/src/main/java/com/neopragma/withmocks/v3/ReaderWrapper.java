@@ -1,5 +1,8 @@
 package com.neopragma.withmocks.v3;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.stream.Stream;
 
 /**
@@ -11,6 +14,10 @@ public class ReaderWrapper {
         this.records = records;
     }
     public Stream<String> readLine() {
-        return records;
+        try {
+            return records == null ? Files.lines(Path.of("weather.dat")) : records;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
