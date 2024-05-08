@@ -10,6 +10,7 @@ import java.util.stream.Stream;
  */
 public class ReaderWrapper {
     private Stream<String> records;
+    public ReaderWrapper() {}
     public ReaderWrapper(Stream<String> records) {
         this.records = records;
     }
