@@ -356,7 +356,8 @@ The highlighted line is the only part that's mocked. It refers to an instance va
 
 
 
-...with something like this...
+
+
 
 ![readLines() after refactoring](images/i2/i2-java-readlines-after.png)
 
