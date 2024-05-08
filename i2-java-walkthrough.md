@@ -368,8 +368,40 @@ the file in production and from an array or list of fake input records for testi
 could change ```ReaderWrapper.readLine()``` to return a Stream of Strings, either by calling 
 ```Files.lines()``` with a ```Path``` or by converting an array of Strings into a Stream. 
 
+We need a wrapper for the Steams I/O implementation, as well. But this time the ```readLine()``` method 
+must return ```Stream<String>``` instead of ```String```. Then we can adjust the Mock configuration to 
+match. 
 
- 
+![WeatherTest mock now returns Stream<String>](images/i2/i2-java-mock-test-smallest-9.png)
+
+Most of the time, we don't need to modify test code provided we write State-Based Tests instead of 
+Interaction Tests. In this case, we intend to modify the return type from the injected ```readLine()``` 
+method in the ```ReaderWrapper```. Therefore, we need to begin by modifying the configuration of the 
+Mock in our test case. 
+
+What about the claim that testing with mocks causes refactoring to break test cases? If we follow the 
+discipline of TDD, that won't happen. It isn't a valid reason to avoid using mocks.
+
+Next, we modify ```ReaderWrapper``` to return ```Stream<String``` from method ```readLine()```. 
+
+![ReaderWrapper modified for Stream I/O](images/i2/i2-java-readerwrapper-2.png)
+
+Finally, we're ready to modify the production code to use Stream I/O. 
+
+![Weather.readLines() using Stream I/O](images/i2/i2-java-mock-weather-5.png)
+
+The test passes.
+
+![Weather.readLines() using Stream I/O](images/i2/i2-java-mock-weather-6.png)
+
+
+
+
+## Changing file access in the version using Nullables
+
+Now let's see how to do the same refactoring in the version using Nullables.
+
+
 
 
 
