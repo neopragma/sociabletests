@@ -379,8 +379,12 @@ Interaction Tests. In this case, we intend to modify the return type from the in
 method in the ```ReaderWrapper```. Therefore, we need to begin by modifying the configuration of the 
 Mock in our test case. 
 
+---
+**NOTE**
+
 What about the claim that testing with mocks causes refactoring to break test cases? If we follow the 
 discipline of TDD, that won't happen. It isn't a valid reason to avoid using mocks.
+--- 
 
 Next, we modify ```ReaderWrapper``` to return ```Stream<String``` from method ```readLine()```. 
 
