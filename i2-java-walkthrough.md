@@ -333,8 +333,23 @@ way most or all statically-typed languages work.
 
 Both the mock and the Embedded Stub aim to fake out the ```readLine()``` method of the 
 ```BufferedReader``` class. Therefore, it might be informative to refactor the way we 
-handle file access. What's the relative difficulty of two approaches when we change 
+handle file access. Java offers more than one way to handle file I/O. If we eliminate the 
+```BufferedReader```, we'll have to change the mock definition and the Embedded Stub. What's the relative difficulty of two approaches when we change 
 the "thing" we're faking out? 
+
+Packages ```com.neopragma.withmocks.v3``` and ```com.neopragma.sociable.v3``` in subdirectory 
+```iteration2-sociabletestsjava``` contain the code that resulted from this part of the 
+exploration. 
+
+## Changing file access in the version using mocks 
+
+What we would like to do is change this code...
+
+![readLines() before refactoring](images/i2/i2-java-readlines-before.png)
+
+...with something like this...
+
+![readLines() after refactoring](images/i2/i2-java-readlines-after.png)
 
 
 

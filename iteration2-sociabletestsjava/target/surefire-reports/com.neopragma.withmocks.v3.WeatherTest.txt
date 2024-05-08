@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.neopragma.withmocks.v3.WeatherTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.548 s <<< FAILURE! -- in com.neopragma.withmocks.v3.WeatherTest
+com.neopragma.withmocks.v3.WeatherTest.it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference -- Time elapsed: 0.530 s <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.neopragma.withmocks.v3.WeatherTest.it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference(WeatherTest.java:23)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+	at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:197)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

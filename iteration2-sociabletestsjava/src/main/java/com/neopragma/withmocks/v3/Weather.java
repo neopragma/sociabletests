@@ -1,8 +1,11 @@
-package com.neopragma.withmocks.v2;
+package com.neopragma.withmocks.v3;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Weather {
     private ReaderWrapper reader;
@@ -27,16 +30,20 @@ public class Weather {
     }
     private List<TemperatureDifference> readLines() throws IOException {
         ArrayList<TemperatureDifference> result = new ArrayList<>();
-        String record = reader.readLine();
-        while (record != null) {
-            result.add(
-                new TemperatureDifference(
-                    record.substring(dayNumberField.startPosition(),dayNumberField.endPosition()),
-                        Helpers.extractNumericField(record, maximumTemperatureField)
-                        - Helpers.extractNumericField(record, minimumTemperatureField)
-                )
+        try (Stream<String> lines = Files
+                .lines(Path.of("weather.dat"))) {
+                    lines.forEach((line) -> {
+                    result.add(
+                        new TemperatureDifference(
+                            line.substring(dayNumberField.startPosition(), dayNumberField.endPosition()),
+                            Helpers.extractNumericField(line, maximumTemperatureField)
+                            - Helpers.extractNumericField(line, minimumTemperatureField)
+                        )
+                    );
+                }
             );
-            record = reader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }

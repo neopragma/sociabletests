@@ -1,8 +1,12 @@
 com/neopragma/withmocks/v2/HelpersTest.class
 com/neopragma/withmocks/v2/WeatherTest.class
+com/neopragma/sociable/v3/HelpersTest.class
 com/neopragma/withmocks/v1/WeatherTest.class
 com/neopragma/sociable/v1/WeatherTest.class
 com/neopragma/withmocks/v1/SandboxTest$TemperatureDifference.class
 com/neopragma/sociable/v2/HelpersTest.class
+com/neopragma/withmocks/v3/HelpersTest.class
+com/neopragma/withmocks/v3/WeatherTest.class
 com/neopragma/sociable/v2/WeatherTest.class
 com/neopragma/withmocks/v1/SandboxTest.class
+com/neopragma/sociable/v3/WeatherTest.class
