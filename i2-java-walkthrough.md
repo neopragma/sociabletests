@@ -343,9 +343,18 @@ exploration.
 
 ## Changing file access in the version using mocks 
 
-What we would like to do is change this code...
+Here's the current implementation.
 
-![readLines() before refactoring](images/i2/i2-java-readlines-before.png)
+![readLines() before refactoring](images/i2/i2-java-readlines-before-annotated.png)
+
+The highlighted line is the only part that's mocked. It refers to an instance variable, 
+```reader```, which is a reference to this:
+
+~[ReaderWrapper](images/i2/i2-java-readerwrapper-1.png)
+
+
+
+
 
 ...with something like this...
 
