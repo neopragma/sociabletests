@@ -80,7 +80,7 @@ or architectural models.
 
 Feedback from James was, again, "You do this, so it isn't an issue _for you_." Well, I didn't invent TDD. 
 I often hear people claim that they use TDD, and when I sit down with them and see what they actually do, 
-it isn't TDD. I agree with him that this is a common problem in the field, but I think it's a problem of  
+it isn't TDD. I agree with him that this is a common problem in the field, but I think it's a problem of 
 skills or habits rather than a tools problem. If people bring old habits to the new model, they'll 
 continue to experience the same outcomes.
 
