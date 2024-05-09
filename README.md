@@ -121,7 +121,7 @@ This is fair criticism. Let's put some context around this concern.
 
 The prime targets for professional hackers are the financial industry, the 
 energy sector, and public services. If your application doesn't 
-deal with personal financial information and can't affect physical infrastructure, 
+deal with personal or financial information and can't affect physical infrastructure, 
 then this is not a consideration. 
 
 I'm not qualified to break into systems, so I can't meet the 
