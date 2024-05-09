@@ -49,14 +49,14 @@ practices for organizing test suites and writing test cases, I don't agree that 
 They just aren't tested using the identical test cases that check application behavior. I think that sort 
 of test isolation is a _good_ thing, and not a problem to be solved.
 
----
+#### Feedback 
+
 Feedback from James on this point was along the lines of, "You do this, therefore it's not an issue _for you_."
 Well, it isn't about me. Teams ought to learn how to design multi-level test suites in which the
 individual test cases are well isolated. Like James, I've observed many teams that don't seem to know 
 exactly what to do with unit tests and other executable tests. If people maintain the same mindset, 
 switching to a different model probably won't help. If they improve their skills, then they can use any 
 model or approach successfully. So we'll agree to disagree on this.
----
 
 ### Assumption 2 - refactoring breaks test cases
 
@@ -76,7 +76,8 @@ affected test cases. In that case, by definition they are not test-driving the r
 insist that they "always" use TDD. That's a matter of skills or mindset or habit, not of tools or methods 
 or architectural models.
 
----
+#### Feedback 
+
 Feedback from James was, again, "You do this, so it isn't an issue _for you_." Well, I didn't invent TDD. 
 I often hear people claim that they use TDD, and when I sit down with them and see what they actually do, 
 it isn't TDD. I agree with him that this is a common problem in the field, but I think it's a problem of  
@@ -84,8 +85,6 @@ skills or habits rather than a tools problem. If people bring old habits to the 
 continue to experience the same outcomes.
 
 It isn't personal. Either you change the test case first or you change the production code first. 
-
----
 
 ### Assumption 3 - it's okay to deploy a small amount of test code to production
 
@@ -112,7 +111,8 @@ enjoying the same access privileges as the "real" application code. It's never c
 course of operations. It's a quiet little corner in memory where malware can do its work undisturbed. 
 Granted, it isn't much...but hackers don't need much. Just a crack.
 
----
+#### Feedback
+
 Feedback from James on this was blunt. "...I think your point 3 is an impossibly high bar to meet" and 
 "I think you're overstating the security risk, and I challenge you to find a scenario where nullables 
 pose a security risk that doesn't involve the attacker already having the ability to run arbitrary code." 
@@ -153,7 +153,6 @@ a supported environment.
 Note that any old "cloud" won't do, and a mainframe system that's still managed as if we were living 
 in the year 1980 won't do, either. Operational standards and security features are constantly evolving. 
 We need to keep up.
----
 
 
 
