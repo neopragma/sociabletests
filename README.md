@@ -49,6 +49,15 @@ practices for organizing test suites and writing test cases, I don't agree that 
 They just aren't tested using the identical test cases that check application behavior. I think that sort 
 of test isolation is a _good_ thing, and not a problem to be solved.
 
+---
+Feedback from James on this point was along the lines of, "You do this, therefore it's not an issue _for you_."
+Well, it isn't about me. Teams ought to learn how to design multi-level test suites in which the
+individual test cases are well isolated. Like James, I've observed many teams that don't seem to know 
+exactly what to do with unit tests and other executable tests. If people maintain the same mindset, 
+switching to a different model probably won't help. If they improve their skills, then they can use any 
+model or approach successfully. So we'll agree to disagree on this.
+---
+
 ### Assumption 2 - refactoring breaks test cases
 
 Another assertion is that Nullables don't break when you refactor. This question has been the subject of 
@@ -67,6 +76,17 @@ affected test cases. In that case, by definition they are not test-driving the r
 insist that they "always" use TDD. That's a matter of skills or mindset or habit, not of tools or methods 
 or architectural models.
 
+---
+Feedback from James was, again, "You do this, so it isn't an issue _for you_." Well, I didn't invent TDD. 
+I often hear people claim that they use TDD, and when I sit down with them and see what they actually do, 
+it isn't TDD. I agree with him that this is a common problem in the field, but I think it's a problem of  
+skills or habits rather than a tools problem. If people bring old habits to the new model, they'll 
+continue to experience the same outcomes.
+
+It isn't personal. Either you change the test case first or you change the production code first. 
+
+---
+
 ### Assumption 3 - it's okay to deploy a small amount of test code to production
 
 Nearly all suggestions that people make for improving our software development and delivery practices 
@@ -77,7 +97,8 @@ discussed this aspect of it.
 In my opinion, the primary concern for everyone involved with a software product ought to be the health 
 of the production environment. There is no product until the code is live. Until that point, it's a work 
 in progress. Making that progress smooth, low-stress, and relatively error-free is a great goal; but 
-production is king. If protecting production means we have to invest a little more effort during development, then so be it.
+production is king. If protecting production means we have to invest a little more effort during 
+development, then so be it.
 
 Large companies are bombarded with exploits; typically tens of thousands per year or more. 
 Financial institutions, the energy sector, and government agencies are prime targets for the most 
@@ -91,8 +112,48 @@ enjoying the same access privileges as the "real" application code. It's never c
 course of operations. It's a quiet little corner in memory where malware can do its work undisturbed. 
 Granted, it isn't much...but hackers don't need much. Just a crack.
 
-To overcome this concern, any proposed alternative to using conventional Test Doubles would have to offer 
-truly substantial benefits. A slight benefit - one less dependency in the build, an open-to-discussion 
-possibility of marginally-easier test coverage for infrastructure boundaries - may not be worth it.
+---
+Feedback from James on this was blunt. "...I think your point 3 is an impossibly high bar to meet" and 
+"I think you're overstating the security risk, and I challenge you to find a scenario where nullables 
+pose a security risk that doesn't involve the attacker already having the ability to run arbitrary code." 
 
-As I explore this new approach, I'm looking for benefits on that level. 
+This is fair criticism. Let's put some context around this concern. 
+
+The prime targets for professional hackers are the financial industry, the 
+energy sector, and public services. If your application doesn't 
+deal with personal financial information and can't affect physical infrastructure, 
+then this is not a consideration. 
+
+I'm not qualified to break into systems, so I can't meet the 
+challenge directly. The good news is I'm not the sort of person you need to worry about. Professional 
+hackers are working on it full-time, every day. 
+
+I can think of a couple of deployment environments that mitigate the risk of having unused code present 
+in production. Maybe you can think of more.
+
+One is a cloud infrastructure in which immutable servers are used, whether applications are 
+containerized or not, and the phoenix strategy is applied to cycle server instances regularly. 
+These practices minimize the time available for hackers to figure out how to break in beyond their 
+initial point of entry. The phoenix strategy ensures any malware installed in an instance will go 
+away when that instance is destroyed and re-created from a clean base; on average, slightly less than 
+half the time interval for cycling instances.
+
+The other environment is the IBM System Z, commonly called "mainframe." This is a potential deployment 
+environment for two of the languages included in this exploration - Java and COBOL. The Z runs traditional mainframe 
+operating systems - z/OS, z/VSE, z/TPF, and the type 1 hypervisor z/VM, as well as Linux, including 
+dedicated KVM LPARs. The system can be used as a cloud infrastructure, as well as for blending legacy 
+assets with current technologies. 
+
+These mainframe environments benefit from the hardware- and OS-based security features 
+of the System Z. Some of the peformance optimizations specific to Java on this platform will cause 
+methods that are never called to be removed from memory; so the Embedded Stubs won't stay in the 
+runtime environment. I understand this is not the typical deployment environment for Java, but it is 
+a supported environment. 
+
+Note that any old "cloud" won't do, and a mainframe system that's still managed as if we were living 
+in the year 1980 won't do, either. Operational standards and security features are constantly evolving. 
+We need to keep up.
+---
+
+
+

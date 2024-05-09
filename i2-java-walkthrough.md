@@ -165,7 +165,7 @@ with the one for the corresponding version that uses mocks.
 ![Sociable WeatherTest](images/i2/i2-java-sociable-weathertest-1.png)
 
 This code is simpler than the version using mocks. As far as developer effort is concerned, the test cases are a wash. The production
-code is considerably more complicated than the version tested with mocks, as it contains no test code. 
+code is considerably more complicated than the version tested with mocks, as it contains test code. 
 
 ## Version using mocks: Find smallest temperature difference 
 
