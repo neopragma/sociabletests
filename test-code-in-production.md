@@ -20,8 +20,8 @@ can't affect physical infrastructure, then this may not be a factor for you. Oth
 environment for your application might provide significant protection from hacking.
 
 You should think about where to deploy the application, if it works with sensitive information or can
-affect infrastructure. (Here I mean _real_ infrastructure and not software boundaries; something like a
-nuclear power plant, a water treatment facility, or air traffic control systems). Everything isn't just
+affect infrastructure. Here I mean _real_ infrastructure and not software boundaries; something like a
+nuclear power plant, a water treatment facility, or air traffic control systems. Everything isn't just
 a webapp.
 
 I can think of a couple of execution environments that mitigate the risk of having unused code present
