@@ -1,26 +1,36 @@
-require_relative './wrong_type_error.rb'
-
 class FileWrapper 
-  def initialize data_source 
-    if data_source.is_a? String
-      @file = File.new(data_source)
-    elsif data_source.is_a? Array    
-      @record_list = data_source 
+  def self.create data_source 
+    raise ArgumentError "Pathname to file is required" if data_source == nil
+    self.new(RealReader.new data_source)
+  end
+  def self.createNull data_source 
+    raise ArgumentError "Array of fake records is required" if data_source == nil
+    self.new(StubbedReader.new data_source) 
+  end    
+  def initialize reader
+    @reader = reader
+  end
+  def readline 
+    @reader.readline
+  end      
+  class StubbedReader
+    def initialize data_source
+      @record_list = data_source
       @next_record = 0
-    else 
-      raise WrongTypeError
-    end      
-  end   
-  def readline
-    if @file 
-      @file.readline 
-    elsif @record_list         
+    end  
+    def readline
       rec = @record_list[@next_record]
       raise EOFError if rec == nil
       @next_record += 1
       rec 
-    else 
-      raise WrongTypeError   
-    end     
+    end  
+  end   
+  class RealReader
+    def initialize data_source 
+      @file = File.open(data_source, "r")
+    end  
+    def readline
+      @file.readline 
+    end  
   end  
 end 

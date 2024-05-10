@@ -14,8 +14,7 @@ public class WeatherTest {
 
     @Test
     public void it_returns_the_day_number_of_the_day_with_the_smallest_temperature_difference() {
-        Weather cut = Weather.createNull(
-                new String[]{ testRecord1, testRecord2 });
+        Weather cut = new Weather(new String[]{ testRecord1, testRecord2 });
         TemperatureDifference expected = new TemperatureDifference("15", 9);
         assertEquals(expected, cut.smallestTemperatureRange());
     }

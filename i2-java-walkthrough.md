@@ -447,70 +447,87 @@ And the test passes.
 
 ![Weather.readLines() using Stream I/O](images/i2/i2-java-mock-weather-6.png)
 
+## One more tweak 
+
+When I asked James how to inject dependencies when no constructor or factory method is allowed to take 
+any arguments, and no setters or Builder-style methods are allowed, he clarified: "...when testing a 
+class, your test should normally not call ```create()``` or ```createNull()``` on the class under test. 
+It should use 'new', and that constructor may be programmed to allow the injection of dependencies 
+that ```create()``` and ```createNull()``` abstract." I understand this to mean that we _can_ pass 
+arguments for the purpose of injecting dependencies, and doing so doesn't violate the pattern language. 
+
+I made small adjustments to ```WeatherTest``` and ```Weather``` to follow these suggestions. The resulting 
+code is in package ```com.neopragma.sociable.v3``` in subdirectory ```iteration2-socialtestsjava```.
+
 ## Comparing the two refactoring experiences 
 
 I found the effort required to accomplish the refactoring was greater using the Nullable approach than 
-using mocks. Most of the additional effort was due to the way Java works, and is not inherent to the pattern language.  
+using mocks. Most of the additional effort was due to the way Java works, and is not inherent to the pattern language. 
+The pattern language was developed with JavaScript as the base. Other languages may introduce complexity 
+or clumsiness that doesn't occur with JavaScript.
+
+The additional complexity introduced by Java included the following.
 
 Internal to the production 
 ```Weather``` class, we had to define a Thin Wrapper, a stub Interface, a "real" implementation of the 
-interface, and a "stubbed" implementation. 
+interface, and a "stubbed" implementation. That's four "things" that have nothing to do with the 
+functionality of the application and that aren't referenced during production operations.
 
 Due to the way Java wraps ```FileReader``` inside of 
 ```BufferedReader``` and, for the Streams implementation, the way it wraps a real path name inside of ```Files.lines()```, 
 we needed another wrapper to inject into ```Weather```. This was necessary for the version using mocks, as well. 
 
-The changes to the test class were trivial, both for the version using mocks and the version using the Nullable. 
+This Java sample hard-codes the path name for the input file. In RealLife® we would pick up the path name 
+from outside the source code (probably from a ```ResourceBundle```), so we wouldn't need to pass it in 
+as an argument to the ```create()``` method. We would still need to pass fake records to the 
+```createNull()``` method.
 
-Ultimately, the two main benefits of the Nullables approach over the use of mocks were not apparent, in this case. 
+The changes to the test class were trivial, both for the version using mocks and the version using 
+the Nullable. The level of effort for modifying test cases doesn't appear to be a reason to choose one 
+approach over the other.
 
-Weakening test isolation to make the tests Sociable isn't worth the cost of the test-only code added 
-to the production class, ```Weather```. Including test code in the deployed application is not a good idea, 
-in my opinion. I also think isolated tests are preferable; but that's also an opinion. 
+After further clarification from James about the intent of the pattern language, it is 
+starting to feel like a choice between two approaches of which neither is "better" than the other. 
+
+The developer effort differs, but isn't lessened by either approach. 
+
+Using isolated tests, we must put effort into designing robust multi-level test suites. 
+On the plus side, production code has no "knowledge" 
+of anything related to testing, and classes on the edges of the application contain less code to interface 
+with external dependencies. Once you have the configuration defined correctly, ongoing work with a mocking 
+library is pretty easy. Changing the configuration of a mock (technically, a stub) is generally easier 
+than changing the functionality of an Embedded Stub.
+
+Using the pattern language, we must invest more effort into the development of Infrastructure Wrappers 
+and Embedded Stubs. Ostensibly we don't have to modify test cases when refactoring infrastructure-related 
+code, but in the present exercise that wasn't the case (replacing Reader I/O with Stream I/O). On the plus side, 
+there is only one test suite. Test cases are logically isolated based on a different mechanism than 
+with isolated tests using mocks. In addition, we avoid having to deal with the idiosyncracies of mocking 
+libraries, which can be a time-waster.
+
+Our build configuration is simpler as there are fewer dependencies. 
+That may sound like a minor point until you consider the trouble that often comes up with Java when 
+something becomes deprecated in a transitive dependency, and some other transitive dependency depends, 
+in turn, on the deprecated thing. None of that is of direct interest to our application, yet we must 
+spend time and effort to deal with it. Having one less dependency is a Good Thing.
 
 The other putative benefit is that when using mocks, a refactoring can break test cases. I didn't find that to be 
 the case when we use test-driven development. Changing the test case to have different expectations makes the 
 test case "red," but it is not "broken." It's _supposed_ to be "red" at that point. 
 
-This is my fourth attempt to get the pattern right using Java, and I feel as if I'm still not getting it entirely right. 
-In any case, I don't think there's value in continuing with the rest of the Kata. 
+James offered some feedback on that point, as well. It turns out to be an example of the imprecision of 
+the English language. The test case must change. Does that mean it's "broken?" In my view, changing the test case first 
+is different from declaring it "broken" and changing it later. 
+
+When we change the test case first, it 
+_drives_ the change to the production code. When we change the production code first, we "break" the current
+(now obsolete) version of the test case, and we must go back and "fix" it. That _may_ lead developers to 
+write the test case to reflect whatever the production code does, and not necessarily what we _want_ the 
+production code to do. It turns into a kind of unintentional characterization test. The fact the test case 
+passes doesn't mean the production code does what was intended. So I still maintain 
+we should change test cases before production code.
 
 It's true that we haven't added logic to handle the header records in the input file, but that logic is 
 the same for both testing approaches, so there's nothing much to learn from adding it. 
-What we've done so far gives us a 
-reasonably good feel for how the two approaches differ. I think it's time to move on to another language.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+What we've done so far gives us a reasonably good feel for how the two approaches differ. 
+I think it's time to move on to another language.

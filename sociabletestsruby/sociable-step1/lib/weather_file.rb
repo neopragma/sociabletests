@@ -5,6 +5,13 @@ require './lib/range_finder.rb'
 class WeatherFile
 include RangeFinder  
 
+  def self.create data_source 
+    self.new(FileWrapper.create data_source)
+  end   
+  def self.createNull data_source
+    self.new(FileWrapper.createNull data_source) 
+  end   
+
   def initialize file_wrapper 
     @file = file_wrapper 
     @value_ranges = Array.new

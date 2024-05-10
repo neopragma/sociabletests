@@ -13,11 +13,11 @@ public class Weather {
     private static final FieldPosition dayNumberField = new FieldPosition(2,4);
     private static final FieldPosition maximumTemperatureField = new FieldPosition(5,8);
     private static final FieldPosition minimumTemperatureField = new FieldPosition(11,14);
-    public static Weather create(String pathName) {
-        return new Weather(new RealReaderWrapper(pathName));
+    public Weather(String pathName) {
+        this(new RealReaderWrapper(pathName));
     }
-    public static Weather createNull(String[] records) {
-        return new Weather(new StubbedReaderWrapper(records));
+    public Weather(String[] records) {
+        this(new StubbedReaderWrapper(records));
     }
     private Weather(ReaderWrapper reader) {
         this.reader = reader;
