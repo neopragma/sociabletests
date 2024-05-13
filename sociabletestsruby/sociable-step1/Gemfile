@@ -1,5 +1,0 @@
-source 'https://rubygems.org'
-:test
-    gem 'rspec'
-    gem 'rake'
-    gem 'rubocop'
